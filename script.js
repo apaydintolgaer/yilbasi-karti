@@ -60,14 +60,14 @@ const funMessages = {
     ]
 };
 
-form.addEventListener('submit', function (e) {
+form.addEventListener('submit', e => {
     e.preventDefault();
 
-    const name = document.getElementById('name').value.trim();
-    const message = document.getElementById('message').value.trim();
-    const themeValue = document.getElementById('theme').value;
+    const recipient = document.getElementById('name').value.trim();
+    const wish = document.getElementById('message').value.trim();
+    const theme = document.getElementById('theme').value;
 
-    if (!name || !message) {
+    if (!recipient || !wish) {
         errorMessage.classList.remove('hidden');
         return;
     }
@@ -81,12 +81,12 @@ form.addEventListener('submit', function (e) {
         loadingSpinner.classList.add('hidden');
 
         const themeText = document.getElementById('theme').options[document.getElementById('theme').selectedIndex].text;
-        const randomMsg = funMessages[themeValue][Math.floor(Math.random() * funMessages[themeValue].length)];
+        const randomQuote = funMessages[theme][Math.floor(Math.random() * funMessages[theme].length)];
 
-        document.getElementById('cardName').textContent = `${name},`;
-        document.getElementById('cardMessage').textContent = message;
+        document.getElementById('cardName').textContent = `${recipient},`;
+        document.getElementById('cardMessage').textContent = wish;
         document.getElementById('cardTheme').textContent = themeText;
-        document.getElementById('funMessage').textContent = randomMsg;
+        document.getElementById('funMessage').textContent = randomQuote;
 
         confetti({
             particleCount: 300,
@@ -106,10 +106,7 @@ newCardBtn.addEventListener('click', () => {
 });
 
 downloadBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), {
-        scale: 2,
-        backgroundColor: null
-    }).then(canvas => {
+    html2canvas(document.getElementById('card'), { scale: 2 }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'yilbasi-karti-2026.png';
         link.href = canvas.toDataURL('image/png');
@@ -118,10 +115,7 @@ downloadBtn.addEventListener('click', () => {
 });
 
 instagramStoryBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), {
-        scale: 2,
-        backgroundColor: null
-    }).then(canvas => {
+    html2canvas(document.getElementById('card'), { scale: 2 }).then(canvas => {
         canvas.toBlob(blob => {
             const file = new File([blob], 'yilbasi-karti.png', { type: 'image/png' });
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -134,10 +128,7 @@ instagramStoryBtn.addEventListener('click', () => {
 });
 
 whatsappBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), {
-        scale: 2,
-        backgroundColor: null
-    }).then(canvas => {
+    html2canvas(document.getElementById('card'), { scale: 2 }).then(canvas => {
         canvas.toBlob(blob => {
             const file = new File([blob], 'yilbasi-karti.png', { type: 'image/png' });
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -151,9 +142,9 @@ whatsappBtn.addEventListener('click', () => {
     });
 });
 
-shareBtn.addEventListener('click', () => {
-    const pageUrl = encodeURIComponent(window.location.href);
-    const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+linkedinBtn.addEventListener('click', () => {
+    const url = encodeURIComponent(window.location.href);
+    const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
     window.open(shareUrl, '_blank', 'width=600,height=600');
 });
 
@@ -183,16 +174,14 @@ function createSnowflakes() {
 
 function createSantaSleigh() {
     setInterval(() => {
-        const sleigh = document.createElement('img');
-        sleigh.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
-        sleigh.className = 'santa-sleigh';
-        sleigh.alt = '';
-        const randomTop = Math.random() * 25 + 12 + '%';
-        sleigh.style.top = randomTop;
-
-        document.querySelector('.santa-container').appendChild(sleigh);
-
-        setTimeout(() => sleigh.remove(), 24000);
+        const santa = document.createElement('img');
+        santa.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
+        santa.className = 'santa-sleigh';
+        santa.alt = '';
+        const topPos = Math.random() * 25 + 12 + '%';
+        santa.style.top = topPos;
+        document.querySelector('.santa-container').appendChild(santa);
+        setTimeout(() => santa.remove(), 24000);
     }, Math.random() * 6000 + 10000);
 }
 
