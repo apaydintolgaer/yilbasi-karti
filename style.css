@@ -5,13 +5,36 @@
 }
 
 body {
-    background: linear-gradient(135deg, #001f3f, #0a3d62);
+    background: linear-gradient(to bottom, #0a1f3d, #1e3c72);
     color: #fff;
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
 }
+
+.background-decoration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
+}
+
+.deco {
+    position: absolute;
+    width: 200px;
+    height: auto;
+}
+
+.reindeer1 { bottom: 8%; left: 5%; transform: rotate(-12deg); }
+.reindeer2 { top: 15%; right: 8%; transform: rotate(18deg); }
+.snowman1 { bottom: 12%; right: 18%; }
+.snowman2 { top: 25%; left: 12%; transform: scale(0.85); }
+.santa { top: 8%; left: 50%; transform: translateX(-50%); width: 260px; }
 
 .snow-container {
     position: fixed;
@@ -26,15 +49,13 @@ body {
 .snowflake {
     position: absolute;
     color: #fff;
-    font-size: 2.2em;
-    animation: fall 12s linear infinite;
+    font-size: 2.6em;
+    animation: fall 15s linear infinite;
     opacity: 0.9;
 }
 
 @keyframes fall {
-    to {
-        transform: translateY(100vh) rotate(360deg);
-    }
+    to { transform: translateY(100vh) rotate(360deg); }
 }
 
 .container {
@@ -44,6 +65,9 @@ body {
     text-align: center;
     position: relative;
     z-index: 10;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
 }
 
 h1 {
@@ -72,6 +96,10 @@ select {
 
 input::placeholder {
     color: #666;
+}
+
+select {
+    color: #333;
 }
 
 button {
@@ -162,7 +190,7 @@ button:hover {
 }
 
 .error {
-    color: #ffdddd;
+    color: #ffcccc;
     margin-top: 10px;
     font-weight: bold;
 }
@@ -213,8 +241,10 @@ button:hover {
     h1 {
         font-size: 28px;
     }
-    button {
-        font-size: 16px;
-        padding: 14px 24px;
+    .deco {
+        width: 130px;
+    }
+    .santa {
+        width: 170px;
     }
 }

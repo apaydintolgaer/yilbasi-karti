@@ -4,36 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 Yılbaşı Kartı Oluştur</title>
+    <meta property="og:title" content="Eğlenceli 2026 Yılbaşı Kartı Oluşturucu 🎄">
+    <meta property="og:description" content="Kar yağışı, Jingle Bells ve konfeti efektleriyle kendi yılbaşı kartını yarat!">
+    <meta property="og:url" content="https://apaydintolgaer.github.io/yilbasi-karti/">
+    <meta property="og:type" content="website">
+
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="background-decoration">
+        <img src="https://assets.stickpng.com/images/580b57fbd9996e24bc43bbb7.png" alt="" class="deco reindeer1">
+        <img src="https://assets.stickpng.com/images/580b57fbd9996e24bc43bbb7.png" alt="" class="deco reindeer2">
+        <img src="https://i.fbcd.co/products/original/snowman-2-3-cf-clipart-3-main-listing-89d4b351c8f44b4c5646a481b6c5fa025112fb3c5fce044dc4122ed518734c0e.jpg" alt="" class="deco snowman1">
+        <img src="https://i.fbcd.co/products/original/snowman-2-3-cf-clipart-3-main-listing-89d4b351c8f44b4c5646a481b6c5fa025112fb3c5fce044dc4122ed518734c0e.jpg" alt="" class="deco snowman2">
+        <img src="https://png.pngtree.com/png-clipart/20241208/original/pngtree-santa-claus-waving-with-gifts-png-image_17660021.png" alt="" class="deco santa">
+    </div>
+
     <div class="snow-container"></div>
 
     <audio id="jingleAudio" loop>
-        <source src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/BeepSound.wav" type="audio/mpeg">
         <source src="https://incompetech.filmmusic.io/song/4650-jingle-bells.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicToggle" aria-label="Müzik Aç/Kapat" title="Müzik Aç/Kapat">🎵</button>
+    <button id="musicToggle" aria-label="Müzik Aç/Kapat">🎵</button>
 
     <div class="container">
         <h1>✨ 2026 Yılbaşı Kartı Oluştur ✨</h1>
-        <p class="subtitle">Kendi eğlenceli kartını yarat ve sevdiklerine gönder!</p>
+        <p class="subtitle">Kendi eğlenceli kartını yarat, indir ve paylaş!</p>
 
         <form id="cardForm">
             <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required>
-            <input type="text" id="message" placeholder="Dileğin nedir? (örn: Bol mutluluk ve sağlık)" required>
+            <input type="text" id="message" placeholder="Dileğin nedir? (örn: Bol mutluluk)" required>
 
             <select id="theme">
                 <option value="komik">Komik Mod 😆 (Kardan Adam)</option>
-                <option value="sicak">Sıcacık Dilekler ❤️</option>
-                <option value="kodcu">Developer Esprisi 🚀</option>
+                <option value="sicak">Sıcacık Mod ❤️ (Noel Baba)</option>
+                <option value="coder">Coder Mod 🚀 (Kod Yağmuru)</option>
+                <option value="geek">Geek Mod 🤓 (Bug Avcısı)</option>
+                <option value="ninja">Code Ninja Mod 🥷 (Hızlı Commit)</option>
                 <option value="parti">Parti Modu 🎉 (Ren Geyiği)</option>
             </select>
 
-            <button type="submit">Kartı Oluştur →</button>
-            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldurunuz.</p>
+            <button type="submit">Kartı Oluştur!</button>
+            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldur!</p>
         </form>
 
         <div id="cardContainer" class="hidden">
@@ -52,6 +66,8 @@
 
             <div class="buttons">
                 <button id="downloadBtn">📥 Kartı İndir (PNG)</button>
+                <button id="instagramStoryBtn">📸 Instagram Hikaye Ekle</button>
+                <button id="whatsappBtn">💬 WhatsApp'ta Paylaş</button>
                 <button id="shareBtn">🔗 LinkedIn'de Paylaş</button>
                 <button id="newCardBtn">🔄 Yeni Kart Oluştur</button>
             </div>
