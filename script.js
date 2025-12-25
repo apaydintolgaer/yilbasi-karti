@@ -218,7 +218,7 @@ function createSnowflakes() {
 function createSantaSleigh() {
     setInterval(() => {
         const sleigh = document.createElement('img');
-        sleigh.src = 'https://media.giphy.com/media/3o7btPC0G6kh58rS5q/giphy.gif';
+        sleigh.src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWgzMmk4eTMxbXpid2NxMWZpNDdjcW84MWh6YWswNmdmaTRmOG9scCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TlK63EsOlwnqg7hiYec/giphy.gif';
         sleigh.className = 'santa-sleigh';
         sleigh.alt = '';
         const randomTop = Math.random() * 30 + 10 + '%';
