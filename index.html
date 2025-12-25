@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yılbaşı Kartı Oluştur</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Eğlenceli Yılbaşı Kartı Oluştur 🎄</h1>
+        <p>Kendi komik yılbaşı kartını yap, indir, paylaş!</p>
+
+        <form id="cardForm">
+            <input type="text" id="name" placeholder="Adın (örn: Ahmet)" required>
+            <input type="text" id="message" placeholder="Mesajın (örn: Bol kahkahalı bir yıl olsun!)" required>
+            
+            <select id="theme">
+                <option value="komik">Komik Elf Modu 😄</option>
+                <option value="parti">Parti Hayvanı Modu 🎉</option>
+                <option value="kodcu">Kodcu Motivasyon Modu 🚀</option>
+            </select>
+
+            <button type="submit">Kartı Oluştur!</button>
+        </form>
+
+        <div id="cardContainer" class="hidden">
+            <div id="card">
+                <h2 id="cardName"></h2>
+                <p id="cardMessage"></p>
+                <p id="cardTheme"></p>
+                <h3 id="funMessage"></h3>
+                <div class="footer">Mutlu Yıllar 2026! ❄️🎉</div>
+            </div>
+            <button id="downloadBtn">Kartı PNG Olarak İndir</button>
+            <button id="newCardBtn">Yeni Kart Oluştur</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
