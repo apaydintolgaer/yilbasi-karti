@@ -1,109 +1,72 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Configuration ---
-    const CONFIG = {
-        snowParticleCount: 100,
-        musicVolume: 0.4
-    };
+    const urlParams = new URLSearchParams(window.location.search);
+    const to = urlParams.get('to');
+    const msg = urlParams.get('msg');
+    const from = urlParams.get('from');
 
-    // --- DOM Elements ---
-    const elements = {
-        envelopeWrapper: document.getElementById('envelope-wrapper'),
-        btnOpen: document.getElementById('btn-open'),
-        btnReset: document.getElementById('btn-reset'),
-        audio: document.getElementById('bg-music'),
-        canvas: document.getElementById('snow-canvas')
-    };
+    const setupSection = document.getElementById('setup-section');
+    const cardSection = document.getElementById('card-section');
+    const envelope = document.getElementById('envelope');
 
-    // --- Audio Handler ---
-    elements.audio.volume = CONFIG.musicVolume;
-
-    const toggleMusic = (play) => {
-        if (play) {
-            elements.audio.play().catch(e => console.warn('Audio autoplay blocked:', e));
-        } else {
-            elements.audio.pause();
-            elements.audio.currentTime = 0;
-        }
-    };
-
-    // --- Interaction Handlers ---
-    elements.btnOpen.addEventListener('click', () => {
-        elements.envelopeWrapper.classList.add('open');
-        elements.btnOpen.classList.add('hidden');
-        elements.btnReset.classList.remove('hidden');
-        toggleMusic(true);
-    });
-
-    elements.btnReset.addEventListener('click', () => {
-        elements.envelopeWrapper.classList.remove('open');
-        elements.btnOpen.classList.remove('hidden');
-        elements.btnReset.classList.add('hidden');
-        toggleMusic(false);
-    });
-
-    // --- Canvas Snow Effect ---
-    const ctx = elements.canvas.getContext('2d');
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    const particles = [];
-
-    elements.canvas.width = width;
-    elements.canvas.height = height;
-
-    class Snowflake {
-        constructor() {
-            this.reset();
-        }
-
-        reset() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * -height;
-            this.speed = Math.random() * 1 + 0.5;
-            this.radius = Math.random() * 2 + 1;
-            this.opacity = Math.random() * 0.5 + 0.3;
-            this.drift = Math.random() * 0.5 - 0.25;
-        }
-
-        update() {
-            this.y += this.speed;
-            this.x += this.drift;
-
-            if (this.y > height) {
-                this.reset();
-                this.y = -10; // Reset to just above screen
-            }
-        }
-
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-            ctx.fill();
-        }
+    // 1. Link Kontrolü: Eğer URL'de veri varsa kartı göster, yoksa formu göster
+    if (to) {
+        setupSection.classList.add('hidden');
+        cardSection.classList.remove('hidden');
+        document.getElementById('display-to').innerText = `Sevgili ${decodeURIComponent(to)},`;
+        document.getElementById('display-msg').innerText = decodeURIComponent(msg);
+        document.getElementById('display-from').innerText = decodeURIComponent(from);
     }
 
-    // Initialize Particles
-    for (let i = 0; i < CONFIG.snowParticleCount; i++) {
-        particles.push(new Snowflake());
-    }
+    // 2. Link Oluşturma Fonksiyonu
+    document.getElementById('btn-generate').onclick = () => {
+        const t = document.getElementById('input-to').value;
+        const m = document.getElementById('input-msg').value;
+        const f = document.getElementById('input-from').value;
 
-    // Animation Loop
-    const animate = () => {
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
+        if (!t || !m || !f) return alert("Lütfen tüm alanları doldur!");
+
+        const baseUrl = window.location.origin + window.location.pathname;
+        const finalUrl = `${baseUrl}?to=${encodeURIComponent(t)}&msg=${encodeURIComponent(m)}&from=${encodeURIComponent(f)}`;
+
+        navigator.clipboard.writeText(finalUrl).then(() => {
+            alert("Harika! Özel kart linkin kopyalandı. Sevdiklerine gönderebilirsin.");
+            window.location.href = finalUrl;
         });
-        requestAnimationFrame(animate);
     };
 
-    animate();
+    // 3. Zarf Tıklama
+    envelope.onclick = () => envelope.classList.toggle('open');
 
-    // Resize Handler
-    window.addEventListener('resize', () => {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        elements.canvas.width = width;
-        elements.canvas.height = height;
-    });
+    // 4. Kar Yağışı (Canvas)
+    const canvas = document.getElementById('snow-canvas');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+
+    const particles = Array(120).fill().map(() => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 3 + 1,
+        d: Math.random() * 1 + 0.5
+    }));
+
+    function paint() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.beginPath();
+        particles.forEach(p => {
+            ctx.moveTo(p.x, p.y);
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            p.y += p.d;
+            if (p.y > h) p.y = -10;
+        });
+        ctx.fill();
+        requestAnimationFrame(paint);
+    }
+    paint();
+
+    window.onresize = () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    };
 });
