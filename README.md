@@ -5,7 +5,7 @@ Kar yağışı altında uçan Noel Baba'nın eşlik ettiği, Jingle Bells müzi�
 Kendi kişiselleştirilmiş kartını saniyeler içinde yarat, indir ve sevdiklerinle paylaş.
 
 ### Canlı Demo
-https://apaydintolgaer.github.io/yilbasi-karti/
+https://apaydintolgaer.github.io/yilbasi-karti
 
 ### Özellikler
 - Yoğun lapa lapa kar yağışı ❄️

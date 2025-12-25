@@ -33,12 +33,12 @@ const funMessages = {
     ],
     komik: [
         "2026'da bol kahkaha, az hata olsun!",
-        "Yeni yılda her şey istediğin gibi gitsin (bug'lar hariç).",
+        "Yeni yılda her şey istediğin gibi gitsin.",
         "Mutlu yıllar, hayatın hep güzel tarafı olsun!"
     ],
     coder: [
         "2026'da tüm kodların sorunsuz çalışsın.",
-        "Yeni yılda deploy'ların başarılı, coffee'lerin bol olsun.",
+        "Yeni yılda deploy'ların başarılı olsun.",
         "Başarılarla dolu bir yıl seni bekliyor."
     ],
     parti: [
@@ -78,7 +78,7 @@ form.addEventListener('submit', e => {
             particleCount: 200,
             spread: 80,
             origin: { y: 0.6 },
-            colors: ['#6366f1', '#8b5cf6', '#ffffff']
+            colors: ['#ffffff', '#f1f5f9', '#e2e8f0']
         });
     }, 1200);
 });
@@ -110,7 +110,7 @@ function createSnowflakes() {
     setInterval(() => {
         const flake = document.createElement('div');
         flake.className = 'snowflake';
-        flake.textContent = ['❄', '❅', '❆'][Math.floor(Math.random() * 3)];
+        flake.textContent = ['❄️', '❅', '❆'][Math.floor(Math.random() * 3)];
         flake.style.left = Math.random() * 100 + 'vw';
         flake.style.fontSize = Math.random() * 1.5 + 2 + 'em';
         flake.style.opacity = Math.random() * 0.5 + 0.5;
@@ -126,7 +126,7 @@ function createSnowflakes() {
 function createSantaSleigh() {
     setInterval(() => {
         const santa = document.createElement('img');
-        santa.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
+        santa.src = 'https://media.giphy.com/media/3o7btPC0G6kh58rS5q/giphy.gif';
         santa.className = 'santa-sleigh';
         santa.alt = '';
         const topPos = Math.random() * 25 + 12 + '%';

@@ -26,7 +26,7 @@ body {
 .snowflake {
     position: absolute;
     color: #fff;
-    font-size: 2.2em;
+    font-size: 2.4em;
     animation: snowFall linear infinite;
     opacity: 0.85;
 }
@@ -49,7 +49,7 @@ body {
 
 .santa-sleigh {
     position: absolute;
-    width: 300px;
+    width: 320px;
     height: auto;
     animation: santaFly 20s linear infinite;
     opacity: 0.9;
@@ -141,28 +141,10 @@ button:hover {
     position: relative;
 }
 
-.card-border {
-    position: absolute;
-    width: 100%;
-    height: 20px;
-    background: linear-gradient(to right, #6366f1, #8b5cf6);
-    left: 0;
-}
-
-.card-border.top {
-    top: 0;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-
-.card-border.bottom {
-    bottom: 0;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-
-.card-content {
-    text-align: center;
+.card-decoration {
+    font-size: 34px;
+    margin: 25px 0;
+    letter-spacing: 12px;
 }
 
 #card h2 {
@@ -173,20 +155,21 @@ button:hover {
 }
 
 .wish {
-    font-size: 22px;
+    font-size: 23px;
     line-height: 1.8;
     margin: 40px 0;
     font-style: italic;
+    opacity: 0.95;
 }
 
 .quote {
-    font-size: 24px;
+    font-size: 25px;
     line-height: 1.6;
     margin: 50px 0;
     font-weight: 600;
 }
 
-.closing {
+.card-footer {
     font-size: 26px;
     margin: 40px 0 10px;
     font-weight: 700;

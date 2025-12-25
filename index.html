@@ -21,7 +21,7 @@
         <source src="https://cdn.pixabay.com/audio/2022/09/15/audio_7d9c7f0d8f.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicToggle" aria-label="Müzik Aç/Kapat">🎵</button>
+    <button id="musicToggle">🎵</button>
 
     <div class="container">
         <h1>2026 Yılbaşı Kartı Oluştur</h1>
@@ -32,10 +32,10 @@
             <input type="text" id="message" placeholder="Dileğin nedir? (örn: Sağlık ve mutluluk dolu bir yıl)" required>
 
             <select id="theme">
-                <option value="klasik">Sıcacık Dilekler🎄</option>
-                <option value="komik">Komik ve Eğlenceli🎅</option>
-                <option value="coder">Coder Dostu❄️</option>
-                <option value="parti">Parti Havası🎉</option>
+                <option value="sicak">Sıcacık Dilekler</option>
+                <option value="komik">Komik ve Eğlenceli</option>
+                <option value="coder">Coder Dostu</option>
+                <option value="parti">Parti Havası</option>
             </select>
 
             <button type="submit">Kartı Oluştur</button>
@@ -46,15 +46,13 @@
             <div id="loadingSpinner" class="spinner"></div>
 
             <div id="card">
-                <div class="card-border"></div>
-                <div class="card-content">
-                    <h2 id="cardName"></h2>
-                    <p id="cardMessage" class="wish"></p>
-                    <p id="funMessage" class="quote"></p>
-                    <p class="closing">Mutlu Yıllar 2026</p>
-                    <p class="signature">Sevgilerle</p>
-                </div>
-                <div class="card-border bottom"></div>
+                <div class="card-decoration top">🎄❄️✨</div>
+                <h2 id="cardName"></h2>
+                <p id="cardMessage" class="wish"></p>
+                <p id="funMessage" class="quote"></p>
+                <p class="card-footer">Mutlu Yıllar 2026</p>
+                <p class="signature">Sevgilerle</p>
+                <div class="card-decoration bottom">✨❄️🎄</div>
             </div>
 
             <div class="buttons">
