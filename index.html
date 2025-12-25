@@ -17,7 +17,7 @@
 
     <div class="santa-container"></div>
 
-    <audio id="jingleAudio" loop autoplay>
+    <audio id="jingleAudio" loop>
         <source src="https://cdn.pixabay.com/audio/2022/09/15/audio_7d9c7f0d8f.mp3" type="audio/mpeg">
     </audio>
 
@@ -32,12 +32,12 @@
             <input type="text" id="message" placeholder="Dileğin nedir? (örn: Bol mutluluk)" required>
 
             <select id="theme">
-                <option value="komik">😂 Komik Mod (Kardan Adam)</option>
-                <option value="sicak">❤️ Sıcacık Mod (Noel Baba)</option>
-                <option value="coder">🚀 Coder Mod (Kod Yağmuru)</option>
-                <option value="geek">🤓 Geek Mod (Bug Avcısı)</option>
-                <option value="ninja">🥷 Code Ninja Mod (Hızlı Commit)</option>
-                <option value="parti">🎉 Parti Modu (Ren Geyiği)</option>
+                <option value="komik">😂 Komik Mod</option>
+                <option value="sicak">❤️ Sıcacık Dilekler</option>
+                <option value="coder">🚀 Coder Modu</option>
+                <option value="geek">🤓 Geek Modu</option>
+                <option value="ninja">🥷 Code Ninja</option>
+                <option value="parti">🎉 Parti Modu</option>
             </select>
 
             <button type="submit">Kartı Oluştur!</button>
@@ -48,22 +48,21 @@
             <div id="loadingSpinner" class="spinner"></div>
 
             <div id="card">
-                <img id="themeIcon" src="" alt="" class="theme-icon">
-                <div class="header-decoration">🎄❄️🎅🦌✨</div>
+                <div class="card-decoration top">🎄❄️✨🎅🦌</div>
                 <h2 id="cardName"></h2>
-                <p id="cardMessage" class="personal-message"></p>
-                <p id="cardTheme" class="theme-label"></p>
-                <h3 id="funMessage" class="fun-quote"></h3>
-                <div class="footer-text">Mutlu Yıllar 2026!<br>En güzel dileklerimle 🎁🥂</div>
-                <div class="footer-decoration">❄️✨🎄🦌🎅</div>
+                <p id="cardMessage" class="wish"></p>
+                <p id="cardTheme" class="theme"></p>
+                <h3 id="funMessage" class="quote"></h3>
+                <div class="card-decoration bottom">✨❄️🎁🥂🎉</div>
+                <div class="card-footer">Mutlu Yıllar 2026!</div>
             </div>
 
             <div class="buttons">
-                <button id="downloadBtn">📥 Kartı İndir (PNG)</button>
-                <button id="instagramStoryBtn">📸 Instagram Hikaye Ekle</button>
-                <button id="whatsappBtn">💬 WhatsApp'ta Paylaş</button>
-                <button id="shareBtn">🔗 LinkedIn'de Paylaş</button>
-                <button id="newCardBtn">🔄 Yeni Kart Oluştur</button>
+                <button id="downloadBtn">📥 Kartı İndir</button>
+                <button id="instagramStoryBtn">📸 Instagram Hikaye</button>
+                <button id="whatsappBtn">💬 WhatsApp</button>
+                <button id="shareBtn">🔗 LinkedIn</button>
+                <button id="newCardBtn">🔄 Yeni Kart</button>
             </div>
         </div>
     </div>

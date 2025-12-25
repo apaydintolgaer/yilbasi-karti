@@ -5,8 +5,8 @@
 }
 
 body {
-    background: linear-gradient(to bottom, #0a1f3d, #1e3c72);
-    color: #fff;
+    background: linear-gradient(to bottom, #0f172a, #1e293b);
+    color: #f1f5f9;
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
     position: relative;
@@ -26,13 +26,14 @@ body {
 .snowflake {
     position: absolute;
     color: #fff;
-    font-size: 2.8em;
-    animation: fall 16s linear infinite;
-    opacity: 0.9;
+    font-size: 2.2em;
+    animation: fall linear infinite;
+    opacity: 0.85;
 }
 
 @keyframes fall {
-    to { transform: translateY(100vh) rotate(360deg); }
+    0% { transform: translateY(-10vh) translateX(0) rotate(0deg); }
+    100% { transform: translateY(110vh) translateX(100px) rotate(360deg); }
 }
 
 .santa-container {
@@ -48,37 +49,37 @@ body {
 
 .santa-sleigh {
     position: absolute;
-    width: 320px;
+    width: 300px;
     height: auto;
-    animation: flyAcross 22s linear infinite;
+    animation: fly 18s linear infinite;
     opacity: 0.9;
 }
 
-@keyframes flyAcross {
-    0% { left: -350px; top: 18%; }
-    100% { left: 100%; top: 20%; }
+@keyframes fly {
+    0% { left: -350px; top: 15%; transform: rotate(-5deg); }
+    100% { left: 110%; top: 20%; transform: rotate(5deg); }
 }
 
 .container {
-    max-width: 580px;
-    margin: 40px auto;
-    padding: 40px 30px;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 40px;
     text-align: center;
     position: relative;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 20px;
-    backdrop-filter: blur(12px);
+    background: rgba(30, 41, 59, 0.4);
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
 }
 
 h1 {
-    font-size: 34px;
-    margin-bottom: 10px;
+    font-size: 36px;
+    margin-bottom: 12px;
     font-weight: 700;
 }
 
 .subtitle {
-    font-size: 18px;
+    font-size: 19px;
     margin-bottom: 40px;
     opacity: 0.9;
 }
@@ -86,114 +87,124 @@ h1 {
 input,
 select {
     width: 100%;
-    padding: 16px 20px;
-    margin: 12px 0;
+    padding: 18px;
+    margin: 14px 0;
     border: none;
-    border-radius: 12px;
-    font-size: 17px;
-    background: rgba(255, 255, 255, 0.95);
-    color: #333;
+    border-radius: 16px;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1e293b;
 }
 
 input::placeholder {
-    color: #666;
+    color: #64748b;
 }
 
 select {
-    color: #333;
+    color: #1e293b;
 }
 
 button {
-    background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
     color: white;
-    padding: 16px 32px;
+    padding: 18px 36px;
     border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: 600;
+    border-radius: 16px;
+    font-size: 19px;
+    font-weight: 700;
     cursor: pointer;
     margin: 10px 8px;
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
     transition: all 0.3s ease;
 }
 
 button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.6);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.5);
 }
 
 #cardContainer {
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 #card {
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    padding: 45px 35px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-    animation: cardAppear 1s ease;
-    max-width: 500px;
-    margin: 0 auto 30px;
-    position: relative;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    padding: 50px 40px;
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    animation: appear 1.2s ease;
+    max-width: 540px;
+    margin: 0 auto;
 }
 
-.theme-icon {
-    width: 120px;
-    height: auto;
-    position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.header-decoration,
-.footer-decoration {
-    font-size: 30px;
-    margin: 15px 0;
-    letter-spacing: 8px;
+.card-decoration {
+    font-size: 32px;
+    margin: 20px 0;
+    letter-spacing: 10px;
 }
 
 #card h2 {
-    font-size: 28px;
-    margin: 20px 0 15px;
-}
-
-.personal-message {
-    font-size: 20px;
-    line-height: 1.6;
-    margin: 20px 0;
-}
-
-.theme-label {
-    font-size: 17px;
-    opacity: 0.9;
-    margin: 15px 0;
-    font-style: italic;
-}
-
-.fun-quote {
-    font-size: 22px;
-    margin: 30px 0;
+    font-size: 32px;
+    margin: 25px 0;
     font-weight: 700;
 }
 
-.footer-text {
-    margin: 30px 0 10px;
+.wish {
+    font-size: 22px;
+    line-height: 1.7;
+    margin: 30px 0;
+    font-style: italic;
+}
+
+.theme {
     font-size: 19px;
-    line-height: 1.5;
+    opacity: 0.9;
+    margin: 20px 0;
+}
+
+.quote {
+    font-size: 24px;
+    margin: 40px 0;
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+.card-footer {
+    font-size: 21px;
+    margin: 40px 0 20px;
+    font-weight: 600;
 }
 
 .buttons {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.buttons button {
+    padding: 16px 28px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.buttons button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
 }
 
 .error {
-    color: #ffcccc;
-    margin-top: 10px;
-    font-weight: bold;
+    color: #fca5a5;
+    margin-top: 12px;
+    font-weight: 600;
 }
 
 .hidden {
@@ -201,48 +212,49 @@ button:hover {
 }
 
 .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #fff;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-top: 5px solid #fff;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     animation: spin 1s linear infinite;
-    margin: 30px auto;
+    margin: 60px auto;
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
-@keyframes cardAppear {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+@keyframes appear {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 #musicToggle {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.5);
+    bottom: 24px;
+    right: 24px;
+    background: rgba(0, 0, 0, 0.4);
     border: none;
     color: white;
-    font-size: 28px;
-    width: 50px;
-    height: 50px;
+    font-size: 30px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 100;
+    backdrop-filter: blur(10px);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
     .container {
-        padding: 20px;
         margin: 20px auto;
+        padding: 30px 20px;
     }
     h1 {
-        font-size: 28px;
+        font-size: 30px;
     }
     .santa-sleigh {
-        width: 200px;
+        width: 220px;
     }
 }

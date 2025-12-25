@@ -7,12 +7,12 @@ const whatsappBtn = document.getElementById('whatsappBtn');
 const shareBtn = document.getElementById('shareBtn');
 const newCardBtn = document.getElementById('newCardBtn');
 const errorMessage = document.getElementById('errorMessage');
-const themeIcon = document.getElementById('themeIcon');
 
 const audio = document.getElementById('jingleAudio');
 const musicToggle = document.getElementById('musicToggle');
 
 audio.volume = 0.45;
+audio.play();
 
 let isPlaying = true;
 
@@ -60,15 +60,6 @@ const funMessages = {
     ]
 };
 
-const themeIcons = {
-    komik: 'https://i.fbcd.co/products/original/snowman-2-3-cf-clipart-3-main-listing-89d4b351c8f44b4c5646a481b6c5fa025112fb3c5fce044dc4122ed518734c0e.jpg',
-    sicak: 'https://png.pngtree.com/png-clipart/20241208/original/pngtree-santa-claus-waving-with-gifts-png-image_17660021.png',
-    coder: '',
-    geek: '',
-    ninja: '',
-    parti: 'https://assets.stickpng.com/images/580b57fbd9996e24bc43bbb7.png'
-};
-
 form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -97,22 +88,19 @@ form.addEventListener('submit', function (e) {
         document.getElementById('cardTheme').textContent = themeText;
         document.getElementById('funMessage').textContent = randomMsg;
 
-        themeIcon.src = themeIcons[themeValue] || '';
-
         confetti({
-            particleCount: 250,
+            particleCount: 300,
             spread: 100,
             origin: { y: 0.5 },
-            colors: ['#ffffff', '#ffd700', '#c0c0c0', '#f0f0f0']
+            colors: ['#6366f1', '#8b5cf6', '#a78bfa', '#c4b5fd', '#e9d5ff']
         });
-    }, 1000);
+    }, 1200);
 });
 
 newCardBtn.addEventListener('click', () => {
     cardContainer.classList.add('hidden');
     form.classList.remove('hidden');
     form.reset();
-    themeIcon.src = '';
     document.querySelectorAll('.snowflake').forEach(s => s.remove());
     createSnowflakes();
 });
@@ -122,29 +110,12 @@ downloadBtn.addEventListener('click', () => {
         scale: 2,
         backgroundColor: null
     }).then(canvas => {
-        canvas.toBlob(blob => {
-            const file = new File([blob], 'mutlu-yillar-2026.png', { type: 'image/png' });
-            const filesArray = [file];
-
-            if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-                navigator.share({
-                    files: filesArray,
-                    title: 'Yılbaşı Kartım',
-                    text: '2026 yılbaşı kartımı oluşturdum!'
-                }).catch(() => fallbackDownload(canvas));
-            } else {
-                fallbackDownload(canvas);
-            }
-        });
+        const link = document.createElement('a');
+        link.download = 'yilbasi-karti-2026.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
     });
 });
-
-function fallbackDownload(canvas) {
-    const link = document.createElement('a');
-    link.download = 'mutlu-yillar-2026.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-}
 
 instagramStoryBtn.addEventListener('click', () => {
     html2canvas(document.getElementById('card'), {
@@ -153,14 +124,8 @@ instagramStoryBtn.addEventListener('click', () => {
     }).then(canvas => {
         canvas.toBlob(blob => {
             const file = new File([blob], 'yilbasi-karti.png', { type: 'image/png' });
-            const filesArray = [file];
-
-            if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-                navigator.share({
-                    files: filesArray,
-                    title: 'Yılbaşı Kartım',
-                    text: '2026 yılbaşı kartım hazır! 🎄'
-                });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({ files: [file], title: 'Yılbaşı Kartım', text: '2026 yılbaşı kartım hazır! 🎄' });
             } else {
                 fallbackDownload(canvas);
             }
@@ -175,14 +140,8 @@ whatsappBtn.addEventListener('click', () => {
     }).then(canvas => {
         canvas.toBlob(blob => {
             const file = new File([blob], 'yilbasi-karti.png', { type: 'image/png' });
-            const filesArray = [file];
-
-            if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-                navigator.share({
-                    files: filesArray,
-                    title: 'Yılbaşı Kartım',
-                    text: 'Mutlu yıllar! 🎄'
-                });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({ files: [file], title: 'Yılbaşı Kartım', text: 'Mutlu yıllar! 🎄' });
             } else {
                 const url = canvas.toDataURL('image/png');
                 const waUrl = `https://wa.me/?text=${encodeURIComponent('Mutlu yıllar! 🎄')}%0A${encodeURIComponent(url)}`;
@@ -198,20 +157,28 @@ shareBtn.addEventListener('click', () => {
     window.open(shareUrl, '_blank', 'width=600,height=600');
 });
 
+function fallbackDownload(canvas) {
+    const link = document.createElement('a');
+    link.download = 'yilbasi-karti.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
 function createSnowflakes() {
     setInterval(() => {
         const flake = document.createElement('div');
         flake.className = 'snowflake';
         flake.textContent = ['❄️', '❅', '❆'][Math.floor(Math.random() * 3)];
         flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.fontSize = Math.random() * 2 + 2.8 + 'em';
-        flake.style.opacity = Math.random() * 0.6 + 0.4;
-        flake.style.animationDuration = Math.random() * 8 + 12 + 's';
+        flake.style.fontSize = Math.random() * 1.5 + 2.2 + 'em';
+        flake.style.opacity = Math.random() * 0.5 + 0.5;
+        flake.style.animationDuration = Math.random() * 10 + 14 + 's';
+        flake.style.animationDelay = Math.random() * 5 + 's';
 
         document.querySelector('.snow-container').appendChild(flake);
 
-        setTimeout(() => flake.remove(), 20000);
-    }, 250);
+        setTimeout(() => flake.remove(), 25000);
+    }, 180);
 }
 
 function createSantaSleigh() {
@@ -220,13 +187,13 @@ function createSantaSleigh() {
         sleigh.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
         sleigh.className = 'santa-sleigh';
         sleigh.alt = '';
-        const randomTop = Math.random() * 25 + 15 + '%';
+        const randomTop = Math.random() * 25 + 12 + '%';
         sleigh.style.top = randomTop;
 
         document.querySelector('.santa-container').appendChild(sleigh);
 
         setTimeout(() => sleigh.remove(), 24000);
-    }, Math.random() * 6000 + 9000);
+    }, Math.random() * 6000 + 10000);
 }
 
 createSnowflakes();
