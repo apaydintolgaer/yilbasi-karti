@@ -3,44 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yılbaşı Kartı Oluştur | 2026</title>
+    <title>2026 Yılbaşı Kartı Oluştur</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="snow-container"></div>
 
+    <audio id="jingleAudio" loop>
+        <source src="https://cdn.freecodecamp.org/testable-projects-fcc/audio/BeepSound.wav" type="audio/mpeg">
+        <source src="https://incompetech.filmmusic.io/song/4650-jingle-bells.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="musicToggle" aria-label="Müzik Aç/Kapat" title="Müzik Aç/Kapat">🎵</button>
+
     <div class="container">
         <h1>✨ 2026 Yılbaşı Kartı Oluştur ✨</h1>
-        <p class="subtitle">Kendi eğlenceli kartını yarat, arkadaşlarına gönder!</p>
+        <p class="subtitle">Kendi eğlenceli kartını yarat ve sevdiklerine gönder!</p>
 
         <form id="cardForm">
             <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required>
-            <input type="text" id="message" placeholder="Ne dilemek istersin? (örn: Bol bol mutluluk)" required>
-            
+            <input type="text" id="message" placeholder="Dileğin nedir? (örn: Bol mutluluk ve sağlık)" required>
+
             <select id="theme">
-                <option value="komik">Komik Mod 😆</option>
+                <option value="komik">Komik Mod 😆 (Kardan Adam)</option>
                 <option value="sicak">Sıcacık Dilekler ❤️</option>
                 <option value="kodcu">Developer Esprisi 🚀</option>
-                <option value="parti">Parti Modu 🎉</option>
+                <option value="parti">Parti Modu 🎉 (Ren Geyiği)</option>
             </select>
 
             <button type="submit">Kartı Oluştur →</button>
+            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldurunuz.</p>
         </form>
 
         <div id="cardContainer" class="hidden">
+            <div id="loadingSpinner" class="spinner"></div>
+
             <div id="card">
+                <img id="themeIcon" src="" alt="" class="theme-icon">
                 <div class="header-decoration">🎄❄️🎅</div>
-                <h2 id="cardName">Sevgili [İsim],</h2>
+                <h2 id="cardName"></h2>
                 <p id="cardMessage" class="personal-message"></p>
                 <p id="cardTheme" class="theme-label"></p>
                 <h3 id="funMessage" class="fun-quote"></h3>
-                <div class="footer-text">Mutlu Yıllar 2026!<br>En güzel dileklerimle 🎁</div>
+                <div class="footer-text">Mutlu Yıllar 2026!<br>Sevgilerle 🎁</div>
                 <div class="footer-decoration">❄️✨🎄✨❄️</div>
             </div>
 
             <div class="buttons">
                 <button id="downloadBtn">📥 Kartı İndir (PNG)</button>
+                <button id="shareBtn">🔗 LinkedIn'de Paylaş</button>
                 <button id="newCardBtn">🔄 Yeni Kart Oluştur</button>
             </div>
         </div>
