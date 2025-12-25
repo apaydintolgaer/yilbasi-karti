@@ -219,14 +219,28 @@ function createSantaSleigh() {
         sleigh.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
         sleigh.className = 'santa-sleigh';
         sleigh.alt = '';
-        const randomTop = Math.random() * 30 + 10 + '%'; // Üst kısımda uçsun
+        const randomTop = Math.random() * 30 + 10 + '%';
         sleigh.style.top = randomTop;
 
         document.querySelector('.santa-sleigh-container').appendChild(sleigh);
 
-        setTimeout(() => sleigh.remove(), 22000); // Animasyon süresi kadar kal
-    }, Math.random() * 5000 + 8000); // 8-13 saniyede bir
+        setTimeout(() => sleigh.remove(), 22000);
+    }, Math.random() * 5000 + 8000);
 }
 
 createSnowflakes();
 createSantaSleigh();
+
+function fallbackDownload(canvas) {
+    const link = document.createElement('a');
+    link.download = 'mutlu-yillar-2026.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
+function fallbackDownload(canvas) {
+    const link = document.createElement('a');
+    link.download = 'mutlu-yillar-2026.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}

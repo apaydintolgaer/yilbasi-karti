@@ -1,45 +1,44 @@
-# 2026 Yılbaşı Kartı Oluşturucu 🎄❄️🦌
+# 2026 Yılbaşı Kartı Oluşturucu 🎅🦌❄️✨
 
-Tamamen eğlenceli ve interaktif bir yılbaşı kartı generatorü.
+Kar yağışı altında uçan Noel Baba'nın eşlik ettiği, Jingle Bells müziğiyle dolu eğlenceli bir yılbaşı kartı generatorü.
 
-Kar yağışı altında, ara sıra ren geyiklerine binmiş Noel Baba'nın uçarak geçtiği büyülü bir arka planla, herkes kendi kişiselleştirilmiş yılbaşı kartını yaratabiliyor.
+Kendi kişiselleştirilmiş kartını saniyeler içinde yarat, indir ve sevdiklerinle paylaş.
 
 ### Canlı Demo
 https://apaydintolgaer.github.io/yilbasi-karti/
 
 ### Özellikler
 - Yoğun lapa lapa kar yağışı ❄️
-- Arka planda uçan Noel Baba ve ren geyikleri (animasyonlu GIF) 🦌🎅
-- Jingle Bells background müziği (loop, açıp kapatılabilir – ses seviyesi %45)
+- Arka planda animasyonlu uçan Noel Baba ve ren geyikleri 🦌🎅
+- Jingle Bells müziği (açılır açılmaz başlar, sağ alttan açıp kapatılabilir)
 - Konfeti patlama efekti 🎉
-- 6 eğlenceli tema:
+- 6 eğlenceli tema (emoji dolu özel mesajlarla):
   - 😂 Komik Mod (Kardan Adam)
   - ❤️ Sıcacık Mod (Noel Baba)
   - 🚀 Coder Mod
   - 🤓 Geek Mod
   - 🥷 Code Ninja Mod
   - 🎉 Parti Modu (Ren Geyiği)
-- Tema başına özel emoji dolu mesajlar
 - Kartı PNG olarak indirme
-- Instagram Hikaye, WhatsApp ve LinkedIn'de paylaşma butonları
+- Instagram Hikaye, WhatsApp ve LinkedIn'de doğrudan paylaşma
 - Mobil uyumlu tasarım
 - Form doğrulama ve loading animasyonu
 
 ### Nasıl Kullanılır?
 1. "Kime?" ve "Dileğin nedir?" alanlarını doldur
-2. İstersen eğlenceli bir tema seç
+2. İstersen bir tema seç (daha eğlenceli mesajlar için!)
 3. "Kartı Oluştur!" butonuna tıkla
 4. Kart hazır olduğunda indir veya paylaş
 
 ### Teknolojiler
 - HTML5
-- CSS3 (animations, gradient, backdrop-filter)
+- CSS3 (gradient, animations, backdrop-filter)
 - Vanilla JavaScript
-- canvas-confetti
-- html2canvas
+- canvas-confetti (konfeti efekti)
+- html2canvas (PNG indirme)
 
 ### Yerel Çalıştırma
-Kurulum gerekmez.
+Kurulum gerekmez, GitHub Pages üzerinden doğrudan çalışır.
 
 Yerelde denemek istersen:
 ```bash
