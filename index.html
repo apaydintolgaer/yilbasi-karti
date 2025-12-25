@@ -3,37 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yılbaşı Kartı Oluştur</title>
+    <title>Yılbaşı Kartı Oluştur | 2026</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="snow-container"></div>
+
     <div class="container">
-        <h1>Eğlenceli Yılbaşı Kartı Oluştur 🎄</h1>
-        <p>Kendi komik yılbaşı kartını yap, indir, paylaş!</p>
+        <h1>✨ 2026 Yılbaşı Kartı Oluştur ✨</h1>
+        <p class="subtitle">Kendi eğlenceli kartını yarat, arkadaşlarına gönder!</p>
 
         <form id="cardForm">
-            <input type="text" id="name" placeholder="Adın (örn: Ahmet)" required>
-            <input type="text" id="message" placeholder="Mesajın (örn: Bol kahkahalı bir yıl olsun!)" required>
+            <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required>
+            <input type="text" id="message" placeholder="Ne dilemek istersin? (örn: Bol bol mutluluk)" required>
             
             <select id="theme">
-                <option value="komik">Komik Elf Modu 😄</option>
-                <option value="parti">Parti Hayvanı Modu 🎉</option>
-                <option value="kodcu">Kodcu Motivasyon Modu 🚀</option>
+                <option value="komik">Komik Mod 😆</option>
+                <option value="sicak">Sıcacık Dilekler ❤️</option>
+                <option value="kodcu">Developer Esprisi 🚀</option>
+                <option value="parti">Parti Modu 🎉</option>
             </select>
 
-            <button type="submit">Kartı Oluştur!</button>
+            <button type="submit">Kartı Oluştur →</button>
         </form>
 
         <div id="cardContainer" class="hidden">
             <div id="card">
-                <h2 id="cardName"></h2>
-                <p id="cardMessage"></p>
-                <p id="cardTheme"></p>
-                <h3 id="funMessage"></h3>
-                <div class="footer">Mutlu Yıllar 2026! ❄️🎉</div>
+                <div class="header-decoration">🎄❄️🎅</div>
+                <h2 id="cardName">Sevgili [İsim],</h2>
+                <p id="cardMessage" class="personal-message"></p>
+                <p id="cardTheme" class="theme-label"></p>
+                <h3 id="funMessage" class="fun-quote"></h3>
+                <div class="footer-text">Mutlu Yıllar 2026!<br>En güzel dileklerimle 🎁</div>
+                <div class="footer-decoration">❄️✨🎄✨❄️</div>
             </div>
-            <button id="downloadBtn">Kartı PNG Olarak İndir</button>
-            <button id="newCardBtn">Yeni Kart Oluştur</button>
+
+            <div class="buttons">
+                <button id="downloadBtn">📥 Kartı İndir (PNG)</button>
+                <button id="newCardBtn">🔄 Yeni Kart Oluştur</button>
+            </div>
         </div>
     </div>
 
