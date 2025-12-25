@@ -2,8 +2,6 @@ const form = document.getElementById('cardForm');
 const cardContainer = document.getElementById('cardContainer');
 const loadingSpinner = document.getElementById('loadingSpinner');
 const downloadBtn = document.getElementById('downloadBtn');
-const instagramStoryBtn = document.getElementById('instagramStoryBtn');
-const whatsappBtn = document.getElementById('whatsappBtn');
 const shareBtn = document.getElementById('shareBtn');
 const newCardBtn = document.getElementById('newCardBtn');
 const errorMessage = document.getElementById('errorMessage');
@@ -28,35 +26,25 @@ musicToggle.addEventListener('click', () => {
 });
 
 const funMessages = {
-    komik: [
-        "2026'da bug'lar sana değil, başkalarına çıksın! 😈😂🎉",
-        "Yeni yılda kahve hiç bitmesin, kodlar hep çalışsın! ☕💻🚀",
-        "Elf'ler bile senin kadar hızlı kod yazamaz! 🧝‍♂️⚡😄"
-    ],
     sicak: [
-        "Yeni yıl sana sağlık, huzur ve bol mutluluk getirsin ❤️🎄✨",
-        "En güzel anılar 2026'da seni bulsun, sevgilerle 🎅🏠❄️",
-        "Sevdiklerinle sıcacık bir yıl olsun 🏡❤️🥰"
+        "Yeni yıl sana sağlık, huzur ve mutluluk getirsin.",
+        "2026, sevdiklerinle geçireceğin güzel anılarla dolsun.",
+        "En içten dileklerimle, mutlu yıllar dilerim."
+    ],
+    komik: [
+        "2026'da bol kahkaha, az hata olsun!",
+        "Yeni yılda her şey istediğin gibi gitsin (bug'lar hariç).",
+        "Mutlu yıllar, hayatın hep güzel tarafı olsun!"
     ],
     coder: [
-        "2026'da her commit'in clean, her deploy'un sorunsuz olsun! 🚀🔥💚",
-        "Production'a attığın her şey ilk seferde çalışsın! ✅🛠️🎯",
-        "Yeni yılda bug'lar azalsın, kahveler artsın! ☕🖥️😎"
-    ],
-    geek: [
-        "Stack Overflow'a daha az, kendi zekana daha çok güven! 🤓🧠💡",
-        "2026'da debug etmek yerine celebrate et! 🎉🥂🍾",
-        "Kodların akıcı, pull request'lerin hızlı olsun! ⚡📈🔥"
-    ],
-    ninja: [
-        "Merge conflict'lerden kaçan bir ninja ol! 🥷⚔️🌙",
-        "2026'da commit'lerin sessiz, hızlı ve kusursuz olsun! 🌟💨🗡️",
-        "Kod dojo'sunun en hızlı samurayı sen ol! 🥋🚀😼"
+        "2026'da tüm kodların sorunsuz çalışsın.",
+        "Yeni yılda deploy'ların başarılı, coffee'lerin bol olsun.",
+        "Başarılarla dolu bir yıl seni bekliyor."
     ],
     parti: [
-        "2026 partilerle, kahkahalarla dolsun! 🎉🎊🥳",
-        "Yeni yıl sana dans, müzik ve bol eğlence getirsin! 🕺🎶🍾",
-        "Bu yıl en güzel anılar senin olsun, hadi kutla! 🎈🥂🎇"
+        "2026 partilerle, eğlenceyle dolsun.",
+        "Yeni yıl sana bol dans ve kahkaha getirsin.",
+        "Hayatın en güzel anıları bu yıl olsun."
     ]
 };
 
@@ -80,19 +68,17 @@ form.addEventListener('submit', e => {
     setTimeout(() => {
         loadingSpinner.classList.add('hidden');
 
-        const themeText = document.getElementById('theme').options[document.getElementById('theme').selectedIndex].text;
         const randomQuote = funMessages[theme][Math.floor(Math.random() * funMessages[theme].length)];
 
         document.getElementById('cardName').textContent = `${recipient},`;
         document.getElementById('cardMessage').textContent = wish;
-        document.getElementById('cardTheme').textContent = themeText;
         document.getElementById('funMessage').textContent = randomQuote;
 
         confetti({
-            particleCount: 300,
-            spread: 100,
-            origin: { y: 0.5 },
-            colors: ['#6366f1', '#8b5cf6', '#a78bfa', '#c4b5fd', '#e9d5ff']
+            particleCount: 200,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#6366f1', '#8b5cf6', '#ffffff']
         });
     }, 1200);
 });
@@ -114,62 +100,27 @@ downloadBtn.addEventListener('click', () => {
     });
 });
 
-instagramStoryBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), { scale: 2 }).then(canvas => {
-        canvas.toBlob(blob => {
-            const file = new File([blob], 'yilbasi-karti.png', { type: 'image/png' });
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                navigator.share({ files: [file], title: 'Yılbaşı Kartım', text: '2026 yılbaşı kartım hazır! 🎄' });
-            } else {
-                fallbackDownload(canvas);
-            }
-        });
-    });
-});
-
-whatsappBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), { scale: 2 }).then(canvas => {
-        canvas.toBlob(blob => {
-            const file = new File([blob], 'yilbasi-karti.png', { type: 'image/png' });
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                navigator.share({ files: [file], title: 'Yılbaşı Kartım', text: 'Mutlu yıllar! 🎄' });
-            } else {
-                const url = canvas.toDataURL('image/png');
-                const waUrl = `https://wa.me/?text=${encodeURIComponent('Mutlu yıllar! 🎄')}%0A${encodeURIComponent(url)}`;
-                window.open(waUrl, '_blank');
-            }
-        });
-    });
-});
-
-linkedinBtn.addEventListener('click', () => {
+shareBtn.addEventListener('click', () => {
     const url = encodeURIComponent(window.location.href);
     const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
     window.open(shareUrl, '_blank', 'width=600,height=600');
 });
 
-function fallbackDownload(canvas) {
-    const link = document.createElement('a');
-    link.download = 'yilbasi-karti.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-}
-
 function createSnowflakes() {
     setInterval(() => {
         const flake = document.createElement('div');
         flake.className = 'snowflake';
-        flake.textContent = ['❄️', '❅', '❆'][Math.floor(Math.random() * 3)];
+        flake.textContent = ['❄', '❅', '❆'][Math.floor(Math.random() * 3)];
         flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.fontSize = Math.random() * 1.5 + 2.2 + 'em';
+        flake.style.fontSize = Math.random() * 1.5 + 2 + 'em';
         flake.style.opacity = Math.random() * 0.5 + 0.5;
-        flake.style.animationDuration = Math.random() * 10 + 14 + 's';
+        flake.style.animationDuration = Math.random() * 10 + 12 + 's';
         flake.style.animationDelay = Math.random() * 5 + 's';
 
         document.querySelector('.snow-container').appendChild(flake);
 
         setTimeout(() => flake.remove(), 25000);
-    }, 180);
+    }, 200);
 }
 
 function createSantaSleigh() {
