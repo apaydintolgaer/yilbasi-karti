@@ -1,44 +1,38 @@
-# 2026 Yılbaşı Kartı Oluşturucu 🎅🦌❄️✨
+# 2026 Yılbaşı Kartı Oluşturucu 🎄❄️
 
 Kar yağışı altında uçan Noel Baba'nın eşlik ettiği, Jingle Bells müziğiyle dolu eğlenceli bir yılbaşı kartı generatorü.
 
-Kendi kişiselleştirilmiş kartını saniyeler içinde yarat, indir ve sevdiklerinle paylaş.
+Kendi kişiselleştirilmiş kartını saniyeler içinde yarat, indir ve paylaş.
 
 ### Canlı Demo
-https://apaydintolgaer.github.io/yilbasi-karti
+https://apaydintolgaer.github.io/yilbasi-karti/
 
 ### Özellikler
 - Yoğun lapa lapa kar yağışı ❄️
-- Arka planda animasyonlu uçan Noel Baba ve ren geyikleri 🦌🎅
+- Arka planda animasyonlu uçan Noel Baba ve ren geyikleri (10-15 saniyede bir geçer) 🦌🎅
 - Jingle Bells müziği (açılır açılmaz başlar, sağ alttan açıp kapatılabilir)
 - Konfeti patlama efekti 🎉
-- 6 eğlenceli tema (emoji dolu özel mesajlarla):
-  - 😂 Komik Mod (Kardan Adam)
-  - ❤️ Sıcacık Mod (Noel Baba)
-  - 🚀 Coder Mod
-  - 🤓 Geek Mod
-  - 🥷 Code Ninja Mod
-  - 🎉 Parti Modu (Ren Geyiği)
+- 4 farklı tema ile özel mesajlar
 - Kartı PNG olarak indirme
-- Instagram Hikaye, WhatsApp ve LinkedIn'de doğrudan paylaşma
+- LinkedIn'de paylaşma
 - Mobil uyumlu tasarım
 - Form doğrulama ve loading animasyonu
 
 ### Nasıl Kullanılır?
 1. "Kime?" ve "Dileğin nedir?" alanlarını doldur
-2. İstersen bir tema seç (daha eğlenceli mesajlar için!)
-3. "Kartı Oluştur!" butonuna tıkla
-4. Kart hazır olduğunda indir veya paylaş
+2. İstersen bir tema seç
+3. "Kartı Oluştur" butonuna tıkla
+4. Kart hazır olduğunda indir veya LinkedIn'de paylaş
 
 ### Teknolojiler
 - HTML5
-- CSS3 (gradient, animations, backdrop-filter)
+- CSS3 (animations, gradient, backdrop-filter)
 - Vanilla JavaScript
-- canvas-confetti (konfeti efekti)
-- html2canvas (PNG indirme)
+- canvas-confetti
+- html2canvas
 
 ### Yerel Çalıştırma
-Kurulum gerekmez, GitHub Pages üzerinden doğrudan çalışır.
+Kurulum gerekmez.
 
 Yerelde denemek istersen:
 ```bash
