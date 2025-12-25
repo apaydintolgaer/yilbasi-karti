@@ -15,62 +15,55 @@
 <body>
     <div class="snow-container"></div>
 
-    <div class="santa-container"></div>
-
     <audio id="jingleAudio" loop>
-        <source src="https://cdn.pixabay.com/audio/2024/11/20/audio_7d9c7f0d8f.mp3" type="audio/mpeg">
+        <source src="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Jingle%20Bells.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicToggle">🎵</button>
+    <button id="musicToggle" aria-label="Müzik Aç/Kapat">🎵</button>
 
-    <div class="app-container">
-        <header class="header">
-            <h1>✨ 2026 Yılbaşı Kartı Oluştur ✨</h1>
-            <p class="header-subtitle">Kendi özel kartını yarat, paylaş ve mutluluk dağıt!</p>
-        </header>
+    <div class="container">
+        <h1>✨ 2026 Yılbaşı Kartı Oluştur ✨</h1>
+        <p class="subtitle">Kendi eğlenceli kartını yarat, indir ve paylaş!</p>
 
-        <main id="mainContent">
-            <section id="formSection">
-                <form id="cardForm">
-                    <input type="text" id="recipient" placeholder="Kime? (örn: Sevgili Ayşe)" required>
-                    <input type="text" id="wish" placeholder="Ne diliyorsun? (örn: Sağlık, mutluluk ve başarı)" required>
+        <form id="cardForm">
+            <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required>
+            <input type="text" id="message" placeholder="Dileğin nedir? (örn: Bol mutluluk)" required>
 
-                    <select id="themeSelect">
-                        <option value="komik">😂 Komik Mod</option>
-                        <option value="sicak">❤️ Sıcacık Dilekler</option>
-                        <option value="coder">🚀 Coder Modu</option>
-                        <option value="geek">🤓 Geek Modu</option>
-                        <option value="ninja">🥷 Code Ninja</option>
-                        <option value="parti">🎉 Parti Modu</option>
-                    </select>
+            <select id="theme">
+                <option value="komik">😂 Komik Mod (Kardan Adam)</option>
+                <option value="sicak">❤️ Sıcacık Mod (Noel Baba)</option>
+                <option value="coder">🚀 Coder Mod (Kod Yağmuru)</option>
+                <option value="geek">🤓 Geek Mod (Bug Avcısı)</option>
+                <option value="ninja">🥷 Code Ninja Mod (Hızlı Commit)</option>
+                <option value="parti">🎉 Parti Modu (Ren Geyiği)</option>
+            </select>
 
-                    <button type="submit" id="createBtn">Kartı Oluştur</button>
-                    <p id="formError" class="error hidden">Lütfen tüm alanları doldur.</p>
-                </form>
-            </section>
+            <button type="submit">Kartı Oluştur!</button>
+            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldur!</p>
+        </form>
 
-            <section id="cardSection" class="hidden">
-                <div id="cardLoader" class="loader"></div>
+        <div id="cardContainer" class="hidden">
+            <div id="loadingSpinner" class="spinner"></div>
 
-                <div id="generatedCard">
-                    <div class="card-header">🎄❄️🎅</div>
-                    <h2 id="cardRecipient"></h2>
-                    <p id="cardWish" class="wish-text"></p>
-                    <p id="cardThemeText" class="theme-text"></p>
-                    <h3 id="cardQuote" class="quote"></h3>
-                    <div class="card-footer">Mutlu Yıllar 2026!<br>En güzel dileklerimle 🎁</div>
-                    <div class="card-decoration">❄️✨🎄✨❄️</div>
-                </div>
+            <div id="card">
+                <img id="themeIcon" src="" alt="" class="theme-icon">
+                <div class="header-decoration">🎄❄️🎅</div>
+                <h2 id="cardName"></h2>
+                <p id="cardMessage" class="personal-message"></p>
+                <p id="cardTheme" class="theme-label"></p>
+                <h3 id="funMessage" class="fun-quote"></h3>
+                <div class="footer-text">Mutlu Yıllar 2026!<br>Sevgilerle 🎁</div>
+                <div class="footer-decoration">❄️✨🎄✨❄️</div>
+            </div>
 
-                <div class="action-buttons">
-                    <button id="downloadCard">📥 İndir (PNG)</button>
-                    <button id="instagramCard">📸 Instagram Hikaye</button>
-                    <button id="whatsappCard">💬 WhatsApp</button>
-                    <button id="linkedinCard">🔗 LinkedIn</button>
-                    <button id="newCard">🔄 Yeni Kart Oluştur</button>
-                </div>
-            </section>
-        </main>
+            <div class="buttons">
+                <button id="downloadBtn">📥 Kartı İndir (PNG)</button>
+                <button id="instagramStoryBtn">📸 Instagram Hikaye Ekle</button>
+                <button id="whatsappBtn">💬 WhatsApp'ta Paylaş</button>
+                <button id="shareBtn">🔗 LinkedIn'de Paylaş</button>
+                <button id="newCardBtn">🔄 Yeni Kart Oluştur</button>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
