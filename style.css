@@ -5,7 +5,7 @@
 }
 
 body {
-    background: linear-gradient(to bottom, #001f3f, #0c4a6e);
+    background: linear-gradient(to bottom, #0a1f3d, #1e3c72);
     color: #fff;
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
@@ -33,6 +33,30 @@ body {
 
 @keyframes fall {
     to { transform: translateY(100vh) rotate(360deg); }
+}
+
+.santa-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.santa-sleigh {
+    position: absolute;
+    width: 320px;
+    height: auto;
+    animation: flyAcross 22s linear infinite;
+    opacity: 0.9;
+}
+
+@keyframes flyAcross {
+    0% { left: -350px; top: 18%; }
+    100% { left: 100%; top: 20%; }
 }
 
 .container {
@@ -80,7 +104,7 @@ select {
 }
 
 button {
-    background: linear-gradient(45deg, #001f3f, #0c4a6e);
+    background: linear-gradient(45deg, #1e3a8a, #3b82f6);
     color: white;
     padding: 16px 32px;
     border: none;
@@ -89,14 +113,13 @@ button {
     font-weight: 600;
     cursor: pointer;
     margin: 10px 8px;
-    box-shadow: 0 6px 20px rgba(0, 31, 63, 0.5);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
     transition: all 0.3s ease;
 }
 
 button:hover {
-    background: linear-gradient(45deg, #0c4a6e, #001f3f);
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 31, 63, 0.6);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.6);
 }
 
 #cardContainer {
@@ -104,7 +127,7 @@ button:hover {
 }
 
 #card {
-    background: linear-gradient(135deg, #0c4a6e, #001f3f);
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
     padding: 45px 35px;
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
@@ -218,5 +241,8 @@ button:hover {
     }
     h1 {
         font-size: 28px;
+    }
+    .santa-sleigh {
+        width: 200px;
     }
 }

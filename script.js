@@ -13,7 +13,6 @@ const audio = document.getElementById('jingleAudio');
 const musicToggle = document.getElementById('musicToggle');
 
 audio.volume = 0.45;
-audio.play().catch(() => {});
 
 let isPlaying = true;
 
@@ -30,34 +29,34 @@ musicToggle.addEventListener('click', () => {
 
 const funMessages = {
     komik: [
-        "2026'da bug'lar sana değil, başkalarına çıksın! 😈😂",
-        "Yeni yılda kahve hiç bitmesin, kodlar hep çalışsın! ☕💻",
-        "Elf'ler bile senin kadar hızlı kod yazamaz! 🧝‍♂️🚀"
+        "2026'da bug'lar sana değil, başkalarına çıksın! 😈😂🎉",
+        "Yeni yılda kahve hiç bitmesin, kodlar hep çalışsın! ☕💻🚀",
+        "Elf'ler bile senin kadar hızlı kod yazamaz! 🧝‍♂️⚡😄"
     ],
     sicak: [
-        "Yeni yıl sana sağlık, huzur ve bol mutluluk getirsin ❤️🎄",
-        "En güzel anılar 2026'da seni bulsun, sevgilerle 🎅✨",
-        "Sevdiklerinle sıcacık bir yıl olsun ❄️🏠"
+        "Yeni yıl sana sağlık, huzur ve bol mutluluk getirsin ❤️🎄✨",
+        "En güzel anılar 2026'da seni bulsun, sevgilerle 🎅🏠❄️",
+        "Sevdiklerinle sıcacık bir yıl olsun 🏡❤️🥰"
     ],
     coder: [
-        "2026'da her commit'in clean, her deploy'un sorunsuz olsun! 🚀🔥",
-        "Production'a attığın her şey ilk seferde çalışsın! 💚✅",
-        "Yeni yılda bug'lar azalsın, kahveler artsın! ☕🛠️"
+        "2026'da her commit'in clean, her deploy'un sorunsuz olsun! 🚀🔥💚",
+        "Production'a attığın her şey ilk seferde çalışsın! ✅🛠️🎯",
+        "Yeni yılda bug'lar azalsın, kahveler artsın! ☕🖥️😎"
     ],
     geek: [
-        "Stack Overflow'a daha az, kendi zekana daha çok güven! 🤓🧠",
-        "2026'da debug etmek yerine celebrate et! 🎉🥂",
-        "Kodların akıcı, pull request'lerin hızlı olsun! ⚡📈"
+        "Stack Overflow'a daha az, kendi zekana daha çok güven! 🤓🧠💡",
+        "2026'da debug etmek yerine celebrate et! 🎉🥂🍾",
+        "Kodların akıcı, pull request'lerin hızlı olsun! ⚡📈🔥"
     ],
     ninja: [
-        "Merge conflict'lerden kaçan bir ninja ol! 🥷⚔️",
-        "2026'da commit'lerin sessiz, hızlı ve kusursuz olsun! 🌙🌟",
-        "Kod dojo'sunun en hızlı samurayı sen ol! 🗡️💨"
+        "Merge conflict'lerden kaçan bir ninja ol! 🥷⚔️🌙",
+        "2026'da commit'lerin sessiz, hızlı ve kusursuz olsun! 🌟💨🗡️",
+        "Kod dojo'sunun en hızlı samurayı sen ol! 🥋🚀😼"
     ],
     parti: [
-        "2026 partilerle, kahkahalarla dolsun! 🎉🎊",
-        "Yeni yıl sana dans, müzik ve bol eğlence getirsin! 🕺🎶",
-        "Bu yıl en güzel anılar senin olsun, hadi kutla! 🍾🥳"
+        "2026 partilerle, kahkahalarla dolsun! 🎉🎊🥳",
+        "Yeni yıl sana dans, müzik ve bol eğlence getirsin! 🕺🎶🍾",
+        "Bu yıl en güzel anılar senin olsun, hadi kutla! 🎈🥂🎇"
     ]
 };
 
@@ -83,9 +82,8 @@ form.addEventListener('submit', function (e) {
     }
 
     errorMessage.classList.add('hidden');
-    cardContainer.classList.remove('hidden');
     form.classList.add('hidden');
-
+    cardContainer.classList.remove('hidden');
     loadingSpinner.classList.remove('hidden');
 
     setTimeout(() => {
@@ -105,7 +103,7 @@ form.addEventListener('submit', function (e) {
             particleCount: 250,
             spread: 100,
             origin: { y: 0.5 },
-            colors: ['#001f3f', '#0c4a6e', '#ffffff', '#ffd700']
+            colors: ['#ffffff', '#ffd700', '#c0c0c0', '#f0f0f0']
         });
     }, 1000);
 });
@@ -222,13 +220,13 @@ function createSantaSleigh() {
         sleigh.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
         sleigh.className = 'santa-sleigh';
         sleigh.alt = '';
-        const randomTop = Math.random() * 30 + 10 + '%';
+        const randomTop = Math.random() * 25 + 15 + '%';
         sleigh.style.top = randomTop;
 
-        document.querySelector('.santa-sleigh-container').appendChild(sleigh);
+        document.querySelector('.santa-container').appendChild(sleigh);
 
-        setTimeout(() => sleigh.remove(), 22000);
-    }, Math.random() * 5000 + 10000);
+        setTimeout(() => sleigh.remove(), 24000);
+    }, Math.random() * 6000 + 9000);
 }
 
 createSnowflakes();
