@@ -1,40 +1,29 @@
-# 2026 Yılbaşı Kartı Oluşturucu 🎄❄️
+# 🎄 Yılbaşı Tebrik Kartı (Interactive Christmas Card)
 
-Kar yağışı altında uçan Noel Baba'nın eşlik ettiği, Jingle Bells müziğiyle dolu eğlenceli bir yılbaşı kartı generatorü.
+Bu proje, HTML5 Canvas ve CSS3 Transform özellikleri kullanılarak geliştirilmiş, interaktif ve tam duyarlı (responsive) bir dijital yılbaşı tebrik kartıdır.
 
-Kendi kişiselleştirilmiş kartını saniyeler içinde yarat, indir ve paylaş.
+## 🌟 Özellikler
 
-### Canlı Demo
-https://apaydintolgaer.github.io/yilbasi-karti/
+* **Responsive Tasarım:** Mobil, tablet ve masaüstü cihazlarla tam uyumlu layout.
+* **CSS3 3D Animasyonlar:** Gerçekçi zarf açılma ve mektup çıkış efekti.
+* **Canvas Kar Efekti:** JavaScript Canvas API ile optimize edilmiş, performansı yüksek kar yağışı simülasyonu.
+* **Ses Entegrasyonu:** Kullanıcı etkileşimi ile başlayan arka plan müziği.
+* **Temiz Kod:** Modüler yapı, CSS değişkenleri ve ES6+ JavaScript standartları.
 
-### Özellikler
-- Yoğun lapa lapa kar yağışı ❄️
-- Arka planda animasyonlu uçan Noel Baba ve ren geyikleri (10-15 saniyede bir geçer) 🦌🎅
-- Jingle Bells müziği (açılır açılmaz başlar, sağ alttan açıp kapatılabilir)
-- Konfeti patlama efekti 🎉
-- 4 farklı tema ile özel mesajlar
-- Kartı PNG olarak indirme
-- LinkedIn'de paylaşma
-- Mobil uyumlu tasarım
-- Form doğrulama ve loading animasyonu
+## 📂 Dosya Yapısı
 
-### Nasıl Kullanılır?
-1. "Kime?" ve "Dileğin nedir?" alanlarını doldur
-2. İstersen bir tema seç
-3. "Kartı Oluştur" butonuna tıkla
-4. Kart hazır olduğunda indir veya LinkedIn'de paylaş
+. ├── index.html # Ana yapı ├── css │ └── style.css # Stil ve animasyon tanımları ├── js │ └── script.js # Etkileşim ve Canvas mantığı ├── .gitattributes # Git yapılandırması └── README.md # Dokümantasyon
 
-### Teknolojiler
-- HTML5
-- CSS3 (animations, gradient, backdrop-filter)
-- Vanilla JavaScript
-- canvas-confetti
-- html2canvas
+## 🚀 Kurulum ve Kullanım
 
-### Yerel Çalıştırma
-Kurulum gerekmez.
+1.  Bu repository'yi klonlayın veya zip olarak indirin.
+2.  Klasör içerisindeki `index.html` dosyasını modern bir web tarayıcısında açın.
 
-Yerelde denemek istersen:
-```bash
-git clone https://github.com/apaydintolgaer/yilbasi-karti.git
-cd yilbasi-karti
+### Özelleştirme
+
+* **Metin Değişikliği:** `index.html` içerisindeki `.letter-content` bölümünü düzenleyerek mesajınızı kişiselleştirebilirsiniz.
+* **Renk Teması:** `css/style.css` dosyasındaki `:root` değişkenlerini düzenleyerek zarf ve arka plan renklerini değiştirebilirsiniz.
+
+## 📄 Lisans
+
+Bu proje açık kaynaklıdır ve MIT lisansı altında dağıtılmaktadır.

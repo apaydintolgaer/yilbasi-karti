@@ -2,69 +2,55 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Yılbaşı Kartı Oluştur</title>
-    <meta property="og:title" content="2026 Yılbaşı Kartı Oluşturucu">
-    <meta property="og:description" content="Kendi kişiselleştirilmiş yılbaşı kartını yarat ve paylaş.">
-    <meta property="og:url" content="https://apaydintolgaer.github.io/yilbasi-karti/">
-    <meta property="og:type" content="website">
-
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yeni Yılınız Kutlu Olsun</title>
+    <meta name="description" content="Kişiselleştirilmiş dijital yeni yıl tebrik kartı.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="snow-container"></div>
 
-    <div class="santa-container"></div>
+    <canvas id="snow-canvas"></canvas>
 
-    <audio id="jingleAudio" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/09/15/audio_7d9c7f0d8f.mp3" type="audio/mpeg">
-    </audio>
-
-    <button id="musicToggle">🎵</button>
-
-    <div class="container">
-        <h1>2026 Yılbaşı Kartı Oluştur</h1>
-        <p class="subtitle">Kendi özel kartını yarat ve paylaş</p>
-
-        <form id="cardForm">
-            <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required>
-            <input type="text" id="message" placeholder="Dileğin nedir? (örn: Sağlık ve mutluluk dolu bir yıl)" required>
-
-            <select id="theme">
-                <option value="sicak">Sıcacık Dilekler</option>
-                <option value="komik">Komik ve Eğlenceli</option>
-                <option value="coder">Coder Dostu</option>
-                <option value="parti">Parti Havası</option>
-            </select>
-
-            <button type="submit">Kartı Oluştur</button>
-            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldur</p>
-        </form>
-
-        <div id="cardContainer" class="hidden">
-            <div id="loadingSpinner" class="spinner"></div>
-
-            <div id="card">
-                <div class="card-decoration top">🎄❄️✨🎅🦌🎁</div>
-                <h2 id="cardName"></h2>
-                <p id="cardMessage" class="wish"></p>
-                <p id="funMessage" class="quote"></p>
-                <p class="card-footer">Mutlu Yıllar 2026</p>
-                <p class="signature">Sevgilerle</p>
-                <div class="card-decoration bottom">✨❄️🎉🥂🎈</div>
-            </div>
-
-            <div class="buttons">
-                <button id="downloadBtn">Kartı İndir (PNG)</button>
-                <button id="shareBtn">LinkedIn'de Paylaş</button>
-                <button id="newCardBtn">Yeni Kart Oluştur</button>
-            </div>
-        </div>
+    <div class="audio-control">
+        <audio id="bg-music" loop>
+            <source src="https://assets.mixkit.co/music/preview/mixkit-we-wish-you-a-merry-christmas-traditional-308.mp3" type="audio/mpeg">
+        </audio>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="script.js"></script>
+    <main class="container">
+        <div class="envelope-wrapper" id="envelope-wrapper">
+            <div class="envelope">
+                <div class="front flap"></div>
+                <div class="front pocket"></div>
+                
+                <div class="letter">
+                    <div class="letter-content">
+                        <div class="header">
+                            <h2>Mutlu Yıllar!</h2>
+                        </div>
+                        <div class="body">
+                            <p><strong>Sevgili Dostum,</strong></p>
+                            <p>Yeni yılın sana ve sevdiklerine sağlık, huzur ve sonsuz mutluluk getirmesini dilerim. Tüm hayallerinin gerçeğe dönüştüğü harika bir sene olsun.</p>
+                            <p class="wish">İyi seneler! 🎄</p>
+                        </div>
+                        <div class="footer">
+                            <p>Sevgilerle,</p>
+                            <p class="signature">Adın Soyadın</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="btn-open" class="btn primary">Kartı Aç</button>
+            <button id="btn-reset" class="btn secondary hidden">Kapat</button>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
