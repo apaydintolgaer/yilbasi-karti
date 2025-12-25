@@ -30,34 +30,34 @@ musicToggle.addEventListener('click', () => {
 
 const funMessages = {
     komik: [
-        "2026'da bug'lar sana değil, başkalarına çıksın! 😈",
-        "Yeni yılda kahve hiç bitmesin, kodlar hep çalışsın! ☕",
-        "Elf'ler bile senin kadar hızlı kod yazamaz! 🧝‍♂️"
+        "2026'da bug'lar sana değil, başkalarına çıksın! 😈😂",
+        "Yeni yılda kahve hiç bitmesin, kodlar hep çalışsın! ☕💻",
+        "Elf'ler bile senin kadar hızlı kod yazamaz! 🧝‍♂️🚀"
     ],
     sicak: [
-        "Yeni yıl sana sağlık, huzur ve bol mutluluk getirsin ❤️",
-        "En güzel anılar 2026'da seni bulsun, sevgilerle 🎄",
-        "Sevdiklerinle sıcacık bir yıl olsun ❄️"
+        "Yeni yıl sana sağlık, huzur ve bol mutluluk getirsin ❤️🎄",
+        "En güzel anılar 2026'da seni bulsun, sevgilerle 🎅✨",
+        "Sevdiklerinle sıcacık bir yıl olsun ❄️🏠"
     ],
     coder: [
-        "2026'da her commit'in clean, her deploy'un sorunsuz olsun! 🚀",
-        "Production'a attığın her şey ilk seferde çalışsın! 🔥",
-        "Yeni yılda bug'lar azalsın, kahveler artsın! 💻"
+        "2026'da her commit'in clean, her deploy'un sorunsuz olsun! 🚀🔥",
+        "Production'a attığın her şey ilk seferde çalışsın! 💚✅",
+        "Yeni yılda bug'lar azalsın, kahveler artsın! ☕🛠️"
     ],
     geek: [
-        "Stack Overflow'a daha az, kendi zekana daha çok güven! 🤓",
-        "2026'da debug etmek yerine celebrate et! 🎉",
-        "Kodların akıcı, pull request'lerin hızlı olsun! ⚡"
+        "Stack Overflow'a daha az, kendi zekana daha çok güven! 🤓🧠",
+        "2026'da debug etmek yerine celebrate et! 🎉🥂",
+        "Kodların akıcı, pull request'lerin hızlı olsun! ⚡📈"
     ],
     ninja: [
-        "Merge conflict'lerden kaçan bir ninja ol! 🥷",
-        "2026'da commit'lerin sessiz, hızlı ve kusursuz olsun! 🌙",
-        "Kod dojo'sunun en hızlı samurayı sen ol! 🗡️"
+        "Merge conflict'lerden kaçan bir ninja ol! 🥷⚔️",
+        "2026'da commit'lerin sessiz, hızlı ve kusursuz olsun! 🌙🌟",
+        "Kod dojo'sunun en hızlı samurayı sen ol! 🗡️💨"
     ],
     parti: [
-        "2026 partilerle, kahkahalarla dolsun! 🎉",
-        "Yeni yıl sana dans, müzik ve bol eğlence getirsin! 🕺",
-        "Bu yıl en güzel anılar senin olsun, hadi kutla! 🍾"
+        "2026 partilerle, kahkahalarla dolsun! 🎉🎊",
+        "Yeni yıl sana dans, müzik ve bol eğlence getirsin! 🕺🎶",
+        "Bu yıl en güzel anılar senin olsun, hadi kutla! 🍾🥳"
     ]
 };
 
@@ -103,7 +103,7 @@ form.addEventListener('submit', function (e) {
             particleCount: 250,
             spread: 100,
             origin: { y: 0.5 },
-            colors: ['#228B22', '#c41e3a', '#ffffff', '#ffd700']
+            colors: ['#155e2e', '#a81c24', '#ffffff', '#ffd700']
         });
     }, 1000);
 });
@@ -203,14 +203,30 @@ function createSnowflakes() {
         flake.className = 'snowflake';
         flake.textContent = ['❄️', '❅', '❆'][Math.floor(Math.random() * 3)];
         flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.fontSize = Math.random() * 2 + 2.5 + 'em';
+        flake.style.fontSize = Math.random() * 2 + 2.8 + 'em';
         flake.style.opacity = Math.random() * 0.6 + 0.4;
-        flake.style.animationDuration = Math.random() * 8 + 10 + 's';
+        flake.style.animationDuration = Math.random() * 8 + 12 + 's';
 
         document.querySelector('.snow-container').appendChild(flake);
 
-        setTimeout(() => flake.remove(), 18000);
-    }, 300);
+        setTimeout(() => flake.remove(), 20000);
+    }, 250);
+}
+
+function createSantaSleigh() {
+    setInterval(() => {
+        const sleigh = document.createElement('img');
+        sleigh.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
+        sleigh.className = 'santa-sleigh';
+        sleigh.alt = '';
+        const randomTop = Math.random() * 30 + 10 + '%'; // Üst kısımda uçsun
+        sleigh.style.top = randomTop;
+
+        document.querySelector('.santa-sleigh-container').appendChild(sleigh);
+
+        setTimeout(() => sleigh.remove(), 22000); // Animasyon süresi kadar kal
+    }, Math.random() * 5000 + 8000); // 8-13 saniyede bir
 }
 
 createSnowflakes();
+createSantaSleigh();

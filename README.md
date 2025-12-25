@@ -1,47 +1,47 @@
-# 2026 Yılbaşı Kartı Oluşturucu 🎄✨
+# 2026 Yılbaşı Kartı Oluşturucu 🎄❄️🦌
 
-Eğlenceli, interaktif ve tamamen tarayıcı tabanlı bir yılbaşı kartı generatorü.
+Tamamen eğlenceli ve interaktif bir yılbaşı kartı generatorü.
 
-Herhangi bir kurulum gerektirmeden herkes kendi kişiselleştirilmiş, komik veya içten yılbaşı kartını oluşturabilir, indirebilir ve paylaşabilir.
+Kar yağışı altında, ara sıra ren geyiklerine binmiş Noel Baba'nın uçarak geçtiği büyülü bir arka planla, herkes kendi kişiselleştirilmiş yılbaşı kartını yaratabiliyor.
 
 ### Canlı Demo
-https://apaydintolgaer.github.io/yilbasi-karti
+https://apaydintolgaer.github.io/yilbasi-karti/
 
 ### Özellikler
-- Lapa lapa kar yağışı efekti ❄️
-- Jingle Bells background müziği (otomatik başlar, sağ alttan açıp kapatılabilir – ses seviyesi %45)
+- Yoğun lapa lapa kar yağışı ❄️
+- Arka planda uçan Noel Baba ve ren geyikleri (animasyonlu GIF) 🦌🎅
+- Jingle Bells background müziği (loop, açıp kapatılabilir – ses seviyesi %45)
 - Konfeti patlama efekti 🎉
-- 6 farklı eğlenceli tema:
-  - Komik Mod 😆 (Kardan Adam)
-  - Sıcacık Mod ❤️ (Noel Baba)
-  - Coder Mod 🚀
-  - Geek Mod 🤓
-  - Code Ninja Mod 🥷
-  - Parti Modu 🎉 (Ren Geyiği)
-- Tema seçime göre özel eğlenceli mesajlar (emoji dolu!)
+- 6 eğlenceli tema:
+  - 😂 Komik Mod (Kardan Adam)
+  - ❤️ Sıcacık Mod (Noel Baba)
+  - 🚀 Coder Mod
+  - 🤓 Geek Mod
+  - 🥷 Code Ninja Mod
+  - 🎉 Parti Modu (Ren Geyiği)
+- Tema başına özel emoji dolu mesajlar
 - Kartı PNG olarak indirme
-- Instagram Hikaye, WhatsApp ve LinkedIn'de doğrudan paylaşma
+- Instagram Hikaye, WhatsApp ve LinkedIn'de paylaşma butonları
 - Mobil uyumlu tasarım
 - Form doğrulama ve loading animasyonu
 
 ### Nasıl Kullanılır?
 1. "Kime?" ve "Dileğin nedir?" alanlarını doldur
-2. İstersen bir tema seç (daha eğlenceli mesajlar için!)
+2. İstersen eğlenceli bir tema seç
 3. "Kartı Oluştur!" butonuna tıkla
 4. Kart hazır olduğunda indir veya paylaş
 
 ### Teknolojiler
 - HTML5
-- CSS3 (gradient, animations, backdrop-filter)
+- CSS3 (animations, gradient, backdrop-filter)
 - Vanilla JavaScript
-- canvas-confetti (konfeti efekti)
-- html2canvas (PNG indirme)
-- Google Fonts (Nunito)
+- canvas-confetti
+- html2canvas
 
 ### Yerel Çalıştırma
-Kurulum gerekmez, GitHub Pages üzerinden doğrudan çalışır.
+Kurulum gerekmez.
 
-Eğer yerel olarak denemek istersen:
+Yerelde denemek istersen:
 ```bash
 git clone https://github.com/apaydintolgaer/yilbasi-karti.git
 cd yilbasi-karti
