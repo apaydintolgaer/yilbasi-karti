@@ -3,52 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Yeni Yılınız Kutlu Olsun</title>
-    <meta name="description" content="Kişiselleştirilmiş dijital yeni yıl tebrik kartı.">
+    <title>Yılbaşı Tebrik Kartı 🎄</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <canvas id="snow-canvas"></canvas>
 
-    <div class="audio-control">
-        <audio id="bg-music" loop>
-            <source src="https://assets.mixkit.co/music/preview/mixkit-we-wish-you-a-merry-christmas-traditional-308.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+    <main class="main-container">
+        <section id="setup-section" class="card-panel">
+            <h1>Yılbaşı Kartı Oluştur</h1>
+            <p class="subtitle">Sevdiklerin için özel bir link hazırla</p>
+            <div class="input-group">
+                <input type="text" id="input-to" placeholder="Kimin adına?">
+                <textarea id="input-msg" rows="3" placeholder="Mesajın ne olsun?"></textarea>
+                <input type="text" id="input-from" placeholder="Senin adın">
+            </div>
+            <button id="btn-generate" class="btn-main">Link Oluştur ve Kopyala 🚀</button>
+        </section>
 
-    <main class="container">
-        <div class="envelope-wrapper" id="envelope-wrapper">
-            <div class="envelope">
-                <div class="front flap"></div>
-                <div class="front pocket"></div>
-                
-                <div class="letter">
-                    <div class="letter-content">
-                        <div class="header">
-                            <h2>Mutlu Yıllar!</h2>
-                        </div>
-                        <div class="body">
-                            <p><strong>Sevgili Dostum,</strong></p>
-                            <p>Yeni yılın sana ve sevdiklerine sağlık, huzur ve sonsuz mutluluk getirmesini dilerim. Tüm hayallerinin gerçeğe dönüştüğü harika bir sene olsun.</p>
-                            <p class="wish">İyi seneler! 🎄</p>
-                        </div>
-                        <div class="footer">
-                            <p>Sevgilerle,</p>
-                            <p class="signature">Adın Soyadın</p>
+        <section id="card-section" class="hidden">
+            <div class="envelope-wrapper" id="envelope">
+                <div class="envelope">
+                    <div class="flap"></div>
+                    <div class="pocket"></div>
+                    <div class="letter">
+                        <div class="letter-text">
+                            <h2 id="display-to"></h2>
+                            <p id="display-msg"></p>
+                            <p class="signature" id="display-from"></p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="controls">
-            <button id="btn-open" class="btn primary">Kartı Aç</button>
-            <button id="btn-reset" class="btn secondary hidden">Kapat</button>
-        </div>
+            <div class="card-controls">
+                <p class="hint">Açmak için zarfa dokun</p>
+                <button onclick="location.href=location.pathname" class="btn-secondary">Sen de Oluştur ✨</button>
+            </div>
+        </section>
     </main>
 
     <script src="js/script.js"></script>
