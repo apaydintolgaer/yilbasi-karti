@@ -51,7 +51,7 @@ body {
     width: 250px;
     height: auto;
     animation: flyAcross 20s linear infinite;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 @keyframes flyAcross {
@@ -61,7 +61,7 @@ body {
 
 .container {
     max-width: 580px;
-    margin: 40px auto;
+    margin: 60px auto;
     padding: 40px 30px;
     text-align: center;
     position: relative;
@@ -69,6 +69,7 @@ body {
     background: rgba(255, 255, 255, 0.06);
     border-radius: 20px;
     backdrop-filter: blur(12px);
+    transition: all 0.6s ease;
 }
 
 h1 {
@@ -104,7 +105,7 @@ select {
 }
 
 button {
-    background: linear-gradient(45deg, #155e2e, #a81c24);
+    background: #2c5282;
     color: white;
     padding: 16px 32px;
     border: none;
@@ -113,27 +114,28 @@ button {
     font-weight: 600;
     cursor: pointer;
     margin: 10px 8px;
-    box-shadow: 0 6px 20px rgba(21, 94, 46, 0.5);
+    box-shadow: 0 6px 20px rgba(44, 82, 130, 0.5);
     transition: all 0.3s ease;
 }
 
 button:hover {
+    background: #1e40af;
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(21, 94, 46, 0.6);
+    box-shadow: 0 10px 25px rgba(30, 64, 175, 0.6);
 }
 
-#cardContainer {
-    margin-top: 30px;
+#resultSection {
+    margin-top: 0;
 }
 
 #card {
-    background: linear-gradient(135deg, #155e2e, #a81c24);
+    background: linear-gradient(135deg, #1e3a8a, #1e40af);
     padding: 45px 35px;
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
     animation: cardAppear 1s ease;
     max-width: 500px;
-    margin: 0 auto 30px;
+    margin: 40px auto;
     position: relative;
 }
 

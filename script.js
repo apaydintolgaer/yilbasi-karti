@@ -1,5 +1,5 @@
 const form = document.getElementById('cardForm');
-const cardContainer = document.getElementById('cardContainer');
+const resultSection = document.getElementById('resultSection');
 const loadingSpinner = document.getElementById('loadingSpinner');
 const downloadBtn = document.getElementById('downloadBtn');
 const instagramStoryBtn = document.getElementById('instagramStoryBtn');
@@ -83,7 +83,8 @@ form.addEventListener('submit', function (e) {
     }
 
     errorMessage.classList.add('hidden');
-    cardContainer.classList.remove('hidden');
+    form.classList.add('hidden');
+    resultSection.classList.remove('hidden');
     loadingSpinner.classList.remove('hidden');
 
     setTimeout(() => {
@@ -103,13 +104,14 @@ form.addEventListener('submit', function (e) {
             particleCount: 250,
             spread: 100,
             origin: { y: 0.5 },
-            colors: ['#155e2e', '#a81c24', '#ffffff', '#ffd700']
+            colors: ['#1e40af', '#3b82f6', '#60a5fa', '#93c5fd', '#ffffff']
         });
     }, 1000);
 });
 
 newCardBtn.addEventListener('click', () => {
-    cardContainer.classList.add('hidden');
+    resultSection.classList.add('hidden');
+    form.classList.remove('hidden');
     form.reset();
     themeIcon.src = '';
     document.querySelectorAll('.snowflake').forEach(s => s.remove());
@@ -225,22 +227,8 @@ function createSantaSleigh() {
         document.querySelector('.santa-sleigh-container').appendChild(sleigh);
 
         setTimeout(() => sleigh.remove(), 22000);
-    }, Math.random() * 5000 + 8000);
+    }, Math.random() * 5000 + 10000); // 10-15 saniyede bir
 }
 
 createSnowflakes();
 createSantaSleigh();
-
-function fallbackDownload(canvas) {
-    const link = document.createElement('a');
-    link.download = 'mutlu-yillar-2026.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-}
-
-function fallbackDownload(canvas) {
-    const link = document.createElement('a');
-    link.download = 'mutlu-yillar-2026.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-}
