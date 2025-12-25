@@ -1,34 +1,34 @@
 const form = document.getElementById('cardForm');
-const resultSection = document.getElementById('resultSection');
-const loadingSpinner = document.getElementById('loadingSpinner');
-const downloadBtn = document.getElementById('downloadBtn');
-const instagramStoryBtn = document.getElementById('instagramStoryBtn');
-const whatsappBtn = document.getElementById('whatsappBtn');
-const shareBtn = document.getElementById('shareBtn');
-const newCardBtn = document.getElementById('newCardBtn');
-const errorMessage = document.getElementById('errorMessage');
-const themeIcon = document.getElementById('themeIcon');
+const formSection = document.getElementById('formSection');
+const cardSection = document.getElementById('cardSection');
+const loader = document.getElementById('cardLoader');
+const downloadBtn = document.getElementById('downloadCard');
+const instagramBtn = document.getElementById('instagramCard');
+const whatsappBtn = document.getElementById('whatsappCard');
+const linkedinBtn = document.getElementById('linkedinCard');
+const newCardBtn = document.getElementById('newCard');
+const errorMsg = document.getElementById('formError');
 
 const audio = document.getElementById('jingleAudio');
-const musicToggle = document.getElementById('musicToggle');
+const musicBtn = document.getElementById('musicToggle');
 
 audio.volume = 0.45;
 audio.play().catch(() => {});
 
-let isPlaying = true;
+let musicPlaying = true;
 
-musicToggle.addEventListener('click', () => {
-    if (isPlaying) {
+musicBtn.addEventListener('click', () => {
+    if (musicPlaying) {
         audio.pause();
-        musicToggle.textContent = '🔇';
+        musicBtn.textContent = '🔇';
     } else {
         audio.play();
-        musicToggle.textContent = '🎵';
+        musicBtn.textContent = '🎵';
     }
-    isPlaying = !isPlaying;
+    musicPlaying = !musicPlaying;
 });
 
-const funMessages = {
+const messages = {
     komik: [
         "2026'da bug'lar sana değil, başkalarına çıksın! 😈😂",
         "Yeni yılda kahve hiç bitmesin, kodlar hep çalışsın! ☕💻",
@@ -61,129 +61,77 @@ const funMessages = {
     ]
 };
 
-const themeIcons = {
-    komik: 'https://i.fbcd.co/products/original/snowman-2-3-cf-clipart-3-main-listing-89d4b351c8f44b4c5646a481b6c5fa025112fb3c5fce044dc4122ed518734c0e.jpg',
-    sicak: 'https://png.pngtree.com/png-clipart/20241208/original/pngtree-santa-claus-waving-with-gifts-png-image_17660021.png',
-    coder: '',
-    geek: '',
-    ninja: '',
-    parti: 'https://assets.stickpng.com/images/580b57fbd9996e24bc43bbb7.png'
-};
-
-form.addEventListener('submit', function (e) {
+form.addEventListener('submit', e => {
     e.preventDefault();
 
-    const name = document.getElementById('name').value.trim();
-    const message = document.getElementById('message').value.trim();
-    const themeValue = document.getElementById('theme').value;
+    const recipient = document.getElementById('recipient').value.trim();
+    const wish = document.getElementById('wish').value.trim();
+    const theme = document.getElementById('themeSelect').value;
 
-    if (!name || !message) {
-        errorMessage.classList.remove('hidden');
+    if (!recipient || !wish) {
+        errorMsg.classList.remove('hidden');
         return;
     }
 
-    errorMessage.classList.add('hidden');
-    form.classList.add('hidden');
-    resultSection.classList.remove('hidden');
-    loadingSpinner.classList.remove('hidden');
+    errorMsg.classList.add('hidden');
+    formSection.classList.add('hidden');
+    cardSection.classList.remove('hidden');
+    loader.classList.remove('hidden');
 
     setTimeout(() => {
-        loadingSpinner.classList.add('hidden');
+        loader.classList.add('hidden');
 
-        const themeText = document.getElementById('theme').options[document.getElementById('theme').selectedIndex].text;
-        const randomMsg = funMessages[themeValue][Math.floor(Math.random() * funMessages[themeValue].length)];
+        const themeText = document.getElementById('themeSelect').options[document.getElementById('themeSelect').selectedIndex].text;
+        const randomQuote = messages[theme][Math.floor(Math.random() * messages[theme].length)];
 
-        document.getElementById('cardName').textContent = `${name},`;
-        document.getElementById('cardMessage').textContent = message;
-        document.getElementById('cardTheme').textContent = themeText;
-        document.getElementById('funMessage').textContent = randomMsg;
-
-        themeIcon.src = themeIcons[themeValue] || '';
+        document.getElementById('cardRecipient').textContent = `${recipient},`;
+        document.getElementById('cardWish').textContent = wish;
+        document.getElementById('cardThemeText').textContent = themeText;
+        document.getElementById('cardQuote').textContent = randomQuote;
 
         confetti({
-            particleCount: 250,
+            particleCount: 300,
             spread: 100,
             origin: { y: 0.5 },
-            colors: ['#1e40af', '#3b82f6', '#60a5fa', '#93c5fd', '#ffffff']
+            colors: ['#6366f1', '#8b5cf6', '#a78bfa', '#c4b5fd', '#e9d5ff']
         });
-    }, 1000);
+    }, 1200);
 });
 
 newCardBtn.addEventListener('click', () => {
-    resultSection.classList.add('hidden');
-    form.classList.remove('hidden');
+    cardSection.classList.add('hidden');
+    formSection.classList.remove('hidden');
     form.reset();
-    themeIcon.src = '';
-    document.querySelectorAll('.snowflake').forEach(s => s.remove());
-    createSnowflakes();
 });
 
 downloadBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), {
-        scale: 2,
-        backgroundColor: null
-    }).then(canvas => {
-        canvas.toBlob(blob => {
-            const file = new File([blob], 'mutlu-yillar-2026.png', { type: 'image/png' });
-            const filesArray = [file];
-
-            if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-                navigator.share({
-                    files: filesArray,
-                    title: 'Yılbaşı Kartım',
-                    text: '2026 yılbaşı kartımı oluşturdum!'
-                }).catch(() => fallbackDownload(canvas));
-            } else {
-                fallbackDownload(canvas);
-            }
-        });
+    html2canvas(document.getElementById('generatedCard'), { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'yilbasi-karti-2026.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
     });
 });
 
-function fallbackDownload(canvas) {
-    const link = document.createElement('a');
-    link.download = 'mutlu-yillar-2026.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-}
-
-instagramStoryBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), {
-        scale: 2,
-        backgroundColor: null
-    }).then(canvas => {
+instagramBtn.addEventListener('click', () => {
+    html2canvas(document.getElementById('generatedCard'), { scale: 2 }).then(canvas => {
         canvas.toBlob(blob => {
             const file = new File([blob], 'yilbasi-karti.png', { type: 'image/png' });
-            const filesArray = [file];
-
-            if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-                navigator.share({
-                    files: filesArray,
-                    title: 'Yılbaşı Kartım',
-                    text: '2026 yılbaşı kartım hazır! 🎄'
-                });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({ files: [file], title: 'Yılbaşı Kartım', text: '2026 yılbaşı kartım hazır! 🎄' });
             } else {
-                fallbackDownload(canvas);
+                fallbackShare(canvas);
             }
         });
     });
 });
 
 whatsappBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), {
-        scale: 2,
-        backgroundColor: null
-    }).then(canvas => {
+    html2canvas(document.getElementById('generatedCard'), { scale: 2 }).then(canvas => {
         canvas.toBlob(blob => {
             const file = new File([blob], 'yilbasi-karti.png', { type: 'image/png' });
-            const filesArray = [file];
-
-            if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-                navigator.share({
-                    files: filesArray,
-                    title: 'Yılbaşı Kartım',
-                    text: 'Mutlu yıllar! 🎄'
-                });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({ files: [file], title: 'Yılbaşı Kartım', text: 'Mutlu yıllar! 🎄' });
             } else {
                 const url = canvas.toDataURL('image/png');
                 const waUrl = `https://wa.me/?text=${encodeURIComponent('Mutlu yıllar! 🎄')}%0A${encodeURIComponent(url)}`;
@@ -193,42 +141,45 @@ whatsappBtn.addEventListener('click', () => {
     });
 });
 
-shareBtn.addEventListener('click', () => {
-    const pageUrl = encodeURIComponent(window.location.href);
-    const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+linkedinBtn.addEventListener('click', () => {
+    const url = encodeURIComponent(window.location.href);
+    const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
     window.open(shareUrl, '_blank', 'width=600,height=600');
 });
 
-function createSnowflakes() {
-    setInterval(() => {
-        const flake = document.createElement('div');
-        flake.className = 'snowflake';
-        flake.textContent = ['❄️', '❅', '❆'][Math.floor(Math.random() * 3)];
-        flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.fontSize = Math.random() * 2 + 2.8 + 'em';
-        flake.style.opacity = Math.random() * 0.6 + 0.4;
-        flake.style.animationDuration = Math.random() * 8 + 12 + 's';
-
-        document.querySelector('.snow-container').appendChild(flake);
-
-        setTimeout(() => flake.remove(), 20000);
-    }, 250);
+function fallbackShare(canvas) {
+    const link = document.createElement('a');
+    link.download = 'yilbasi-karti.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
 }
 
-function createSantaSleigh() {
+function createSnow() {
     setInterval(() => {
-        const sleigh = document.createElement('img');
-        sleigh.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
-        sleigh.className = 'santa-sleigh';
-        sleigh.alt = '';
-        const randomTop = Math.random() * 30 + 10 + '%';
-        sleigh.style.top = randomTop;
-
-        document.querySelector('.santa-sleigh-container').appendChild(sleigh);
-
-        setTimeout(() => sleigh.remove(), 22000);
-    }, Math.random() * 5000 + 10000); // 10-15 saniyede bir
+        const snow = document.createElement('div');
+        snow.className = 'snowflake';
+        snow.textContent = ['❄️', '❅', '❆'][Math.floor(Math.random() * 3)];
+        snow.style.left = Math.random() * 100 + 'vw';
+        snow.style.fontSize = Math.random() * 1.8 + 2.2 + 'em';
+        snow.style.opacity = Math.random() * 0.5 + 0.5;
+        snow.style.animationDuration = Math.random() * 10 + 12 + 's';
+        document.querySelector('.snow-container').appendChild(snow);
+        setTimeout(() => snow.remove(), 22000);
+    }, 200);
 }
 
-createSnowflakes();
-createSantaSleigh();
+function createSanta() {
+    setInterval(() => {
+        const santa = document.createElement('img');
+        santa.src = 'https://media.tenor.com/jbl-vV2mTrYAAAAM/sleigh-santa-claus.gif';
+        santa.className = 'santa-fly';
+        santa.alt = '';
+        const topPos = Math.random() * 25 + 12 + '%';
+        santa.style.top = topPos;
+        document.querySelector('.santa-container').appendChild(santa);
+        setTimeout(() => santa.remove(), 24000);
+    }, Math.random() * 6000 + 10000);
+}
+
+createSnow();
+createSanta();
