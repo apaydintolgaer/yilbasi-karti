@@ -1,34 +1,18 @@
-/* Reset ve Temel Stiller */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --primary-red: #e63946;
-    --primary-green: #2a9d8f;
-    --primary-blue: #457b9d;
-    --primary-gold: #e9c46a;
-    --dark-bg: #1d3557;
-    --light-bg: #f1faee;
-    --card-bg: #ffffff;
-    --text-dark: #2d3748;
-    --text-light: #718096;
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    --radius: 16px;
-}
-
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-    background: linear-gradient(135deg, #0c2b3e 0%, #1a3a5f 100%);
-    color: white;
+    background: linear-gradient(to bottom, #0f172a, #1e293b);
+    color: #f1f5f9;
+    font-family: 'Nunito', sans-serif;
     min-height: 100vh;
-    line-height: 1.6;
+    position: relative;
     overflow-x: hidden;
 }
 
-/* Kar Container */
 .snow-container {
     position: fixed;
     top: 0;
@@ -39,576 +23,269 @@ body {
     z-index: 1;
 }
 
-/* Ana Container */
-.app-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
+.snowflake {
+    position: absolute;
+    color: #fff;
+    font-size: 2.4em;
+    animation: snowFall linear infinite;
+    opacity: 0.85;
+}
+
+@keyframes snowFall {
+    0% { transform: translateY(-10vh) translateX(0) rotate(0deg); }
+    100% { transform: translateY(110vh) translateX(80px) rotate(360deg); }
+}
+
+.santa-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
     z-index: 2;
+    overflow: hidden;
 }
 
-/* Header */
-.app-header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding: 20px 0;
-    animation: fadeInDown 0.8s ease;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 10px;
-}
-
-.logo-icon {
-    font-size: 48px;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-.app-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.tagline {
-    font-size: 1.1rem;
-    color: #a8dadc;
-    max-width: 600px;
-    margin: 0 auto;
+.santa-sleigh {
+    position: absolute;
+    width: 320px;
+    height: auto;
+    animation: santaFly 20s linear infinite;
     opacity: 0.9;
 }
 
-/* Ana İçerik */
-.main-content {
-    margin-bottom: 40px;
+@keyframes santaFly {
+    0% { left: -360px; top: 15%; transform: rotate(-3deg); }
+    100% { left: 110%; top: 18%; transform: rotate(3deg); }
 }
 
-.creator-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
-}
-
-@media (max-width: 1024px) {
-    .creator-section {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-}
-
-/* Form Container */
-.form-container {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    border-radius: var(--radius);
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: var(--shadow);
-}
-
-.section-title {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 25px;
-    color: #f1faee;
-}
-
-/* Form Stilleri */
-.card-form {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.input-with-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.input-icon {
-    position: absolute;
-    left: 15px;
-    font-size: 20px;
-    z-index: 1;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 15px 15px 15px 50px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    color: white;
-    font-size: 16px;
-    font-family: inherit;
-    transition: all 0.3s ease;
-}
-
-input:focus, textarea:focus {
-    outline: none;
-    border-color: #4cc9f0;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.1);
-}
-
-textarea {
-    min-height: 120px;
-    resize: vertical;
-    line-height: 1.6;
-}
-
-.input-hint {
-    font-size: 14px;
-    color: #a8dadc;
-    margin-top: 5px;
-}
-
-/* Tasarım Seçenekleri */
-.section-subtitle {
-    font-size: 16px;
-    font-weight: 500;
-    color: #f1faee;
-    margin-bottom: 15px;
-}
-
-.design-options {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.design-option {
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.design-option:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-3px);
-}
-
-.design-option.active {
-    background: rgba(76, 201, 240, 0.15);
-    border-color: #4cc9f0;
-    box-shadow: 0 5px 20px rgba(76, 201, 240, 0.2);
-}
-
-.design-preview {
-    width: 100%;
-    height: 60px;
-    border-radius: 8px;
-    border: 2px solid;
-}
-
-.classic-design {
-    background: linear-gradient(135deg, #e63946 0%, #f4a261 100%);
-    border-color: #e63946;
-}
-
-.elegant-design {
-    background: linear-gradient(135deg, #2a9d8f 0%, #457b9d 100%);
-    border-color: #2a9d8f;
-}
-
-.modern-design {
-    background: linear-gradient(135deg, #457b9d 0%, #1d3557 100%);
-    border-color: #457b9d;
-}
-
-.golden-design {
-    background: linear-gradient(135deg, #e9c46a 0%, #f4a261 100%);
-    border-color: #e9c46a;
-}
-
-.design-option span {
-    font-size: 14px;
-    font-weight: 500;
-    color: #f1faee;
+.container {
+    max-width: 620px;
+    margin: 60px auto;
+    padding: 40px;
     text-align: center;
+    position: relative;
+    z-index: 10;
+    background: rgba(30, 41, 59, 0.4);
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
 }
 
-/* Oluştur Butonu */
-.create-button {
-    background: linear-gradient(135deg, #e63946 0%, #f4a261 100%);
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 19px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 18px;
+    margin: 14px 0;
+    border: none;
+    border-radius: 16px;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1e293b;
+}
+
+input::placeholder {
+    color: #64748b;
+}
+
+select {
+    color: #1e293b;
+}
+
+button {
+    background: #6366f1;
+    color: white;
+    padding: 18px 36px;
+    border: none;
+    border-radius: 16px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 10px 8px;
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #4f46e5;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(79, 70, 229, 0.5);
+}
+
+#cardContainer {
+    margin-top: 40px;
+}
+
+#card {
+    background: #fff;
+    color: #1e293b;
+    padding: 60px 50px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    animation: cardFadeIn 1.2s ease;
+    max-width: 560px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.card-decoration {
+    font-size: 34px;
+    margin: 25px 0;
+    letter-spacing: 12px;
+}
+
+#card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    margin: 30px 0;
+    font-weight: 700;
+}
+
+.wish {
+    font-size: 23px;
+    line-height: 1.8;
+    margin: 40px 0;
+    font-style: italic;
+    opacity: 0.95;
+}
+
+.quote {
+    font-size: 25px;
+    line-height: 1.6;
+    margin: 50px 0;
+    font-weight: 600;
+}
+
+.card-footer {
+    font-size: 26px;
+    margin: 40px 0 10px;
+    font-weight: 700;
+}
+
+.signature {
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.buttons button {
+    padding: 16px 32px;
+    background: #6366f1;
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 18px 30px;
+    border-radius: 16px;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 10px;
-    box-shadow: 0 8px 25px rgba(230, 57, 70, 0.3);
 }
 
-.create-button:hover {
+.buttons button:hover {
+    background: #4f46e5;
     transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(230, 57, 70, 0.4);
 }
 
-.create-button:active {
-    transform: translateY(-1px);
-}
-
-.button-icon {
-    font-size: 24px;
-}
-
-/* Live Preview */
-.live-preview {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    border-radius: var(--radius);
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: var(--shadow);
-}
-
-.preview-container {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-/* Kart Tasarımı */
-.card-preview {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    padding: 40px;
-    box-shadow: var(--shadow);
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.3s ease;
-}
-
-.card-inner {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.card-corner {
-    font-size: 32px;
-    animation: swing 3s ease-in-out infinite;
-}
-
-.card-corner.left {
-    animation-delay: 0s;
-}
-
-.card-corner.right {
-    animation-delay: 1.5s;
-}
-
-@keyframes swing {
-    0%, 100% { transform: rotate(-10deg); }
-    50% { transform: rotate(10deg); }
-}
-
-.card-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary-red);
-    text-align: center;
-    flex: 1;
-}
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.recipient-preview {
-    font-size: 1.8rem;
-    color: var(--text-dark);
-    text-align: center;
+.error {
+    color: #fca5a5;
+    margin-top: 12px;
     font-weight: 600;
-    line-height: 1.4;
 }
 
-.message-container {
-    padding: 25px;
-    background: rgba(229, 239, 255, 0.5);
-    border-radius: 12px;
-    border-left: 4px solid var(--primary-green);
+.hidden {
+    display: none;
 }
 
-.message-preview {
-    font-size: 1.3rem;
-    color: var(--text-dark);
-    line-height: 1.8;
-    text-align: center;
-    font-style: italic;
+.spinner {
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-top: 5px solid #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 60px auto;
 }
 
-.card-divider {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin: 20px 0;
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
-.divider-line {
-    flex: 1;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.divider-icons {
-    font-size: 1.8rem;
-    color: var(--primary-gold);
-    white-space: nowrap;
-}
-
-.signature-preview {
-    font-size: 1.5rem;
-    color: var(--primary-red);
-    text-align: center;
-    font-weight: 600;
-    margin-top: 20px;
-}
-
-.card-footer {
-    text-align: center;
-    padding-top: 25px;
-    border-top: 2px dashed #e2e8f0;
-    margin-top: 30px;
-}
-
-.year {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--primary-blue);
-    letter-spacing: 2px;
-}
-
-/* Aksiyon Butonları */
-.preview-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.action-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.action-button {
-    padding: 16px 24px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.download-btn {
-    background: linear-gradient(135deg, #2a9d8f 0%, #1d3557 100%);
-    color: white;
-    box-shadow: 0 5px 15px rgba(42, 157, 143, 0.3);
-}
-
-.download-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(42, 157, 143, 0.4);
-}
-
-.share-btn {
-    background: linear-gradient(135deg, #457b9d 0%, #1d3557 100%);
-    color: white;
-    box-shadow: 0 5px 15px rgba(69, 123, 157, 0.3);
-}
-
-.share-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(69, 123, 157, 0.4);
-}
-
-.secondary-btn {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.secondary-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #4cc9f0;
-}
-
-/* Footer */
-.app-footer {
-    margin-top: 60px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.footer-logo {
-    font-size: 48px;
-    margin-bottom: 10px;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-.footer-text {
-    font-size: 1.1rem;
-    color: #a8dadc;
-    font-weight: 500;
-}
-
-.footer-note {
-    margin-top: 10px;
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50px;
-    display: inline-block;
-}
-
-.footer-note span {
-    font-size: 14px;
-    color: #a8dadc;
-}
-
-/* Bildirim */
-.notification {
+#musicToggle {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: linear-gradient(135deg, #2a9d8f 0%, #1d3557 100%);
+    bottom: 24px;
+    right: 24px;
+    background: rgba(0, 0, 0, 0.4);
+    border: none;
     color: white;
-    padding: 20px 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    transform: translateX(150%);
-    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    max-width: 350px;
+    font-size: 30px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+    backdrop-filter: blur(10px);
 }
 
-.notification.show {
-    transform: translateX(0);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .app-header h1 {
-        font-size: 2rem;
+@media (max-width: 640px) {
+    .container {
+        margin: 20px auto;
+        padding: 30px 20px;
     }
-    
-    .logo-icon {
-        font-size: 36px;
+    h1 {
+        font-size: 30px;
     }
-    
-    .form-container,
-    .live-preview {
-        padding: 20px;
+    .subtitle {
+        font-size: 17px;
     }
-    
-    .card-preview {
-        padding: 25px;
+    input,
+    select {
+        padding: 16px;
+        font-size: 17px;
     }
-    
-    .card-title {
-        font-size: 2rem;
+    button {
+        padding: 16px 28px;
+        font-size: 18px;
     }
-    
-    .recipient-preview {
-        font-size: 1.5rem;
+    #card {
+        padding: 40px 30px;
     }
-    
-    .message-preview {
-        font-size: 1.1rem;
+    #card h2 {
+        font-size: 28px;
     }
-    
-    .design-options {
-        grid-template-columns: 1fr;
+    .wish {
+        font-size: 20px;
     }
-    
-    .action-buttons {
-        grid-template-columns: 1fr;
+    .quote {
+        font-size: 22px;
     }
-}
-
-/* Animasyonlar */
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
+    .closing {
+        font-size: 24px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
+    .santa-sleigh {
+        width: 220px;
     }
 }
