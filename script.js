@@ -1,229 +1,410 @@
-// Kar efekti oluştur
-function createSnow() {
-    const snowContainer = document.getElementById('snow');
-    const snowflakes = ['❄', '❅', '❆', '✨'];
+// DOM Elementleri
+const cardForm = document.getElementById('cardForm');
+const previewActions = document.getElementById('previewActions');
+const cardPreview = document.getElementById('cardPreview');
+const snowContainer = document.getElementById('snowContainer');
+const notification = document.getElementById('notification');
+
+// Input Elementleri
+const recipientInput = document.getElementById('recipientName');
+const messageInput = document.getElementById('cardMessage');
+const designInput = document.getElementById('cardDesign');
+
+// Önizleme Elementleri
+const previewRecipient = document.getElementById('previewRecipient');
+const previewMessage = document.getElementById('previewMessage');
+const previewSignature = document.getElementById('previewSignature');
+
+// Butonlar
+const createBtn = document.getElementById('createBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const shareBtn = document.getElementById('shareBtn');
+const resetBtn = document.getElementById('resetBtn');
+
+// Tasarım Seçenekleri
+const designOptions = document.querySelectorAll('.design-option');
+
+// Kar Efekti
+let snowflakes = [];
+
+// Uygulama Durumu
+const appState = {
+    isCardCreated: false,
+    currentDesign: 'classic',
+    designs: {
+        classic: {
+            color: '#e63946',
+            bgColor: 'linear-gradient(135deg, #ffffff 0%, #fff5f5 100%)',
+            borderColor: '#e63946'
+        },
+        elegant: {
+            color: '#2a9d8f',
+            bgColor: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)',
+            borderColor: '#2a9d8f'
+        },
+        modern: {
+            color: '#457b9d',
+            bgColor: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+            borderColor: '#457b9d'
+        },
+        golden: {
+            color: '#e9c46a',
+            bgColor: 'linear-gradient(135deg, #ffffff 0%, #fffaf0 100%)',
+            borderColor: '#e9c46a'
+        }
+    }
+};
+
+// Sayfa Yüklendiğinde
+document.addEventListener('DOMContentLoaded', () => {
+    // Kar efekti başlat
+    initSnowEffect();
+    
+    // Event listener'ları kur
+    setupEventListeners();
+    
+    // Canlı önizleme için input'ları dinle
+    setupLivePreview();
+    
+    // İlk önizlemeyi güncelle
+    updatePreview();
+    
+    // Başlangıç mesajı
+    setTimeout(() => {
+        showNotification('🎄 Hoş geldin! Yılbaşı kartını hazırlamaya başla.');
+    }, 1000);
+});
+
+// Kar Efekti Başlatma
+function initSnowEffect() {
+    // Mevcut kar tanelerini temizle
+    snowContainer.innerHTML = '';
+    snowflakes = [];
+    
+    // Yeni kar taneleri oluştur
+    for (let i = 0; i < 80; i++) {
+        createSnowflake();
+    }
+    
+    // Kar animasyonunu başlat
+    animateSnow();
+}
+
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.className = 'snowflake';
+    snowflake.innerHTML = '❄';
+    
+    const size = Math.random() * 20 + 10;
+    const startX = Math.random() * 100;
+    const speed = Math.random() * 2 + 1;
+    const opacity = Math.random() * 0.5 + 0.3;
+    
+    snowflake.style.cssText = `
+        left: ${startX}vw;
+        font-size: ${size}px;
+        opacity: ${opacity};
+        animation-duration: ${Math.random() * 10 + 10}s;
+        animation-delay: ${Math.random() * 5}s;
+    `;
+    
+    snowContainer.appendChild(snowflake);
+    snowflakes.push({
+        element: snowflake,
+        x: startX,
+        y: -50,
+        speed: speed,
+        wind: Math.random() * 0.5 - 0.25,
+        size: size
+    });
+}
+
+function animateSnow() {
+    snowflakes.forEach(flake => {
+        flake.y += flake.speed;
+        flake.x += flake.wind;
+        
+        // Ekran dışına çıkarsa resetle
+        if (flake.y > 100) {
+            flake.y = -10;
+            flake.x = Math.random() * 100;
+        }
+        
+        // Yatayda ekran dışına çıkarsa
+        if (flake.x > 100) flake.x = 0;
+        if (flake.x < 0) flake.x = 100;
+        
+        flake.element.style.transform = `translate(${flake.x}vw, ${flake.y}vh)`;
+    });
+    
+    requestAnimationFrame(animateSnow);
+}
+
+// Event Listener'ları Kurma
+function setupEventListeners() {
+    // Form gönderimi
+    cardForm.addEventListener('submit', handleFormSubmit);
+    
+    // Tasarım seçimi
+    designOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            designOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+            appState.currentDesign = option.dataset.design;
+            designInput.value = appState.currentDesign;
+            updatePreview();
+        });
+    });
+    
+    // İndirme butonu
+    downloadBtn.addEventListener('click', downloadCard);
+    
+    // Paylaş butonu
+    shareBtn.addEventListener('click', shareCard);
+    
+    // Sıfırlama butonu
+    resetBtn.addEventListener('click', resetForm);
+}
+
+// Canlı Önizleme
+function setupLivePreview() {
+    recipientInput.addEventListener('input', updatePreview);
+    messageInput.addEventListener('input', updatePreview);
+}
+
+function updatePreview() {
+    const recipient = recipientInput.value.trim() || 'Sevgili Ailem,';
+    const message = messageInput.value.trim() || 'Yeni yılın size sağlık, mutluluk ve başarı getirmesini dilerim';
+    const design = appState.designs[appState.currentDesign];
+    
+    // Önizlemeyi güncelle
+    previewRecipient.textContent = recipient + (recipient.endsWith(',') ? '' : ',');
+    previewMessage.textContent = message;
+    previewSignature.textContent = 'Sevgilerimle';
+    
+    // Tasarımı güncelle
+    cardPreview.style.background = design.bgColor;
+    cardPreview.style.borderColor = design.borderColor;
+    
+    const title = cardPreview.querySelector('.card-title');
+    title.style.color = design.color;
+    
+    const signature = cardPreview.querySelector('.signature-preview');
+    signature.style.color = design.color;
+    
+    const year = cardPreview.querySelector('.year');
+    year.style.color = design.borderColor;
+}
+
+// Form Gönderimi
+function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    const recipient = recipientInput.value.trim();
+    const message = messageInput.value.trim();
+    
+    if (!recipient || !message) {
+        showNotification('⚠️ Lütfen tüm alanları doldurun.');
+        return;
+    }
+    
+    // Önizlemeyi güncelle
+    updatePreview();
+    
+    // Aksiyon butonlarını göster
+    previewActions.style.display = 'flex';
+    appState.isCardCreated = true;
+    
+    // Konfeti efekti
+    createConfetti();
+    
+    // Başarı mesajı
+    showNotification('🎉 Kartın hazır! İndirebilir veya paylaşabilirsin.');
+}
+
+// Kart İndirme
+function downloadCard() {
+    if (!appState.isCardCreated) {
+        showNotification('⚠️ Önce bir kart oluşturmalısın.');
+        return;
+    }
+    
+    // Butonu loading durumuna getir
+    const originalText = downloadBtn.innerHTML;
+    downloadBtn.innerHTML = '<span>⏳</span> Hazırlanıyor...';
+    downloadBtn.disabled = true;
+    
+    // Kartı yakala ve indir
+    html2canvas(cardPreview, {
+        scale: 2,
+        backgroundColor: null,
+        useCORS: true,
+        allowTaint: true
+    }).then(canvas => {
+        const link = document.createElement('a');
+        const timestamp = new Date().toISOString().slice(0, 10);
+        link.download = `yilbasi-karti-${timestamp}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+        // Butonu eski haline getir
+        downloadBtn.innerHTML = originalText;
+        downloadBtn.disabled = false;
+        
+        showNotification('✅ Kartın başarıyla indirildi!');
+    }).catch(error => {
+        console.error('İndirme hatası:', error);
+        downloadBtn.innerHTML = originalText;
+        downloadBtn.disabled = false;
+        showNotification('❌ İndirme sırasında bir hata oluştu.');
+    });
+}
+
+// Kart Paylaşma
+function shareCard() {
+    if (!appState.isCardCreated) {
+        showNotification('⚠️ Önce bir kart oluşturmalısın.');
+        return;
+    }
+    
+    const recipient = recipientInput.value.trim();
+    const message = messageInput.value.trim();
+    const shareText = `${recipient} için hazırladığım yılbaşı kartı:\n\n"${message}"\n\nSen de kendi kartını oluşturmak ister misin? ${window.location.href}`;
+    
+    // Modern tarayıcı paylaşım API'si
+    if (navigator.share) {
+        navigator.share({
+            title: 'Yılbaşı Kartım',
+            text: shareText,
+            url: window.location.href
+        }).then(() => {
+            showNotification('✨ Paylaşıldı!');
+        }).catch(err => {
+            if (err.name !== 'AbortError') {
+                copyToClipboard(shareText);
+            }
+        });
+    } else {
+        // Fallback: panoya kopyala
+        copyToClipboard(shareText);
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showNotification('📋 Link panoya kopyalandı!');
+    }).catch(err => {
+        // Fallback metodu
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showNotification('📋 Link kopyalandı!');
+    });
+}
+
+// Formu Sıfırlama
+function resetForm() {
+    // Formu temizle
+    cardForm.reset();
+    
+    // Önizlemeyi sıfırla
+    recipientInput.value = '';
+    messageInput.value = '';
+    appState.currentDesign = 'classic';
+    designInput.value = 'classic';
+    
+    // Tasarım seçeneklerini sıfırla
+    designOptions.forEach((option, index) => {
+        option.classList.toggle('active', index === 0);
+    });
+    
+    // Önizlemeyi güncelle
+    updatePreview();
+    
+    // Aksiyon butonlarını gizle
+    previewActions.style.display = 'none';
+    appState.isCardCreated = false;
+    
+    showNotification('🔄 Yeni kart oluşturmaya hazırsın!');
+}
+
+// Konfeti Efekti
+function createConfetti() {
+    const colors = ['#e63946', '#2a9d8f', '#457b9d', '#e9c46a', '#f4a261'];
+    const icons = ['🎄', '✨', '🎁', '⭐', '🎉', '🔔', '🦌'];
     
     for (let i = 0; i < 50; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-        snowflake.style.cssText = `
-            position: absolute;
-            left: ${Math.random() * 100}vw;
-            top: -50px;
-            font-size: ${Math.random() * 20 + 15}px;
-            color: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.3});
-            opacity: 0.8;
-            animation: snowFall ${Math.random() * 5 + 5}s linear infinite;
-            animation-delay: ${Math.random() * 5}s;
-            pointer-events: none;
-        `;
-        snowContainer.appendChild(snowflake);
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            confetti.style.cssText = `
+                position: fixed;
+                left: ${Math.random() * 100}vw;
+                top: -50px;
+                font-size: ${Math.random() * 20 + 15}px;
+                color: ${colors[Math.floor(Math.random() * colors.length)]};
+                z-index: 1000;
+                pointer-events: none;
+                opacity: 0.9;
+                animation: confettiFall ${Math.random() * 3 + 2}s ease-out forwards;
+                transform: rotate(${Math.random() * 360}deg);
+            `;
+            
+            document.body.appendChild(confetti);
+            
+            // Animasyon bittikten sonra sil
+            setTimeout(() => {
+                if (confetti.parentNode) {
+                    confetti.remove();
+                }
+            }, 5000);
+        }, i * 50);
     }
     
     // CSS animasyonu ekle
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes snowFall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
             }
         }
     `;
     document.head.appendChild(style);
 }
 
-// DOM yüklendiğinde
-document.addEventListener('DOMContentLoaded', function() {
-    // Kar efektini başlat
-    createSnow();
+// Bildirim Sistemi
+function showNotification(message) {
+    notification.textContent = message;
+    notification.classList.add('show');
     
-    // Elementleri seç
-    const form = document.getElementById('cardForm');
-    const cardPreview = document.getElementById('cardPreview');
-    const actions = document.getElementById('actions');
-    const themeButtons = document.querySelectorAll('.theme-btn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const shareBtn = document.getElementById('shareBtn');
-    const newBtn = document.getElementById('newBtn');
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+// Responsive Güncellemeler
+function updateResponsive() {
+    const isMobile = window.innerWidth < 768;
     
-    // Tema değiştirme
-    let currentTheme = 'red';
-    
-    themeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            themeButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            currentTheme = this.dataset.theme;
-            
-            // Kart temasını güncelle
-            cardPreview.className = 'card ' + currentTheme;
+    if (isMobile) {
+        // Mobil için optimizasyonlar
+        snowflakes.forEach(flake => {
+            flake.element.style.fontSize = `${flake.size * 0.7}px`;
         });
-    });
-    
-    // Form gönderimi
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Değerleri al
-        const to = document.getElementById('to').value.trim();
-        const message = document.getElementById('message').value.trim();
-        const from = document.getElementById('from').value.trim() || 'Sevgilerimle...';
-        
-        // Validasyon
-        if (!to || !message) {
-            alert('Lütfen "Kime" ve "Mesaj" alanlarını doldurun!');
-            return;
-        }
-        
-        // Önizlemeyi güncelle
-        document.getElementById('previewTo').textContent = to + ',';
-        document.getElementById('previewMessage').textContent = message;
-        document.getElementById('previewFrom').textContent = from;
-        
-        // Butonları göster
-        actions.style.display = 'flex';
-        
-        // Konfeti efekti
-        showConfetti();
-        
-        // Bildirim
-        showMessage('🎉 Kartın hazır!');
-    });
-    
-    // Kartı indir
-    downloadBtn.addEventListener('click', function() {
-        html2canvas(cardPreview, {
-            scale: 2,
-            backgroundColor: null,
-            useCORS: true
-        }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = `yilbasi-karti-${Date.now()}.png`;
-            link.href = canvas.toDataURL();
-            link.click();
-            showMessage('✅ Kart indirildi!');
-        });
-    });
-    
-    // Paylaş butonu
-    shareBtn.addEventListener('click', function() {
-        const to = document.getElementById('to').value.trim();
-        const message = document.getElementById('message').value.trim();
-        
-        const shareText = `${to} için yılbaşı kartım:\n"${message}"\n\nSen de kendi kartını oluştur: ${window.location.href}`;
-        
-        // Web Share API dene
-        if (navigator.share) {
-            navigator.share({
-                title: 'Yılbaşı Kartım',
-                text: shareText,
-                url: window.location.href
-            });
-        } else {
-            // Panoya kopyala
-            navigator.clipboard.writeText(shareText).then(() => {
-                showMessage('📋 Kopyalandı! Mesajı paylaşabilirsin.');
-            });
-        }
-    });
-    
-    // Yeni kart butonu
-    newBtn.addEventListener('click', function() {
-        form.reset();
-        document.getElementById('previewTo').textContent = 'Sevgili Ailem,';
-        document.getElementById('previewMessage').textContent = 'Mutlu yıllar dilerim! 🎉';
-        document.getElementById('previewFrom').textContent = 'Sevgilerimle...';
-        actions.style.display = 'none';
-        showMessage('🔄 Yeni kart hazır!');
-    });
-    
-    // Canlı güncelleme (opsiyonel)
-    document.getElementById('to').addEventListener('input', updatePreview);
-    document.getElementById('message').addEventListener('input', updatePreview);
-    document.getElementById('from').addEventListener('input', updatePreview);
-    
-    function updatePreview() {
-        const to = document.getElementById('to').value.trim();
-        const message = document.getElementById('message').value.trim();
-        const from = document.getElementById('from').value.trim() || 'Sevgilerimle...';
-        
-        if (to) document.getElementById('previewTo').textContent = to + ',';
-        if (message) document.getElementById('previewMessage').textContent = message;
-        if (from) document.getElementById('previewFrom').textContent = from;
     }
-    
-    // Konfeti efekti
-    function showConfetti() {
-        const colors = ['#ff6b6b', '#4ecdc4', '#ffd166', '#3498db'];
-        
-        for (let i = 0; i < 30; i++) {
-            setTimeout(() => {
-                const confetti = document.createElement('div');
-                confetti.innerHTML = ['🎉', '✨', '🎄', '🎁'][Math.floor(Math.random() * 4)];
-                confetti.style.cssText = `
-                    position: fixed;
-                    left: ${Math.random() * 100}vw;
-                    top: -50px;
-                    font-size: ${Math.random() * 20 + 15}px;
-                    color: ${colors[Math.floor(Math.random() * colors.length)]};
-                    z-index: 1000;
-                    pointer-events: none;
-                    animation: confettiFall ${Math.random() * 2 + 2}s linear forwards;
-                `;
-                
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => confetti.remove(), 3000);
-            }, i * 100);
-        }
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes confettiFall {
-                to {
-                    transform: translateY(100vh) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    // Mesaj göster
-    function showMessage(text) {
-        const message = document.createElement('div');
-        message.textContent = text;
-        message.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            z-index: 1000;
-            border-left: 4px solid #4ecdc4;
-            animation: slideIn 0.3s ease;
-        `;
-        
-        document.body.appendChild(message);
-        
-        setTimeout(() => {
-            message.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => message.remove(), 300);
-        }, 3000);
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-});
+}
+
+// Window resize event'i
+window.addEventListener('resize', updateResponsive);
+
+// İlk responsive güncelleme
+updateResponsive();
