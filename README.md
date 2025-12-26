@@ -1,15 +1,14 @@
-# 🎄 2026 Yılbaşı Kartı Oluşturucu
+# 🎄 2026 Premium Yılbaşı Kartı Projesi
 
-Bu proje, sevdikleriniz için profesyonel ve eğlenceli yılbaşı kartları oluşturmanızı sağlar.
+Bu proje, yüksek kaliteli görsel animasyonlar ve ses deneyimi sunan profesyonel bir yılbaşı kartı oluşturucudur.
 
-## 🌟 Özellikler
-- **🎁 Hediye Dağıtan Noel Baba:** Ekranın üstünde uçan ve aşağıya hediyeler bırakan şeffaf Noel Baba.
-- **🎵 Jingle Bells:** Sayfa açılışında kullanıcı etkileşimiyle başlayan müzik.
-- **❄️ Kar Efekti:** Dinamik ve akıcı kar yağışı.
-- **🎨 Lüks Tasarım:** Altın çerçeveli, Playfair fontlu premium kart tasarımı.
-- **📸 PNG İndirme:** Oluşturulan kartı anında telefonunuza veya bilgisayarınıza kaydedin.
+## 🚀 Önemli Özellikler
+1. **Güvenli Ses:** Chrome müzik engeli "Experience Overlay" ile aşılmıştır.
+2. **Akıllı Noel Baba:** Noel Baba uçuş rotası üzerinde dinamik olarak hediye paketleri bırakır.
+3. **Lüks Görünüm:** Playfair Display ve Mountains of Christmas fontları ile altın varaklı çerçeve tasarımı.
+4. **PNG Export:** Oluşturulan tasarımı yüksek çözünürlüklü görsel olarak indirme imkanı.
 
-## 🛠 Kullanım
-1. `index.html` dosyasını tarayıcınızda açın.
-2. "Sihri Başlat" butonuna tıklayın.
-3. Formu doldurun ve "Kartı Hazırla"ya basın.
+## 📁 Dosya Yapısı
+- `index.html`: Uygulama iskeleti.
+- `style.css`: Premium tasarım katmanı.
+- `script.js`: Noel Baba motoru ve mantıksal işlemler.
