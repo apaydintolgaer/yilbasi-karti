@@ -1,95 +1,61 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 :root {
-    --primary: #e11d48;
-    --secondary: #fbbf24;
-    --dark: #0f172a;
+    --gold: #d4af37;
+    --red: #be123c;
+    --dark-blue: #020617;
 }
 
 body {
-    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-    color: #f1f5f9;
-    font-family: 'Nunito', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
+    margin: 0; background: var(--dark-blue);
+    color: white; font-family: 'Nunito', sans-serif;
+    overflow: hidden; /* Hediyeler taşmasın */
 }
 
 /* Giriş Ekranı */
-#welcome-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--dark);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.8s ease;
+#intro-overlay {
+    position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95);
+    z-index: 9999; display: flex; justify-content: center; align-items: center;
+    transition: 0.8s;
 }
 
-.welcome-content { text-align: center; }
-.welcome-content h1 { font-family: 'Mountains of Christmas', cursive; font-size: 3rem; margin-bottom: 2rem; }
+.intro-box { text-align: center; border: 2px solid var(--gold); padding: 40px; border-radius: 30px; }
+.intro-box h1 { font-family: 'Mountains of Christmas'; font-size: 3rem; color: var(--gold); }
 
-/* Noel Baba - Transparent GIF */
+/* Noel Baba ve Hediyeler */
 .santa-sleigh {
-    position: absolute;
-    width: 280px;
-    height: auto;
-    z-index: 2;
-    /* Yeni Şeffaf GIF Linki */
-    content: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc29zY3E5ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/H62NM1ab7wzK0/giphy.gif');
-}
-
-@keyframes santaFly {
-    0% { transform: translate(-400px, 100px) rotate(-5deg); }
-    50% { transform: translate(50vw, 50px) rotate(0deg); }
-    100% { transform: translate(110vw, 150px) rotate(5deg); }
-}
-
-/* Kar Tanesi Tasarımı */
-.snowflake {
-    position: absolute;
-    top: -10%;
-    z-index: 1;
-    color: white;
-    user-select: none;
+    position: fixed; width: 180px; z-index: 1000;
     pointer-events: none;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
 }
 
-/* Kartın Şık Tasarımı */
+.gift-box {
+    position: fixed; font-size: 2rem; z-index: 999;
+    animation: giftFall 4s linear forwards;
+}
+
+@keyframes giftFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Kart Tasarımı */
 #card {
-    background: #fff;
-    color: #1e293b;
-    padding: 50px;
-    border-radius: 15px;
-    position: relative;
-    border: 8px double #d4af37; /* Altın rengi çerçeve */
-    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    background: #fff; color: #1e293b;
+    padding: 60px; border-radius: 10px;
+    position: relative; max-width: 500px; margin: 20px auto;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+    border: 15px solid transparent;
+    border-image: url('https://www.transparenttextures.com/patterns/gold-scale.png') 30 round;
 }
 
-#card h2 {
-    font-family: 'Mountains of Christmas', cursive;
-    color: var(--primary);
-    font-size: 2.5rem;
-}
-
-.wish { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #334155; }
+#card h2 { font-family: 'Mountains of Christmas'; font-size: 2.8rem; color: var(--red); }
+.wish { font-size: 1.5rem; font-style: italic; margin: 20px 0; }
 
 button {
-    background: var(--primary);
-    border-radius: 50px;
-    padding: 15px 30px;
-    border: none;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    background: var(--red); color: white; border: none;
+    padding: 15px 30px; border-radius: 50px; font-weight: bold;
+    cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(190, 18, 60, 0.4);
 }
 
-button:hover { transform: scale(1.05); filter: brightness(1.2); }
+button:hover { transform: translateY(-3px); background: #9f1239; }
 
-.hidden-ui { opacity: 0; pointer-events: none; transition: 1s; }
-.show-ui { opacity: 1; pointer-events: all; }
+.hidden { display: none; }
