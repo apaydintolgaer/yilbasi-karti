@@ -1,17 +1,4 @@
-# Auto detect text files and perform LF normalization
 * text=auto
-
-# Custom styles for specific file types
-*.html text eol=lf
-*.css text eol=lf
-*.js text eol=lf
-*.md text eol=lf
-*.json text eol=lf
-
-# Denote all files that are truly binary and should not be modified.
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.ico binary
-*.mp3 binary
+*.html diff=html
+*.css diff=css
+*.js diff=javascript
