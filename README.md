@@ -1,29 +1,15 @@
-# 🎄 Yılbaşı Tebrik Kartı (Interactive Christmas Card)
+# 🎄 2026 Yılbaşı Kartı Oluşturucu
 
-Bu proje, HTML5 Canvas ve CSS3 Transform özellikleri kullanılarak geliştirilmiş, interaktif ve tam duyarlı (responsive) bir dijital yılbaşı tebrik kartıdır.
+Bu proje, sevdikleriniz için profesyonel ve eğlenceli yılbaşı kartları oluşturmanızı sağlar.
 
 ## 🌟 Özellikler
+- **🎁 Hediye Dağıtan Noel Baba:** Ekranın üstünde uçan ve aşağıya hediyeler bırakan şeffaf Noel Baba.
+- **🎵 Jingle Bells:** Sayfa açılışında kullanıcı etkileşimiyle başlayan müzik.
+- **❄️ Kar Efekti:** Dinamik ve akıcı kar yağışı.
+- **🎨 Lüks Tasarım:** Altın çerçeveli, Playfair fontlu premium kart tasarımı.
+- **📸 PNG İndirme:** Oluşturulan kartı anında telefonunuza veya bilgisayarınıza kaydedin.
 
-* **Responsive Tasarım:** Mobil, tablet ve masaüstü cihazlarla tam uyumlu layout.
-* **CSS3 3D Animasyonlar:** Gerçekçi zarf açılma ve mektup çıkış efekti.
-* **Canvas Kar Efekti:** JavaScript Canvas API ile optimize edilmiş, performansı yüksek kar yağışı simülasyonu.
-* **Ses Entegrasyonu:** Kullanıcı etkileşimi ile başlayan arka plan müziği.
-* **Temiz Kod:** Modüler yapı, CSS değişkenleri ve ES6+ JavaScript standartları.
-
-## 📂 Dosya Yapısı
-
-. ├── index.html # Ana yapı ├── css │ └── style.css # Stil ve animasyon tanımları ├── js │ └── script.js # Etkileşim ve Canvas mantığı ├── .gitattributes # Git yapılandırması └── README.md # Dokümantasyon
-
-## 🚀 Kurulum ve Kullanım
-
-1.  Bu repository'yi klonlayın veya zip olarak indirin.
-2.  Klasör içerisindeki `index.html` dosyasını modern bir web tarayıcısında açın.
-
-### Özelleştirme
-
-* **Metin Değişikliği:** `index.html` içerisindeki `.letter-content` bölümünü düzenleyerek mesajınızı kişiselleştirebilirsiniz.
-* **Renk Teması:** `css/style.css` dosyasındaki `:root` değişkenlerini düzenleyerek zarf ve arka plan renklerini değiştirebilirsiniz.
-
-## 📄 Lisans
-
-Bu proje açık kaynaklıdır ve MIT lisansı altında dağıtılmaktadır.
+## 🛠 Kullanım
+1. `index.html` dosyasını tarayıcınızda açın.
+2. "Sihri Başlat" butonuna tıklayın.
+3. Formu doldurun ve "Kartı Hazırla"ya basın.
