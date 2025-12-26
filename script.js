@@ -10,6 +10,7 @@ const formError = document.getElementById('formError');
 const recipientInput = document.getElementById('recipientName');
 const messageInput = document.getElementById('personalMessage');
 const themeInput = document.getElementById('cardTheme');
+const cardTypeSelect = document.getElementById('cardType');
 
 // Kart Gösterim Elementleri
 const displayRecipient = document.getElementById('displayRecipient');
@@ -20,19 +21,14 @@ const displayQuote = document.getElementById('displayQuote');
 const downloadBtn = document.getElementById('downloadCard');
 const linkedinBtn = document.getElementById('shareLinkedIn');
 const newCardBtn = document.getElementById('createNew');
-const musicToggle = document.getElementById('musicToggle');
-const musicText = document.getElementById('musicText');
-
-// Müzik
-const christmasMusic = document.getElementById('christmasMusic');
+const copyLinkBtn = document.getElementById('copyCardLink');
+const scrollTopBtn = document.getElementById('scrollTop');
 
 // Tema Kartları
 const themeCards = document.querySelectorAll('.theme-card');
 
 // Uygulama Durumu
-let appState = {
-    musicPlaying: false,
-    hasInteracted: false,
+const appState = {
     currentCard: null,
     cardThemes: {
         classic: {
@@ -45,7 +41,13 @@ let appState = {
                 "2026 yılı tüm hayallerinizin gerçek olduğu bir yıl olsun.",
                 "Sevgi, sağlık ve başarı dolu bir yıl geçirmenizi dilerim.",
                 "Yeni yıl, yeni umutlar, yeni başlangıçlar getirsin."
-            ]
+            ],
+            cardTypes: {
+                professional: "İş dünyasında başarılar dilerim",
+                corporate: "Kurumsal başarılarınız daim olsun",
+                friendly: "Dostluk ve işbirliğiyle dolu bir yıl",
+                creative: "Yaratıcı fikirlerinizle parlayın"
+            }
         },
         modern: {
             name: 'Modern',
@@ -57,7 +59,13 @@ let appState = {
                 "2026'da teknoloji ve insanlık bir arada ilerlesin.",
                 "Yeni yılda inovasyon ve başarı sizinle olsun.",
                 "Geleceğe umutla bakmanız dileğiyle."
-            ]
+            ],
+            cardTypes: {
+                professional: "Teknolojik ilerlemeniz daim olsun",
+                corporate: "Modern çözümlerle büyümeniz sürsün",
+                friendly: "Modern iletişim gücünüz artsın",
+                creative: "İnovatif projelerinizle fark yaratın"
+            }
         },
         elegant: {
             name: 'Zarif',
@@ -69,10 +77,16 @@ let appState = {
                 "2026, size güzellikler ve başarılar getirsin.",
                 "Yeni yılda her şey en mükemmel şekilde olsun.",
                 "İncelik ve zarafetin hiç eksik olmadığı bir yıl dilerim."
-            ]
+            ],
+            cardTypes: {
+                professional: "Zarif liderliğinizle ilham verin",
+                corporate: "Şık ve etkili çözümler üretin",
+                friendly: "Nezaketiniz her zaman hatırlansın",
+                creative: "Estetik bakış açınız parlıyor"
+            }
         },
         golden: {
-            name: 'Altın',
+            name: 'Premium',
             color: '#f59e0b',
             bgColor: 'linear-gradient(135deg, #fefce8 0%, #fef3c7 100%)',
             borderColor: '#f59e0b',
@@ -81,16 +95,20 @@ let appState = {
                 "2026, size altın fırsatlar ve başarılar getirsin.",
                 "Yeni yılda her gününüz altın değerinde olsun.",
                 "Başarı ve mutluluk dolu altın bir yıl dilerim."
-            ]
+            ],
+            cardTypes: {
+                professional: "Altın değerinde başarılar dilerim",
+                corporate: "Premium hizmet anlayışınız sürsün",
+                friendly: "Değerli dostluklarınız hep kalsın",
+                creative: "Altın çağınız başlıyor"
+            }
         }
-    }
+    },
+    isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 };
 
 // Sayfa Yüklendiğinde
 document.addEventListener('DOMContentLoaded', () => {
-    // Müzik ayarlarını yap
-    setupMusic();
-    
     // Tema seçimini başlat
     setupThemeSelection();
     
@@ -99,66 +117,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // İlk input'a odaklan
     recipientInput.focus();
+    
+    // Scroll top butonu
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Sayfa yüklendiğinde bildirim göster
+    setTimeout(() => {
+        showNotification("🎄 2026 yılbaşı kartınızı oluşturmaya başlayın!");
+    }, 1000);
 });
-
-// Müzik Sistemi
-function setupMusic() {
-    christmasMusic.volume = 0.4;
-    christmasMusic.loop = true;
-    
-    // İlk tıklamada müziği başlat
-    document.addEventListener('click', () => {
-        if (!appState.hasInteracted) {
-            appState.hasInteracted = true;
-            
-            // Müziği başlat
-            const playPromise = christmasMusic.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    appState.musicPlaying = true;
-                    updateMusicButton();
-                    showNotification("🎵 Jingle Bells çalıyor! İyi eğlenceler!");
-                }).catch(error => {
-                    console.log("Müzik başlatılamadı:", error);
-                    appState.musicPlaying = false;
-                    updateMusicButton();
-                });
-            }
-        }
-    }, { once: true });
-    
-    // Müzik toggle butonu
-    musicToggle.addEventListener('click', toggleMusic);
-}
-
-function toggleMusic() {
-    if (appState.musicPlaying) {
-        christmasMusic.pause();
-        appState.musicPlaying = false;
-        showNotification("🔇 Müzik durduruldu");
-    } else {
-        christmasMusic.play().then(() => {
-            appState.musicPlaying = true;
-            showNotification("🎵 Müzik başlatıldı");
-        }).catch(error => {
-            console.log("Müzik çalınamadı:", error);
-            showNotification("❌ Müzik başlatılamadı");
-        });
-    }
-    updateMusicButton();
-}
-
-function updateMusicButton() {
-    const icon = musicToggle.querySelector('i');
-    if (appState.musicPlaying) {
-        icon.className = "fas fa-volume-up";
-        musicText.textContent = "Müziği Kapat";
-    } else {
-        icon.className = "fas fa-volume-mute";
-        musicText.textContent = "Müziği Aç";
-    }
-}
 
 // Tema Seçimi
 function setupThemeSelection() {
@@ -189,11 +158,14 @@ function setupEventListeners() {
     // Kart indirme
     downloadBtn.addEventListener('click', handleDownload);
     
-    // LinkedIn paylaşımı
+    // LinkedIn paylaşımı (mobil uyumlu)
     linkedinBtn.addEventListener('click', handleLinkedInShare);
     
     // Yeni kart oluşturma
     newCardBtn.addEventListener('click', handleNewCard);
+    
+    // Link kopyalama
+    copyLinkBtn.addEventListener('click', handleCopyLink);
     
     // Input değişikliklerini dinle
     recipientInput.addEventListener('input', validateInput);
@@ -224,11 +196,13 @@ function handleFormSubmit(e) {
         recipient: recipientInput.value.trim(),
         message: messageInput.value.trim(),
         theme: themeInput.value,
-        timestamp: new Date().toISOString()
+        type: cardTypeSelect.value,
+        timestamp: new Date().toISOString(),
+        cardId: generateCardId()
     };
     
-    // 1.5 saniye sonra kartı oluştur
-    setTimeout(createCard, 1500);
+    // 2 saniye sonra kartı oluştur (animasyon için)
+    setTimeout(createCard, 2000);
 }
 
 // Form Doğrulama
@@ -261,17 +235,18 @@ function validateInput() {
     const message = messageInput.value.trim();
     
     // İnput border rengini güncelle
-    if (recipient.length >= 2 && recipient.length <= 50) {
-        recipientInput.style.borderColor = '#10b981';
-    } else {
-        recipientInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-    }
+    recipientInput.style.borderColor = recipient.length >= 2 && recipient.length <= 50 
+        ? '#10b981' 
+        : 'rgba(255, 255, 255, 0.15)';
     
-    if (message.length >= 10 && message.length <= 500) {
-        messageInput.style.borderColor = '#10b981';
-    } else {
-        messageInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-    }
+    messageInput.style.borderColor = message.length >= 10 && message.length <= 500 
+        ? '#10b981' 
+        : 'rgba(255, 255, 255, 0.15)';
+}
+
+// Benzersiz Kart ID Üret
+function generateCardId() {
+    return 'card_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
 
 // Hata Mesajları
@@ -279,10 +254,10 @@ function showFormError(message) {
     formError.querySelector('span').textContent = message;
     formError.style.display = 'flex';
     
-    // 3 saniye sonra gizle
+    // 4 saniye sonra gizle
     setTimeout(() => {
         formError.style.display = 'none';
-    }, 3000);
+    }, 4000);
 }
 
 function hideFormError() {
@@ -298,28 +273,37 @@ function createCard() {
     displayRecipient.textContent = data.recipient + ",";
     displayMessage.textContent = data.message;
     
-    // Rastgele bir alıntı seç
-    const randomIndex = Math.floor(Math.random() * theme.quotes.length);
-    displayQuote.textContent = theme.quotes[randomIndex];
+    // Kart tipine göre özel mesaj + rastgele alıntı
+    const typeMessage = theme.cardTypes[data.type];
+    const randomQuote = theme.quotes[Math.floor(Math.random() * theme.quotes.length)];
+    displayQuote.textContent = `${typeMessage}. ${randomQuote}`;
     
     // Kart stilini uygula
     const card = document.getElementById('christmasCard');
     card.style.background = theme.bgColor;
     card.style.border = `2px solid ${theme.borderColor}`;
     
-    // Kart başlık rengini güncelle
-    const cardTitle = card.querySelector('.card-title');
-    cardTitle.style.color = theme.color;
+    // Kart yıl rengini güncelle
+    const cardYear = card.querySelector('.card-year');
+    cardYear.style.color = theme.color;
+    
+    // Başlık çizgisi rengini güncelle
+    const titleLine = card.querySelector('.title-line');
+    titleLine.style.background = `linear-gradient(90deg, ${theme.color}, #f59e0b, #0ea5e9)`;
+    
+    // Mesaj border rengini güncelle
+    card.querySelector('.card-message').style.borderLeftColor = theme.color;
     
     // Alıntı alanı border rengini güncelle
-    const quoteArea = card.querySelector('.quote-area');
-    quoteArea.style.borderLeftColor = theme.color;
+    card.querySelector('.quote-area').style.borderLeftColor = theme.color;
     
-    // Alıntı ikon rengini güncelle
-    const quoteIcons = card.querySelectorAll('.quote-icon');
-    quoteIcons.forEach(icon => {
-        icon.style.color = theme.color;
+    // Alıntı işaret rengini güncelle
+    card.querySelectorAll('.quote-mark').forEach(mark => {
+        mark.style.color = theme.color;
     });
+    
+    // İmza çizgisi rengini güncelle
+    card.querySelector('.signature-line').style.background = `linear-gradient(90deg, ${theme.color}, #f59e0b)`;
     
     // Yükleme animasyonunu gizle, kartı göster
     loadingAnimation.style.display = 'none';
@@ -330,78 +314,237 @@ function createCard() {
     launchConfetti();
     
     // Bildirim göster
-    showNotification("🎉 Kartınız başarıyla oluşturuldu!");
+    showNotification("🎉 Profesyonel kartınız hazır! Şimdi LinkedIn'de paylaşabilirsiniz.");
 }
 
 // Konfeti Efekti
 function launchConfetti() {
     const colors = ['#dc2626', '#0ea5e9', '#7c3aed', '#f59e0b', '#10b981'];
     
+    // Ana konfeti
     confetti({
-        particleCount: 150,
-        spread: 100,
+        particleCount: 200,
+        spread: 120,
         origin: { y: 0.6 },
-        colors: colors
+        colors: colors,
+        shapes: ['circle', 'square'],
+        scalar: 1.2
     });
     
+    // Yanlardan konfeti
     setTimeout(() => {
         confetti({
-            particleCount: 100,
+            particleCount: 120,
             angle: 60,
             spread: 80,
             origin: { x: 0 },
-            colors: colors
+            colors: colors,
+            shapes: ['star']
         });
         
         confetti({
-            particleCount: 100,
+            particleCount: 120,
             angle: 120,
             spread: 80,
             origin: { x: 1 },
-            colors: colors
+            colors: colors,
+            shapes: ['star']
         });
-    }, 250);
+    }, 300);
 }
 
 // Kart İndirme
 function handleDownload() {
     const card = document.getElementById('christmasCard');
     
+    // Butonu loading durumuna getir
+    const originalContent = downloadBtn.innerHTML;
+    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>İndiriliyor...</span>';
+    downloadBtn.disabled = true;
+    
     html2canvas(card, {
-        scale: 2,
+        scale: 3, // 3x kalite
         backgroundColor: null,
         useCORS: true,
         logging: false,
-        allowTaint: true
+        allowTaint: true,
+        imageTimeout: 0,
+        onclone: function(clonedDoc) {
+            // Klonlanan elementte stilleri koru
+            const clonedCard = clonedDoc.getElementById('christmasCard');
+            clonedCard.style.transform = 'none';
+            clonedCard.style.boxShadow = 'none';
+        }
     }).then(canvas => {
+        // Canvas'ı optimize et
+        const optimizedCanvas = document.createElement('canvas');
+        optimizedCanvas.width = canvas.width;
+        optimizedCanvas.height = canvas.height;
+        const ctx = optimizedCanvas.getContext('2d');
+        
+        // Beyaz arkaplan ekle (transparan sorunları için)
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, optimizedCanvas.width, optimizedCanvas.height);
+        ctx.drawImage(canvas, 0, 0);
+        
         const link = document.createElement('a');
         const timestamp = new Date().getTime();
-        link.download = `yilbasi-karti-2026-${timestamp}.png`;
-        link.href = canvas.toDataURL('image/png');
+        const fileName = `yilbasi-karti-${appState.currentCard.cardId}-${timestamp}.png`;
+        
+        link.download = fileName;
+        link.href = optimizedCanvas.toDataURL('image/png', 1.0); // Maksimum kalite
         link.click();
         
-        showNotification("✅ Kartınız başarıyla indirildi!");
+        // Butonu eski haline getir
+        downloadBtn.innerHTML = originalContent;
+        downloadBtn.disabled = false;
+        
+        showNotification("✅ Kartınız yüksek kalitede indirildi! LinkedIn'de paylaşabilirsiniz.");
+        
+        // LinkedIn engagement için analytics (isteğe bağlı)
+        logEvent('card_downloaded', {
+            cardId: appState.currentCard.cardId,
+            theme: appState.currentCard.theme,
+            type: appState.currentCard.type
+        });
+        
     }).catch(error => {
         console.error("İndirme hatası:", error);
-        showNotification("❌ İndirme sırasında bir hata oluştu");
+        
+        // Butonu eski haline getir
+        downloadBtn.innerHTML = originalContent;
+        downloadBtn.disabled = false;
+        
+        showNotification("❌ İndirme sırasında bir hata oluştu. Lütfen tekrar deneyin.");
     });
 }
 
-// LinkedIn Paylaşımı
+// LinkedIn Paylaşımı (Mobil Uyumlu)
 function handleLinkedInShare() {
     const data = appState.currentCard;
     
-    if (!data) return;
+    if (!data) {
+        showNotification("⚠️ Önce bir kart oluşturmalısınız.");
+        return;
+    }
     
-    const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(`2026 Yılbaşı Kartım: ${data.recipient}`);
-    const summary = encodeURIComponent(`${data.message}\n\n${data.recipient} için hazırladığım özel yılbaşı kartı. Siz de kendi kartınızı oluşturmak ister misiniz?`);
+    // Butonu loading durumuna getir
+    const originalContent = linkedinBtn.innerHTML;
+    linkedinBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Hazırlanıyor...</span>';
+    linkedinBtn.disabled = true;
     
-    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`;
+    // LinkedIn paylaşım URL'si (mobil ve desktop uyumlu)
+    const baseUrl = 'https://www.linkedin.com';
+    const sharePath = '/sharing/share-offsite/';
     
-    window.open(linkedinUrl, '_blank', 'width=600,height=600');
+    // Paylaşım parametreleri
+    const params = new URLSearchParams({
+        url: window.location.href + '?card=' + data.cardId,
+        mini: 'true',
+        title: `2026 Yılbaşı Kartım: ${data.recipient}`,
+        summary: `${data.message}\n\n${data.recipient} için hazırladığım özel yılbaşı kartı. Siz de kendi kartınızı oluşturmak ister misiniz?`,
+        source: 'Yılbaşı Kartı Oluşturucu'
+    });
+    
+    // LinkedIn URL'sini oluştur
+    let linkedinUrl;
+    
+    if (appState.isMobile) {
+        // Mobil için: linkedin:// URL şemasını dene, fallback olarak web
+        linkedinUrl = `linkedin://sharing/share-offsite?${params.toString()}`;
+        
+        // LinkedIn uygulamasını açmayı dene
+        const appIntent = setTimeout(() => {
+            // Uygulama açılmazsa web sayfasına yönlendir
+            linkedinUrl = `${baseUrl}${sharePath}?${params.toString()}`;
+            window.open(linkedinUrl, '_blank', 'width=600,height=600');
+        }, 500);
+        
+        // LinkedIn app linkini aç
+        window.location.href = linkedinUrl;
+        
+        // 450ms sonra app açılmadıysa clear
+        setTimeout(() => {
+            clearTimeout(appIntent);
+        }, 450);
+        
+    } else {
+        // Desktop için direkt web URL
+        linkedinUrl = `${baseUrl}${sharePath}?${params.toString()}`;
+        window.open(linkedinUrl, '_blank', 'width=600,height=600');
+    }
+    
+    // Butonu eski haline getir
+    setTimeout(() => {
+        linkedinBtn.innerHTML = originalContent;
+        linkedinBtn.disabled = false;
+    }, 2000);
     
     showNotification("🔗 LinkedIn paylaşım sayfası açılıyor...");
+    
+    // LinkedIn engagement analytics
+    logEvent('linkedin_share_clicked', {
+        cardId: data.cardId,
+        isMobile: appState.isMobile,
+        theme: data.theme
+    });
+}
+
+// Link Kopyalama
+function handleCopyLink() {
+    const cardUrl = window.location.href + (appState.currentCard ? '?card=' + appState.currentCard.cardId : '');
+    
+    // Modern clipboard API
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cardUrl).then(() => {
+            showNotification("📋 Kart linki panoya kopyalandı!");
+            
+            // Orjinal buton text'ini sakla
+            const originalText = copyLinkBtn.innerHTML;
+            copyLinkBtn.innerHTML = '<i class="fas fa-check"></i><span>Kopyalandı!</span>';
+            
+            // 2 saniye sonra eski haline döndür
+            setTimeout(() => {
+                copyLinkBtn.innerHTML = originalText;
+            }, 2000);
+            
+        }).catch(err => {
+            console.error("Clipboard hatası:", err);
+            fallbackCopyText(cardUrl);
+        });
+    } else {
+        // Fallback için eski yöntem
+        fallbackCopyText(cardUrl);
+    }
+}
+
+// Fallback copy fonksiyonu
+function fallbackCopyText(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showNotification("📋 Link kopyalandı!");
+        
+        const originalText = copyLinkBtn.innerHTML;
+        copyLinkBtn.innerHTML = '<i class="fas fa-check"></i><span>Kopyalandı!</span>';
+        
+        setTimeout(() => {
+            copyLinkBtn.innerHTML = originalText;
+        }, 2000);
+    } catch (err) {
+        console.error('Fallback copy hatası:', err);
+        showNotification("❌ Link kopyalanamadı. Manuel olarak kopyalayın: " + text);
+    } finally {
+        document.body.removeChild(textArea);
+    }
 }
 
 // Yeni Kart Oluşturma
@@ -417,11 +560,7 @@ function handleNewCard() {
     
     // İlk temayı aktif yap
     themeCards.forEach((card, index) => {
-        if (index === 0) {
-            card.classList.add('active');
-        } else {
-            card.classList.remove('active');
-        }
+        card.classList.toggle('active', index === 0);
     });
     
     // Input border rengini sıfırla
@@ -432,104 +571,207 @@ function handleNewCard() {
     recipientInput.focus();
     
     showNotification("🔄 Yeni kart oluşturmaya başlayabilirsiniz!");
+    
+    // Analytics
+    logEvent('new_card_started');
+}
+
+// Analytics Logging (isteğe bağlı)
+function logEvent(eventName, data = {}) {
+    // Bu fonksiyon Google Analytics veya başka bir analytics servisi için kullanılabilir
+    console.log(`[Analytics] ${eventName}:`, {
+        ...data,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        screenResolution: `${window.screen.width}x${window.screen.height}`,
+        referrer: document.referrer
+    });
+    
+    // Örnek Google Analytics event (GA4)
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, data);
+    }
 }
 
 // Bildirim Sistemi
-function showNotification(message) {
+function showNotification(message, type = 'info') {
     // Mevcut bir bildirim varsa kaldır
     const existingNotification = document.querySelector('.notification-toast');
     if (existingNotification) {
         existingNotification.remove();
     }
     
+    // Tip'e göre icon ve renk
+    const icons = {
+        info: '🔔',
+        success: '✅',
+        warning: '⚠️',
+        error: '❌'
+    };
+    
+    const colors = {
+        info: 'linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)',
+        success: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+        warning: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+        error: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)'
+    };
+    
     // Yeni bildirim oluştur
     const notification = document.createElement('div');
     notification.className = 'notification-toast';
     notification.innerHTML = `
         <div class="notification-content">
-            <span>${message}</span>
+            <span class="notification-icon">${icons[type] || icons.info}</span>
+            <span class="notification-text">${message}</span>
         </div>
     `;
     
     // Stil ekle
     notification.style.cssText = `
         position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+        top: 25px;
+        right: 25px;
+        background: ${colors[type] || colors.info};
         color: white;
-        padding: 16px 24px;
-        border-radius: 12px;
+        padding: 18px 28px;
+        border-radius: 14px;
         z-index: 10000;
-        box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
-        animation: slideIn 0.3s ease-out;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        animation: notificationSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         font-family: 'Montserrat', sans-serif;
         font-weight: 500;
-        max-width: 300px;
+        max-width: 350px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     `;
     
     document.body.appendChild(notification);
     
-    // 3 saniye sonra kaldır
+    // Animasyon stilleri ekle (henüz yoksa)
+    if (!document.querySelector('#notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            @keyframes notificationSlideIn {
+                from {
+                    transform: translateX(100%) translateY(-20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0) translateY(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes notificationSlideOut {
+                from {
+                    transform: translateX(0) translateY(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%) translateY(-20px);
+                    opacity: 0;
+                }
+            }
+            
+            .notification-content {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                font-size: 16px;
+            }
+            
+            .notification-icon {
+                font-size: 20px;
+                flex-shrink: 0;
+            }
+            
+            .notification-text {
+                flex: 1;
+                line-height: 1.5;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // 4 saniye sonra kaldır
     setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease-in forwards';
+        notification.style.animation = 'notificationSlideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards';
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
             }
-        }, 300);
-    }, 3000);
-    
-    // Animasyon stilleri
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
+        }, 400);
+    }, 4000);
 }
 
-// Sayfa Görünürlüğü Değiştiğinde Müziği Kontrol Et
+// Sayfa Görünürlüğü Değiştiğinde Analytics
 document.addEventListener('visibilitychange', () => {
-    if (document.hidden && appState.musicPlaying) {
-        christmasMusic.pause();
-    } else if (!document.hidden && appState.musicPlaying) {
-        christmasMusic.play().catch(console.error);
+    if (document.visibilityState === 'hidden' && appState.currentCard) {
+        logEvent('page_hidden', { cardId: appState.currentCard.cardId });
     }
 });
 
-// Çevrimdışı Destek
+// Online/Offline Durumu
 window.addEventListener('online', () => {
-    showNotification("🌐 İnternet bağlantınız geri geldi.");
+    showNotification("🌐 İnternet bağlantınız geri geldi.", 'success');
 });
 
 window.addEventListener('offline', () => {
-    showNotification("⚠️ İnternet bağlantınız kesildi.");
+    showNotification("⚠️ İnternet bağlantınız kesildi. Bazı özellikler çalışmayabilir.", 'warning');
+});
+
+// Sayfa Scroll'unda header efekti
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    const header = document.querySelector('.main-header');
+    
+    if (currentScroll > lastScroll && currentScroll > 100) {
+        // Aşağı scroll
+        header.style.opacity = '0.9';
+        header.style.transform = 'translateY(-10px)';
+    } else {
+        // Yukarı scroll
+        header.style.opacity = '1';
+        header.style.transform = 'translateY(0)';
+    }
+    
+    lastScroll = currentScroll;
+    
+    // Scroll top butonunu göster/gizle
+    if (currentScroll > 300) {
+        scrollTopBtn.style.opacity = '1';
+        scrollTopBtn.style.visibility = 'visible';
+        scrollTopBtn.style.transform = 'translateY(0)';
+    } else {
+        scrollTopBtn.style.opacity = '0';
+        scrollTopBtn.style.visibility = 'hidden';
+        scrollTopBtn.style.transform = 'translateY(10px)';
+    }
 });
 
 // PWA için Service Worker (isteğe bağlı)
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(error => {
-            console.log('Service Worker kaydı başarısız:', error);
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('Service Worker registered:', registration);
+        }).catch(error => {
+            console.log('Service Worker registration failed:', error);
         });
     });
 }
+
+// Kart URL parametrelerini kontrol et (paylaşılan kartları açmak için)
+function checkUrlForCard() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cardId = urlParams.get('card');
+    
+    if (cardId) {
+        // Burada paylaşılan kartı yükleyebilirsiniz
+        // Örneğin: fetchCardData(cardId);
+        showNotification("👋 Paylaşılan kart görüntüleniyor!", 'info');
+    }
+}
+
+// Sayfa yüklendiğinde URL'yi kontrol et
+setTimeout(checkUrlForCard, 500);
