@@ -3,68 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Yılbaşı Kartı Oluştur</title>
+    <title>2026 Yılbaşı Kartı Oluşturucu | Özel Tebrik Kartları</title>
+    <meta name="description" content="Kişiselleştirilmiş 2026 yılbaşı kartı oluştur. Sevdiklerine özel mesajlar gönder, LinkedIn'de paylaş.">
+    <meta name="keywords" content="yılbaşı kartı, 2026, tebrik kartı, noel, yeni yıl, LinkedIn paylaşım">
+    <meta name="author" content="Yılbaşı Kartı Oluşturucu">
     <meta property="og:title" content="2026 Yılbaşı Kartı Oluşturucu">
-    <meta property="og:description" content="Kendi kişiselleştirilmiş yılbaşı kartını yarat ve paylaş.">
+    <meta property="og:description" content="Kendi kişiselleştirilmiş yılbaşı kartını oluştur ve LinkedIn'de paylaş.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1542296336-1c21b0b299d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630&q=80">
     <meta property="og:url" content="https://apaydintolgaer.github.io/yilbasi-karti/">
     <meta property="og:type" content="website">
-
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="2026 Yılbaşı Kartı Oluşturucu">
+    <meta name="twitter:description" content="Özel yılbaşı kartı oluştur ve paylaş">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="music-start-overlay" id="musicOverlay">
-        <h2>🎄 Yılbaşı Müziği 🎅</h2>
-        <p>Müzik eşliğinde kartını oluşturmak ister misin?</p>
-        <button id="startMusicBtn">Müziği Başlat ve Devam Et 🎵</button>
-    </div>
-
-    <div class="snow-container"></div>
-    <div class="santa-container"></div>
-
-    <audio id="jingleAudio" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/09/15/audio_7d9c7f0d8f.mp3" type="audio/mpeg">
+    <div class="background-animation"></div>
+    <div class="snow-effect"></div>
+    
+    <audio id="backgroundMusic" preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-jingle-bells-311.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicToggle">🎵</button>
+    <div class="music-control">
+        <button id="musicBtn" class="music-btn">
+            <i class="fas fa-music"></i>
+            <span class="music-text">Müziği Aç</span>
+        </button>
+    </div>
 
-    <div class="container">
-        <h1>2026 Yılbaşı Kartı Oluştur</h1>
-        <p class="subtitle">Kendi özel kartını yarat ve paylaş</p>
-
-        <form id="cardForm">
-            <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required>
-            <input type="text" id="message" placeholder="Dileğin nedir? (örn: Sağlık ve mutluluk dolu bir yıl)" required>
-
-            <select id="theme">
-                <option value="sicak">Sıcacık Dilekler</option>
-                <option value="komik">Komik ve Eğlenceli</option>
-                <option value="coder">Coder Dostu</option>
-                <option value="parti">Parti Havası</option>
-            </select>
-
-            <button type="submit">Kartı Oluştur</button>
-            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldur</p>
-        </form>
-
-        <div id="cardContainer" class="hidden">
-            <div id="loadingSpinner" class="spinner"></div>
-
-            <div id="card">
-                <div class="card-decoration top">🎄❄️✨🎅🦌🎁</div>
-                <h2 id="cardName"></h2>
-                <p id="cardMessage" class="wish"></p>
-                <p id="funMessage" class="quote"></p>
-                <p class="card-footer">Mutlu Yıllar 2026</p>
-                <p class="signature">Sevgilerle</p>
-                <div class="card-decoration bottom">✨❄️🎉🥂🎈</div>
+    <main class="main-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <div class="logo-icon">🎄</div>
+                <h1 class="logo-text">2026 Yılbaşı Kartı</h1>
             </div>
+            <p class="tagline">Sevdiklerine özel, unutulmaz bir yılbaşı mesajı hazırla</p>
+        </header>
 
-            <div class="buttons">
-                <button id="downloadBtn">Kartı İndir (PNG)</button>
-                <button id="shareBtn">LinkedIn'de Paylaş</button>
-                <button id="newCardBtn">Yeni Kart Oluştur</button>
+        <div class="content-wrapper">
+            <section class="card-creator">
+                <div class="creator-header">
+                    <h2><i class="fas fa-gift"></i> Kartını Oluştur</h2>
+                    <p>Birkaç adımda kişiselleştirilmiş yılbaşı kartını hazırla</p>
+                </div>
+
+                <form id="cardForm" class="card-form">
+                    <div class="form-group">
+                        <label for="recipientName">
+                            <i class="fas fa-user"></i> Kart Kime Gidecek?
+                        </label>
+                        <input type="text" 
+                               id="recipientName" 
+                               placeholder="Örn: Sevgili Ailem, Değerli Arkadaşım Ahmet"
+                               required
+                               autocomplete="off">
+                        <div class="form-hint">En az 3 karakter girmelisin</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardMessage">
+                            <i class="fas fa-comment"></i> Özel Mesajın
+                        </label>
+                        <textarea id="cardMessage" 
+                                  placeholder="Örn: 2026 yılının sana sağlık, mutluluk ve başarı getirmesini dilerim..."
+                                  rows="3"
+                                  required></textarea>
+                        <div class="form-hint">Duygularını ifade et, en az 10 karakter</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardTheme">
+                            <i class="fas fa-palette"></i> Kart Teması Seç
+                        </label>
+                        <div class="theme-selector">
+                            <div class="theme-options">
+                                <button type="button" class="theme-option active" data-theme="warm">
+                                    <i class="fas fa-fire"></i>
+                                    <span>Sıcak Dilekler</span>
+                                </button>
+                                <button type="button" class="theme-option" data-theme="funny">
+                                    <i class="fas fa-laugh"></i>
+                                    <span>Eğlenceli</span>
+                                </button>
+                                <button type="button" class="theme-option" data-theme="tech">
+                                    <i class="fas fa-laptop-code"></i>
+                                    <span>Teknoloji</span>
+                                </button>
+                                <button type="button" class="theme-option" data-theme="party">
+                                    <i class="fas fa-glass-cheers"></i>
+                                    <span>Parti</span>
+                                </button>
+                            </div>
+                            <input type="hidden" id="cardTheme" value="warm">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardStyle">
+                            <i class="fas fa-star"></i> Kart Stili
+                        </label>
+                        <select id="cardStyle" class="style-select">
+                            <option value="classic">🎄 Klasik Noel</option>
+                            <option value="modern">✨ Modern Minimal</option>
+                            <option value="elegant">🎅 Zarif ve Şık</option>
+                            <option value="colorful">🌈 Renkli ve Canlı</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-magic"></i> Kartımı Oluştur
+                        </button>
+                        <div class="form-note">
+                            <i class="fas fa-info-circle"></i> Kartın hazırlandıktan sonra indirip LinkedIn'de paylaşabilirsin
+                        </div>
+                    </div>
+
+                    <div id="formError" class="error-message" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Lütfen tüm alanları doğru şekilde doldurun</span>
+                    </div>
+                </form>
+            </section>
+
+            <section id="cardPreview" class="card-preview" style="display: none;">
+                <div class="preview-header">
+                    <h2><i class="fas fa-eye"></i> Kartın Önizlemesi</h2>
+                    <p>Kartın hazır! İndirebilir veya hemen paylaşabilirsin</p>
+                </div>
+
+                <div class="preview-loading">
+                    <div class="loader">
+                        <div class="snowflake">❄</div>
+                        <div class="snowflake">❅</div>
+                        <div class="snowflake">❆</div>
+                    </div>
+                    <p>Kartın hazırlanıyor...</p>
+                </div>
+
+                <div class="card-container" style="display: none;">
+                    <div class="generated-card" id="generatedCard">
+                        <div class="card-header">
+                            <div class="card-icon">🎄</div>
+                            <h3 class="card-title">Mutlu Yıllar 2026</h3>
+                            <div class="card-subtitle">En İyi Dileklerimle</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="recipient-section">
+                                <h4 id="previewRecipient">Sevgili Ailem,</h4>
+                            </div>
+                            
+                            <div class="message-section">
+                                <p id="previewMessage" class="card-message">
+                                    2026 yılının sana sağlık, mutluluk ve başarı getirmesini dilerim...
+                                </p>
+                            </div>
+                            
+                            <div class="quote-section">
+                                <div class="quote-icon">❝</div>
+                                <p id="previewQuote" class="card-quote">
+                                    Yeni yılda tüm hayallerin gerçek olsun
+                                </p>
+                                <div class="quote-icon">❞</div>
+                            </div>
+                            
+                            <div class="decoration-section">
+                                <div class="decoration-line"></div>
+                                <div class="decoration-icons">
+                                    <span>✨</span>
+                                    <span>🎁</span>
+                                    <span>⭐</span>
+                                    <span>🦌</span>
+                                    <span>🎄</span>
+                                </div>
+                                <div class="decoration-line"></div>
+                            </div>
+                            
+                            <div class="signature-section">
+                                <p class="signature-text">Sevgilerimle,</p>
+                                <p class="signature-name">2026 Yılbaşı Kartı</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="footer-icons">
+                                <span>🎅</span>
+                                <span>❄️</span>
+                                <span>🎉</span>
+                                <span>🥂</span>
+                                <span>🎆</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-actions" style="display: none;">
+                    <div class="action-buttons">
+                        <button id="downloadCard" class="btn btn-download">
+                            <i class="fas fa-download"></i> Kartı İndir (PNG)
+                        </button>
+                        <button id="shareLinkedIn" class="btn btn-linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn'de Paylaş
+                        </button>
+                        <button id="shareTwitter" class="btn btn-twitter">
+                            <i class="fab fa-twitter"></i> Twitter'da Paylaş
+                        </button>
+                        <button id="copyLink" class="btn btn-secondary">
+                            <i class="fas fa-link"></i> Linki Kopyala
+                        </button>
+                    </div>
+                    
+                    <div class="additional-actions">
+                        <button id="newCard" class="btn btn-outline">
+                            <i class="fas fa-plus"></i> Yeni Kart Oluştur
+                        </button>
+                        <button id="sendEmail" class="btn btn-outline">
+                            <i class="fas fa-envelope"></i> E-posta ile Gönder
+                        </button>
+                    </div>
+                    
+                    <div class="share-info">
+                        <p><i class="fas fa-share-alt"></i> Kartını paylaşarak daha fazla kişiye ulaştırabilirsin</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-logo">🎄 2026</div>
+                <p class="footer-text">Mutlu yıllar dileriz | Tüm hakları saklıdır © 2026</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link"><i class="fas fa-heart"></i> İyi Dilekler</a>
+                    <a href="#" class="footer-link"><i class="fas fa-share"></i> Paylaş</a>
+                    <a href="#" class="footer-link"><i class="fas fa-question-circle"></i> Yardım</a>
+                </div>
             </div>
+        </footer>
+    </main>
+
+    <div class="notification" id="notification" style="display: none;">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notificationText">İşlem başarıyla tamamlandı</span>
         </div>
     </div>
 
