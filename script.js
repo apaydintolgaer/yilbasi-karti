@@ -1,140 +1,63 @@
-const form = document.getElementById('cardForm');
-const cardContainer = document.getElementById('cardContainer');
-const loadingSpinner = document.getElementById('loadingSpinner');
-const downloadBtn = document.getElementById('downloadBtn');
-const shareBtn = document.getElementById('shareBtn');
-const newCardBtn = document.getElementById('newCardBtn');
-const errorMessage = document.getElementById('errorMessage');
-
 const audio = document.getElementById('jingleAudio');
-const musicToggle = document.getElementById('musicToggle');
+const startBtn = document.getElementById('startBtn');
+const overlay = document.getElementById('welcome-overlay');
+const uiElements = document.querySelectorAll('.hidden-ui');
 
-audio.volume = 0.45;
-audio.play();
-
-let isPlaying = true;
-
-musicToggle.addEventListener('click', () => {
-    if (isPlaying) {
-        audio.pause();
-        musicToggle.textContent = '🔇';
-    } else {
-        audio.play();
-        musicToggle.textContent = '🎵';
-    }
-    isPlaying = !isPlaying;
-});
-
-const funMessages = {
-    sicak: [
-        "Yeni yıl sana sağlık, huzur ve mutluluk getirsin.",
-        "2026, sevdiklerinle geçireceğin güzel anılarla dolsun.",
-        "En içten dileklerimle, mutlu yıllar dilerim."
-    ],
-    komik: [
-        "2026'da bol kahkaha, az hata olsun!",
-        "Yeni yılda her şey istediğin gibi gitsin.",
-        "Mutlu yıllar, hayatın hep güzel tarafı olsun!"
-    ],
-    coder: [
-        "2026'da tüm kodların sorunsuz çalışsın.",
-        "Yeni yılda deploy'ların başarılı olsun.",
-        "Başarılarla dolu bir yıl seni bekliyor."
-    ],
-    parti: [
-        "2026 partilerle, eğlenceyle dolsun.",
-        "Yeni yıl sana bol dans ve kahkaha getirsin.",
-        "Hayatın en güzel anıları bu yıl olsun."
-    ]
-};
-
-form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const recipient = document.getElementById('name').value.trim();
-    const wish = document.getElementById('message').value.trim();
-    const theme = document.getElementById('theme').value;
-
-    if (!recipient || !wish) {
-        errorMessage.classList.remove('hidden');
-        return;
-    }
-
-    errorMessage.classList.add('hidden');
-    form.classList.add('hidden');
-    cardContainer.classList.remove('hidden');
-    loadingSpinner.classList.remove('hidden');
-
+// Tarayıcı engelini aşmak için kullanıcı butona bastığında müziği başlat
+startBtn.addEventListener('click', () => {
+    audio.play().catch(error => console.log("Müzik çalınamadı:", error));
+    overlay.style.opacity = '0';
     setTimeout(() => {
-        loadingSpinner.classList.add('hidden');
-
-        const randomQuote = funMessages[theme][Math.floor(Math.random() * funMessages[theme].length)];
-
-        document.getElementById('cardName').textContent = `${recipient},`;
-        document.getElementById('cardMessage').textContent = wish;
-        document.getElementById('funMessage').textContent = randomQuote;
-
-        confetti({
-            particleCount: 200,
-            spread: 80,
-            origin: { y: 0.6 },
-            colors: ['#ffffff', '#f1f5f9', '#e2e8f0']
-        });
-    }, 1200);
+        overlay.style.display = 'none';
+        uiElements.forEach(el => el.classList.add('show-ui'));
+    }, 800);
 });
 
-newCardBtn.addEventListener('click', () => {
-    cardContainer.classList.add('hidden');
-    form.classList.remove('hidden');
-    form.reset();
-    document.querySelectorAll('.snowflake').forEach(s => s.remove());
-    createSnowflakes();
-});
+// Noel Baba Fonksiyonu (Düzeltildi)
+function createSantaSleigh() {
+    const santa = document.createElement('div');
+    santa.className = 'santa-sleigh';
+    document.querySelector('.santa-container').appendChild(santa);
+    
+    santa.style.animation = "santaFly 15s linear forwards";
+    
+    // Her 20 saniyede bir yeni Noel Baba geçsin
+    setTimeout(() => {
+        santa.remove();
+        createSantaSleigh();
+    }, 20000);
+}
 
-downloadBtn.addEventListener('click', () => {
-    html2canvas(document.getElementById('card'), { scale: 2 }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'yilbasi-karti-2026.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-    });
-});
-
-shareBtn.addEventListener('click', () => {
-    const url = encodeURIComponent(window.location.href);
-    const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-    window.open(shareUrl, '_blank', 'width=600,height=600');
-});
-
+// Kar Taneleri (Performans için optimize edildi)
 function createSnowflakes() {
+    const container = document.querySelector('.snow-container');
+    const flakes = ['❄', '❅', '❆'];
+    
     setInterval(() => {
         const flake = document.createElement('div');
         flake.className = 'snowflake';
-        flake.textContent = ['❄', '❅', '❆'][Math.floor(Math.random() * 3)];
+        flake.textContent = flakes[Math.floor(Math.random() * flakes.length)];
         flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.fontSize = Math.random() * 1.5 + 2 + 'em';
-        flake.style.opacity = Math.random() * 0.5 + 0.5;
-        flake.style.animationDuration = Math.random() * 10 + 12 + 's';
-        flake.style.animationDelay = Math.random() * 5 + 's';
+        flake.style.fontSize = Math.random() * 1 + 1 + 'em';
+        flake.style.opacity = Math.random();
+        
+        const duration = Math.random() * 5 + 5;
+        flake.style.transition = `top ${duration}s linear, left ${duration}s linear`;
+        
+        container.appendChild(flake);
+        
+        setTimeout(() => {
+            flake.style.top = '110vh';
+            flake.style.left = (parseFloat(flake.style.left) + 10) + 'vw';
+        }, 10);
 
-        document.querySelector('.snow-container').appendChild(flake);
-
-        setTimeout(() => flake.remove(), 25000);
-    }, 200);
+        setTimeout(() => flake.remove(), duration * 1000);
+    }, 300);
 }
 
-function createSantaSleigh() {
-    setInterval(() => {
-        const santa = document.createElement('img');
-        santa.src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWgzMmk4eTMxbXpid2NxMWZpNDdjcW84MWh6YWswNmdmaTRmOG9scCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TlK63EsOlwnqg7hiYec/giphy.gif';
-        santa.className = 'santa-sleigh';
-        santa.alt = '';
-        const topPos = Math.random() * 25 + 12 + '%';
-        santa.style.top = topPos;
-        document.querySelector('.santa-container').appendChild(santa);
-        setTimeout(() => santa.remove(), 24000);
-    }, Math.random() * 6000 + 10000);
-}
-
+// Başlat
 createSnowflakes();
-createSantaSleigh();
+setTimeout(createSantaSleigh, 3000);
+
+// Form ve Kart İşlemleri (Mevcut kodunun üzerine devam edebilirsin)
+// ... (Buraya senin form submit ve html2canvas kodlarını ekleyebilirsin)
