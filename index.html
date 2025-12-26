@@ -3,54 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Yılbaşı Kartı | Özel Seri</title>
+    <title>2026 Yılbaşı Özel Kartı</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="intro-overlay">
-        <div class="intro-content">
-            <h1 class="christmas-font">🎄 2026 Yılbaşı Sihri</h1>
-            <p>Müziği ve hediyeleri başlatmak için hazır mısın?</p>
-            <button id="startBtn">Sihri Başlat ✨</button>
+    <div id="experience-overlay">
+        <div class="overlay-card">
+            <h1 class="christmas-font">🎄 2026 Sihri Başlıyor</h1>
+            <p>Müziği ve Noel Baba'yı başlatmak için lütfen tıklayın.</p>
+            <button id="startExperience">Sihri Başlat ✨</button>
         </div>
     </div>
 
-    <div class="snow-container"></div>
-    <div class="santa-world"></div>
-
-    <audio id="jingleAudio" loop>
+    <div class="snow-layer"></div>
+    <div id="santa-mission-control"></div> <audio id="christmasAudio" loop>
         <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_ed2853a473.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="container main-content">
-        <h1 class="christmas-font main-title">Yeni Yıl Kartı Oluştur</h1>
-        
-        <form id="cardForm">
-            <input type="text" id="name" placeholder="Kime? (Örn: Sevgili Dostum)" required>
-            <textarea id="message" placeholder="Güzel dileklerini buraya yaz..." required></textarea>
-            <select id="theme">
-                <option value="sicak">Sıcacık Dilekler</option>
-                <option value="komik">Eğlenceli ve Komik</option>
-                <option value="coder">Yazılımcı Tarzı</option>
-            </select>
-            <button type="submit" id="generateBtn">Kartı Hazırla 🎁</button>
-        </form>
+    <div class="main-wrapper hidden-ui">
+        <header>
+            <h1 class="christmas-font gold-text">Yılbaşı Kartı Tasarlayın</h1>
+        </header>
 
-        <div id="cardContainer" class="hidden">
-            <div id="card">
-                <div class="card-border"></div>
-                <h2 id="cardName" class="christmas-font"></h2>
-                <p id="cardMessage" class="wish-text"></p>
-                <div class="card-footer">
-                    <span class="sparkle">✨</span> 2026 <span class="sparkle">✨</span>
+        <section class="config-panel">
+            <form id="cardGeneratorForm">
+                <input type="text" id="recipientName" placeholder="Kimin Adına?" required>
+                <textarea id="personalMessage" placeholder="Dileğinizi buraya yazın..." required></textarea>
+                <button type="submit">Hediye Kartını Hazırla 🎁</button>
+            </form>
+        </section>
+
+        <section id="resultArea" class="hidden">
+            <div id="captureZone">
+                <div class="gold-border">
+                    <h2 id="finalName" class="christmas-font"></h2>
+                    <p id="finalMessage" class="wish-body"></p>
+                    <div class="card-ornament">❄ 2026 ❄</div>
                 </div>
             </div>
-            <div class="action-buttons">
-                <button id="downloadBtn" class="secondary">PNG Olarak İndir</button>
-                <button id="newCardBtn" class="secondary">Yeni Kart Yap</button>
+            <div class="btn-group">
+                <button id="saveImgBtn" class="btn-alt">PNG Kaydet</button>
+                <button id="restartBtn" class="btn-alt">Yeniden Yap</button>
             </div>
-        </div>
+        </section>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
