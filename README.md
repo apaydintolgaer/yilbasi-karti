@@ -47,4 +47,5 @@ Bu proje, kullanıcıların kişiselleştirilmiş 2026 yılbaşı kartları olu�
   - Font Awesome (ikonlar)
   - Google Fonts (yazı tipleri)
 
-## 📁 Proje Yapısı
+
+
