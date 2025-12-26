@@ -3,97 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winter Glass 2026 | Premium Card Creator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Winter Glass 2026 | Premium Card</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: radial-gradient(circle at top center, #1e293b, #020617);
+            color: white;
+            font-family: 'Jost', sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 1. GİRİŞ EKRANI */
+        #intro-layer {
+            position: fixed; inset: 0; background: #020617; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+        .intro-content { text-align: center; padding: 20px; }
+        .brand-title { font-family: 'Cinzel Decorative', cursive; font-size: 3rem; margin-bottom: 1rem; color: #fff; }
+        .gold-accent { color: var(--gold); }
+        
+        .glow-button {
+            margin-top: 2rem; padding: 15px 40px; font-size: 1.2rem;
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            cursor: pointer; transition: 0.3s; border-radius: 50px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .glow-button:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); transform: scale(1.05); }
+
+        /* 2. ATMOSFER */
+        #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        #santa-layer { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
+
+        .santa-unit {
+            position: absolute; width: 180px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+            will-change: transform;
+        }
+        .gift-item {
+            position: absolute; font-size: 28px;
+            animation: dropGift 3s linear forwards;
+            z-index: 40;
+        }
+        @keyframes dropGift { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+        /* 3. ANA UI */
+        .app-container { position: relative; z-index: 100; width: 90%; max-width: 450px; transition: 1s; }
+        .hidden-ui { opacity: 0; transform: translateY(20px); pointer-events: none; display: none; }
+
+        .glass-panel {
+            background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border); border-radius: 24px;
+            padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .panel-header h2 { font-family: 'Cinzel Decorative'; font-size: 1.8rem; text-align: center; color: var(--gold); margin-bottom: 20px; }
+
+        .input-group { margin-bottom: 20px; }
+        input, textarea {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+            color: white; padding: 15px; border-radius: 12px; font-family: inherit; font-size: 1rem;
+        }
+        
+        button.primary-btn {
+            width: 100%; background: var(--gold); color: #0f172a; border: none;
+            padding: 16px; border-radius: 12px; font-weight: bold; font-size: 1.1rem;
+            cursor: pointer; margin-top: 10px;
+        }
+
+        /* 4. KART SONUÇ */
+        #result-mode { display: none; }
+        #result-mode.active { display: block; animation: fadeIn 0.5s ease; }
+
+        .card-frame {
+            background: #fff; color: #1e293b; padding: 40px 20px;
+            border-radius: 10px; text-align: center; position: relative;
+            border: 10px double var(--gold);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.2);
+        }
+        .card-frame h2 { font-family: 'Cinzel Decorative'; font-size: 2rem; color: #b45309; margin-bottom: 1rem; }
+        .card-msg { font-family: 'Jost'; font-style: italic; font-size: 1.2rem; line-height: 1.6; }
+        
+        .action-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .action-buttons button { flex: 1; padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
+        .btn-download { background: var(--gold); color: black; }
+        .btn-new { background: rgba(255,255,255,0.1); color: white; border: 1px solid white; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
 </head>
 <body>
 
     <div id="intro-layer">
         <div class="intro-content">
             <h1 class="brand-title">2026<span class="gold-accent">.</span></h1>
-            <p>Sesi açın ve yılbaşı büyüsüne adım atın.</p>
+            <p>Müziği açın ve yılbaşı büyüsünü başlatın.</p>
             <button id="start-btn" class="glow-button">
-                <i class="fa-solid fa-play"></i> Deneyimi Başlat
+                <i class="fa-solid fa-play"></i> Büyüyü Başlat
             </button>
         </div>
     </div>
 
-    <canvas id="snow-canvas"></canvas> <div id="santa-layer"></div> <div class="audio-control">
-        <button id="mute-toggle" class="icon-btn"><i class="fa-solid fa-volume-high"></i></button>
-    </div>
+    <canvas id="snow-canvas"></canvas>
+    <div id="santa-layer"></div>
 
     <audio id="bg-music" loop>
         <source src="https://cdn.pixabay.com/audio/2022/12/13/audio_8245903b71.mp3" type="audio/mpeg">
     </audio>
 
-    <main class="app-container hidden-ui">
+    <div class="app-container hidden-ui" id="main-app">
         
         <section id="creator-mode" class="glass-panel">
             <div class="panel-header">
                 <h2>Kartını Tasarla</h2>
-                <div class="separator"></div>
             </div>
             
             <form id="card-form">
                 <div class="input-group">
-                    <label>Kime Gidiyor?</label>
-                    <input type="text" id="inp-name" placeholder="Örn: En sevdiğim yazılımcıya" required>
+                    <input type="text" id="inp-name" placeholder="Kime? (Örn: Sevgili Tolga)" required>
                 </div>
-
                 <div class="input-group">
-                    <label>Mesajın Nedir?</label>
-                    <textarea id="inp-msg" placeholder="Yeni yılda bug'sız kodlar dilerim..." required></textarea>
+                    <textarea id="inp-msg" placeholder="Yeni yıl mesajın nedir?" rows="3" required></textarea>
                 </div>
-
-                <div class="theme-selector">
-                    <label>Tema Seç</label>
-                    <div class="radio-group">
-                        <label class="radio-box">
-                            <input type="radio" name="theme" value="gold" checked>
-                            <span class="radio-label">Altın</span>
-                        </label>
-                        <label class="radio-box">
-                            <input type="radio" name="theme" value="crimson">
-                            <span class="radio-label">Lâl</span>
-                        </label>
-                        <label class="radio-box">
-                            <input type="radio" name="theme" value="ice">
-                            <span class="radio-label">Buz</span>
-                        </label>
-                    </div>
-                </div>
-
                 <button type="submit" class="primary-btn">
-                    Kartı Oluştur <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Kartı Oluştur ✨
                 </button>
             </form>
         </section>
 
-        <section id="result-mode" class="hidden">
-            <div id="capture-area" class="card-frame theme-gold">
-                <div class="card-glow"></div>
-                <div class="card-content">
-                    <div class="stamp">2026</div>
-                    <h2 id="out-name"></h2>
-                    <p id="out-msg"></p>
-                    <div class="signature">
-                        <i class="fa-solid fa-snowflake"></i> Mutlu Yıllar <i class="fa-solid fa-snowflake"></i>
-                    </div>
-                </div>
+        <section id="result-mode">
+            <div id="capture-area" class="card-frame">
+                <h2 id="out-name"></h2>
+                <p id="out-msg" class="card-msg"></p>
+                <div style="margin-top: 30px; font-size: 1.5rem;">❄️ 2026 ❄️</div>
             </div>
 
             <div class="action-buttons">
-                <button id="download-btn" class="secondary-btn"><i class="fa-solid fa-download"></i> İndir</button>
-                <button id="new-btn" class="text-btn">Yeni Kart Yap</button>
+                <button id="download-btn" class="btn-download">İndir</button>
+                <button onclick="location.reload()" class="btn-new">Yeni Kart</button>
             </div>
         </section>
 
-    </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="script.js"></script>
+    
+    <script>
+        // DOM Elementlerini Güvenli Seçim
+        const el = (id) => document.getElementById(id);
+
+        // Başlat Butonu
+        el('start-btn').addEventListener('click', function() {
+            console.log("Butona basıldı - İşlem başlıyor...");
+            
+            // 1. Arayüzü Değiştir (Hemen)
+            const intro = el('intro-layer');
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.display = 'none';
+                el('main-app').classList.remove('hidden-ui');
+                el('main-app').style.display = 'block'; // Garanti olsun
+            }, 800);
+
+            // 2. Müzik Başlat (Hata Olsa Bile Devam Et)
+            const audio = el('bg-music');
+            audio.volume = 0.5;
+            audio.play().then(() => {
+                console.log("Müzik çalıyor.");
+            }).catch((err) => {
+                console.warn("Müzik hatası (Tarayıcı engeli olabilir):", err);
+            });
+
+            // 3. Efektleri Başlat
+            startSanta();
+            initSnow();
+        });
+
+        // Form Gönderimi
+        el('card-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = el('inp-name').value;
+            const msg = el('inp-msg').value;
+
+            if(!name || !msg) return;
+
+            el('out-name').textContent = `Sevgili ${name},`;
+            el('out-msg').textContent = msg;
+
+            el('creator-mode').style.display = 'none';
+            el('result-mode').classList.add('active');
+
+            // Konfeti
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#d4af37', '#ffffff'] });
+        });
+
+        // İndirme
+        el('download-btn').addEventListener('click', function() {
+            html2canvas(el('capture-area'), { scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = '2026-yilbasi-karti.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        });
+
+        // --- NOEL BABA MOTORU ---
+        function startSanta() {
+            const layer = el('santa-layer');
+            const santa = document.createElement('img');
+            santa.src = 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z5eXAzZGd6a3Z5eXAzZGd6a3Z5eXAzZGd6aw/26tOZ42Mg6pbTUPCM/giphy.gif';
+            santa.className = 'santa-unit';
+            layer.appendChild(santa);
+
+            let x = -200;
+            let y = 50;
+            let angle = 0;
+
+            function move() {
+                x += 3;
+                angle += 0.03;
+                y = 80 + Math.sin(angle) * 30;
+
+                santa.style.transform = `translate(${x}px, ${y}px)`;
+
+                // Hediye Atma
+                if(Math.random() < 0.02 && x > 0 && x < window.innerWidth) {
+                    dropGift(x + 50, y + 50);
+                }
+
+                if (x > window.innerWidth + 200) x = -200;
+                requestAnimationFrame(move);
+            }
+            move();
+        }
+
+        function dropGift(x, y) {
+            const g = document.createElement('div');
+            g.textContent = ['🎁', '🧸', '🍬', '🎄'][Math.floor(Math.random() * 4)];
+            g.className = 'gift-item';
+            g.style.left = x + 'px';
+            g.style.top = y + 'px';
+            el('santa-layer').appendChild(g);
+            setTimeout(() => g.remove(), 3000);
+        }
+
+        // --- KAR MOTORU (CANVAS) ---
+        function initSnow() {
+            const canvas = el('snow-canvas');
+            const ctx = canvas.getContext('2d');
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            const particles = [];
+            for(let i=0; i<100; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    r: Math.random() * 3 + 1,
+                    d: Math.random() * 10
+                })
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                ctx.beginPath();
+                for(let i=0; i<100; i++) {
+                    let p = particles[i];
+                    ctx.moveTo(p.x, p.y);
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+                }
+                ctx.fill();
+                update();
+                requestAnimationFrame(draw);
+            }
+
+            function update() {
+                for(let i=0; i<100; i++) {
+                    let p = particles[i];
+                    p.y += Math.cos(p.d) + 1 + p.r / 2;
+                    p.x += Math.sin(0) * 2;
+                    if(p.x > width + 5 || p.x < -5 || p.y > height) {
+                        particles[i] = {x: Math.random()*width, y: -10, r: p.r, d: p.d};
+                    }
+                }
+            }
+            draw();
+            
+            window.addEventListener('resize', () => {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            });
+        }
+    </script>
 </body>
 </html>
