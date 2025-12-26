@@ -1,63 +1,97 @@
 const audio = document.getElementById('jingleAudio');
-const startBtn = document.getElementById('startBtn');
-const overlay = document.getElementById('welcome-overlay');
-const uiElements = document.querySelectorAll('.hidden-ui');
+const startBtn = document.getElementById('start-magic');
+const overlay = document.getElementById('intro-overlay');
+const santaWorld = document.querySelector('.santa-world');
 
-// Tarayıcı engelini aşmak için kullanıcı butona bastığında müziği başlat
+// 1. MÜZİK VE BAŞLATMA SİSTEMİ
 startBtn.addEventListener('click', () => {
-    audio.play().catch(error => console.log("Müzik çalınamadı:", error));
+    audio.play();
     overlay.style.opacity = '0';
     setTimeout(() => {
         overlay.style.display = 'none';
-        uiElements.forEach(el => el.classList.add('show-ui'));
+        startSantaMission(); // Noel Baba görevine başlar
     }, 800);
 });
 
-// Noel Baba Fonksiyonu (Düzeltildi)
-function createSantaSleigh() {
-    const santa = document.createElement('div');
+// 2. NOEL BABA VE HEDİYE ATMA SİSTEMİ
+function startSantaMission() {
+    const santa = document.createElement('img');
+    // Şeffaf Noel Baba GIF
+    santa.src = 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc29zY3E5ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6ZzB6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/H62NM1ab7wzK0/giphy.gif';
     santa.className = 'santa-sleigh';
-    document.querySelector('.santa-container').appendChild(santa);
-    
-    santa.style.animation = "santaFly 15s linear forwards";
-    
-    // Her 20 saniyede bir yeni Noel Baba geçsin
-    setTimeout(() => {
-        santa.remove();
-        createSantaSleigh();
-    }, 20000);
+    santaWorld.appendChild(santa);
+
+    let posX = -200;
+    let posY = 50;
+    let angle = 0;
+
+    function animateSanta() {
+        posX += 3; // İlerleme hızı
+        angle += 0.02;
+        posY = 50 + Math.sin(angle) * 30; // Dalgalı uçuş
+
+        santa.style.left = posX + 'px';
+        santa.style.top = posY + 'px';
+
+        if (posX > window.innerWidth + 200) {
+            posX = -200; // Başa dön
+        }
+
+        requestAnimationFrame(animateSanta);
+    }
+
+    // Hediye Bırakma Döngüsü
+    setInterval(() => {
+        if (posX > 0 && posX < window.innerWidth) {
+            dropGift(posX + 50, posY + 50);
+        }
+    }, 2000); // Her 2 saniyede bir hediye atar
+
+    animateSanta();
 }
 
-// Kar Taneleri (Performans için optimize edildi)
-function createSnowflakes() {
+function dropGift(x, y) {
+    const gifts = ['🎁', '📦', '🧸', '🍬', '🎄'];
+    const gift = document.createElement('div');
+    gift.className = 'gift-box';
+    gift.textContent = gifts[Math.floor(Math.random() * gifts.length)];
+    gift.style.left = x + 'px';
+    gift.style.top = y + 'px';
+    santaWorld.appendChild(gift);
+
+    setTimeout(() => gift.remove(), 4000);
+}
+
+// 3. KAR TANELERİ
+function createSnow() {
     const container = document.querySelector('.snow-container');
-    const flakes = ['❄', '❅', '❆'];
-    
     setInterval(() => {
         const flake = document.createElement('div');
-        flake.className = 'snowflake';
-        flake.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+        flake.innerHTML = '❄';
+        flake.style.position = 'fixed';
+        flake.style.top = '-20px';
         flake.style.left = Math.random() * 100 + 'vw';
-        flake.style.fontSize = Math.random() * 1 + 1 + 'em';
         flake.style.opacity = Math.random();
-        
-        const duration = Math.random() * 5 + 5;
-        flake.style.transition = `top ${duration}s linear, left ${duration}s linear`;
-        
+        flake.style.color = 'white';
+        flake.style.transition = 'transform 5s linear';
         container.appendChild(flake);
-        
-        setTimeout(() => {
-            flake.style.top = '110vh';
-            flake.style.left = (parseFloat(flake.style.left) + 10) + 'vw';
-        }, 10);
 
-        setTimeout(() => flake.remove(), duration * 1000);
-    }, 300);
+        setTimeout(() => {
+            flake.style.transform = `translateY(110vh) rotate(360deg)`;
+        }, 100);
+        setTimeout(() => flake.remove(), 6000);
+    }, 150);
 }
 
-// Başlat
-createSnowflakes();
-setTimeout(createSantaSleigh, 3000);
+createSnow();
 
-// Form ve Kart İşlemleri (Mevcut kodunun üzerine devam edebilirsin)
-// ... (Buraya senin form submit ve html2canvas kodlarını ekleyebilirsin)
+// 4. FORM İŞLEMLERİ (Önceki kodlarınla aynı mantık)
+document.getElementById('cardForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('cardName').textContent = document.getElementById('name').value + ",";
+    document.getElementById('cardMessage').textContent = document.getElementById('message').value;
+    document.getElementById('cardContainer').classList.remove('hidden');
+    document.getElementById('cardForm').classList.add('hidden');
+    
+    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+});
