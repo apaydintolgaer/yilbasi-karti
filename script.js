@@ -1,410 +1,140 @@
-// DOM Elementleri
-const cardForm = document.getElementById('cardForm');
-const previewActions = document.getElementById('previewActions');
-const cardPreview = document.getElementById('cardPreview');
-const snowContainer = document.getElementById('snowContainer');
-const notification = document.getElementById('notification');
-
-// Input Elementleri
-const recipientInput = document.getElementById('recipientName');
-const messageInput = document.getElementById('cardMessage');
-const designInput = document.getElementById('cardDesign');
-
-// Önizleme Elementleri
-const previewRecipient = document.getElementById('previewRecipient');
-const previewMessage = document.getElementById('previewMessage');
-const previewSignature = document.getElementById('previewSignature');
-
-// Butonlar
-const createBtn = document.getElementById('createBtn');
+const form = document.getElementById('cardForm');
+const cardContainer = document.getElementById('cardContainer');
+const loadingSpinner = document.getElementById('loadingSpinner');
 const downloadBtn = document.getElementById('downloadBtn');
 const shareBtn = document.getElementById('shareBtn');
-const resetBtn = document.getElementById('resetBtn');
+const newCardBtn = document.getElementById('newCardBtn');
+const errorMessage = document.getElementById('errorMessage');
 
-// Tasarım Seçenekleri
-const designOptions = document.querySelectorAll('.design-option');
+const audio = document.getElementById('jingleAudio');
+const musicToggle = document.getElementById('musicToggle');
 
-// Kar Efekti
-let snowflakes = [];
+audio.volume = 0.45;
+audio.play();
 
-// Uygulama Durumu
-const appState = {
-    isCardCreated: false,
-    currentDesign: 'classic',
-    designs: {
-        classic: {
-            color: '#e63946',
-            bgColor: 'linear-gradient(135deg, #ffffff 0%, #fff5f5 100%)',
-            borderColor: '#e63946'
-        },
-        elegant: {
-            color: '#2a9d8f',
-            bgColor: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)',
-            borderColor: '#2a9d8f'
-        },
-        modern: {
-            color: '#457b9d',
-            bgColor: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-            borderColor: '#457b9d'
-        },
-        golden: {
-            color: '#e9c46a',
-            bgColor: 'linear-gradient(135deg, #ffffff 0%, #fffaf0 100%)',
-            borderColor: '#e9c46a'
-        }
+let isPlaying = true;
+
+musicToggle.addEventListener('click', () => {
+    if (isPlaying) {
+        audio.pause();
+        musicToggle.textContent = '🔇';
+    } else {
+        audio.play();
+        musicToggle.textContent = '🎵';
     }
-};
-
-// Sayfa Yüklendiğinde
-document.addEventListener('DOMContentLoaded', () => {
-    // Kar efekti başlat
-    initSnowEffect();
-    
-    // Event listener'ları kur
-    setupEventListeners();
-    
-    // Canlı önizleme için input'ları dinle
-    setupLivePreview();
-    
-    // İlk önizlemeyi güncelle
-    updatePreview();
-    
-    // Başlangıç mesajı
-    setTimeout(() => {
-        showNotification('🎄 Hoş geldin! Yılbaşı kartını hazırlamaya başla.');
-    }, 1000);
+    isPlaying = !isPlaying;
 });
 
-// Kar Efekti Başlatma
-function initSnowEffect() {
-    // Mevcut kar tanelerini temizle
-    snowContainer.innerHTML = '';
-    snowflakes = [];
-    
-    // Yeni kar taneleri oluştur
-    for (let i = 0; i < 80; i++) {
-        createSnowflake();
-    }
-    
-    // Kar animasyonunu başlat
-    animateSnow();
-}
+const funMessages = {
+    sicak: [
+        "Yeni yıl sana sağlık, huzur ve mutluluk getirsin.",
+        "2026, sevdiklerinle geçireceğin güzel anılarla dolsun.",
+        "En içten dileklerimle, mutlu yıllar dilerim."
+    ],
+    komik: [
+        "2026'da bol kahkaha, az hata olsun!",
+        "Yeni yılda her şey istediğin gibi gitsin.",
+        "Mutlu yıllar, hayatın hep güzel tarafı olsun!"
+    ],
+    coder: [
+        "2026'da tüm kodların sorunsuz çalışsın.",
+        "Yeni yılda deploy'ların başarılı olsun.",
+        "Başarılarla dolu bir yıl seni bekliyor."
+    ],
+    parti: [
+        "2026 partilerle, eğlenceyle dolsun.",
+        "Yeni yıl sana bol dans ve kahkaha getirsin.",
+        "Hayatın en güzel anıları bu yıl olsun."
+    ]
+};
 
-function createSnowflake() {
-    const snowflake = document.createElement('div');
-    snowflake.className = 'snowflake';
-    snowflake.innerHTML = '❄';
-    
-    const size = Math.random() * 20 + 10;
-    const startX = Math.random() * 100;
-    const speed = Math.random() * 2 + 1;
-    const opacity = Math.random() * 0.5 + 0.3;
-    
-    snowflake.style.cssText = `
-        left: ${startX}vw;
-        font-size: ${size}px;
-        opacity: ${opacity};
-        animation-duration: ${Math.random() * 10 + 10}s;
-        animation-delay: ${Math.random() * 5}s;
-    `;
-    
-    snowContainer.appendChild(snowflake);
-    snowflakes.push({
-        element: snowflake,
-        x: startX,
-        y: -50,
-        speed: speed,
-        wind: Math.random() * 0.5 - 0.25,
-        size: size
-    });
-}
-
-function animateSnow() {
-    snowflakes.forEach(flake => {
-        flake.y += flake.speed;
-        flake.x += flake.wind;
-        
-        // Ekran dışına çıkarsa resetle
-        if (flake.y > 100) {
-            flake.y = -10;
-            flake.x = Math.random() * 100;
-        }
-        
-        // Yatayda ekran dışına çıkarsa
-        if (flake.x > 100) flake.x = 0;
-        if (flake.x < 0) flake.x = 100;
-        
-        flake.element.style.transform = `translate(${flake.x}vw, ${flake.y}vh)`;
-    });
-    
-    requestAnimationFrame(animateSnow);
-}
-
-// Event Listener'ları Kurma
-function setupEventListeners() {
-    // Form gönderimi
-    cardForm.addEventListener('submit', handleFormSubmit);
-    
-    // Tasarım seçimi
-    designOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            designOptions.forEach(opt => opt.classList.remove('active'));
-            option.classList.add('active');
-            appState.currentDesign = option.dataset.design;
-            designInput.value = appState.currentDesign;
-            updatePreview();
-        });
-    });
-    
-    // İndirme butonu
-    downloadBtn.addEventListener('click', downloadCard);
-    
-    // Paylaş butonu
-    shareBtn.addEventListener('click', shareCard);
-    
-    // Sıfırlama butonu
-    resetBtn.addEventListener('click', resetForm);
-}
-
-// Canlı Önizleme
-function setupLivePreview() {
-    recipientInput.addEventListener('input', updatePreview);
-    messageInput.addEventListener('input', updatePreview);
-}
-
-function updatePreview() {
-    const recipient = recipientInput.value.trim() || 'Sevgili Ailem,';
-    const message = messageInput.value.trim() || 'Yeni yılın size sağlık, mutluluk ve başarı getirmesini dilerim';
-    const design = appState.designs[appState.currentDesign];
-    
-    // Önizlemeyi güncelle
-    previewRecipient.textContent = recipient + (recipient.endsWith(',') ? '' : ',');
-    previewMessage.textContent = message;
-    previewSignature.textContent = 'Sevgilerimle';
-    
-    // Tasarımı güncelle
-    cardPreview.style.background = design.bgColor;
-    cardPreview.style.borderColor = design.borderColor;
-    
-    const title = cardPreview.querySelector('.card-title');
-    title.style.color = design.color;
-    
-    const signature = cardPreview.querySelector('.signature-preview');
-    signature.style.color = design.color;
-    
-    const year = cardPreview.querySelector('.year');
-    year.style.color = design.borderColor;
-}
-
-// Form Gönderimi
-function handleFormSubmit(e) {
+form.addEventListener('submit', e => {
     e.preventDefault();
-    
-    const recipient = recipientInput.value.trim();
-    const message = messageInput.value.trim();
-    
-    if (!recipient || !message) {
-        showNotification('⚠️ Lütfen tüm alanları doldurun.');
-        return;
-    }
-    
-    // Önizlemeyi güncelle
-    updatePreview();
-    
-    // Aksiyon butonlarını göster
-    previewActions.style.display = 'flex';
-    appState.isCardCreated = true;
-    
-    // Konfeti efekti
-    createConfetti();
-    
-    // Başarı mesajı
-    showNotification('🎉 Kartın hazır! İndirebilir veya paylaşabilirsin.');
-}
 
-// Kart İndirme
-function downloadCard() {
-    if (!appState.isCardCreated) {
-        showNotification('⚠️ Önce bir kart oluşturmalısın.');
+    const recipient = document.getElementById('name').value.trim();
+    const wish = document.getElementById('message').value.trim();
+    const theme = document.getElementById('theme').value;
+
+    if (!recipient || !wish) {
+        errorMessage.classList.remove('hidden');
         return;
     }
-    
-    // Butonu loading durumuna getir
-    const originalText = downloadBtn.innerHTML;
-    downloadBtn.innerHTML = '<span>⏳</span> Hazırlanıyor...';
-    downloadBtn.disabled = true;
-    
-    // Kartı yakala ve indir
-    html2canvas(cardPreview, {
-        scale: 2,
-        backgroundColor: null,
-        useCORS: true,
-        allowTaint: true
-    }).then(canvas => {
+
+    errorMessage.classList.add('hidden');
+    form.classList.add('hidden');
+    cardContainer.classList.remove('hidden');
+    loadingSpinner.classList.remove('hidden');
+
+    setTimeout(() => {
+        loadingSpinner.classList.add('hidden');
+
+        const randomQuote = funMessages[theme][Math.floor(Math.random() * funMessages[theme].length)];
+
+        document.getElementById('cardName').textContent = `${recipient},`;
+        document.getElementById('cardMessage').textContent = wish;
+        document.getElementById('funMessage').textContent = randomQuote;
+
+        confetti({
+            particleCount: 200,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#ffffff', '#f1f5f9', '#e2e8f0']
+        });
+    }, 1200);
+});
+
+newCardBtn.addEventListener('click', () => {
+    cardContainer.classList.add('hidden');
+    form.classList.remove('hidden');
+    form.reset();
+    document.querySelectorAll('.snowflake').forEach(s => s.remove());
+    createSnowflakes();
+});
+
+downloadBtn.addEventListener('click', () => {
+    html2canvas(document.getElementById('card'), { scale: 2 }).then(canvas => {
         const link = document.createElement('a');
-        const timestamp = new Date().toISOString().slice(0, 10);
-        link.download = `yilbasi-karti-${timestamp}.png`;
+        link.download = 'yilbasi-karti-2026.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
-        
-        // Butonu eski haline getir
-        downloadBtn.innerHTML = originalText;
-        downloadBtn.disabled = false;
-        
-        showNotification('✅ Kartın başarıyla indirildi!');
-    }).catch(error => {
-        console.error('İndirme hatası:', error);
-        downloadBtn.innerHTML = originalText;
-        downloadBtn.disabled = false;
-        showNotification('❌ İndirme sırasında bir hata oluştu.');
     });
+});
+
+shareBtn.addEventListener('click', () => {
+    const url = encodeURIComponent(window.location.href);
+    const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    window.open(shareUrl, '_blank', 'width=600,height=600');
+});
+
+function createSnowflakes() {
+    setInterval(() => {
+        const flake = document.createElement('div');
+        flake.className = 'snowflake';
+        flake.textContent = ['❄', '❅', '❆'][Math.floor(Math.random() * 3)];
+        flake.style.left = Math.random() * 100 + 'vw';
+        flake.style.fontSize = Math.random() * 1.5 + 2 + 'em';
+        flake.style.opacity = Math.random() * 0.5 + 0.5;
+        flake.style.animationDuration = Math.random() * 10 + 12 + 's';
+        flake.style.animationDelay = Math.random() * 5 + 's';
+
+        document.querySelector('.snow-container').appendChild(flake);
+
+        setTimeout(() => flake.remove(), 25000);
+    }, 200);
 }
 
-// Kart Paylaşma
-function shareCard() {
-    if (!appState.isCardCreated) {
-        showNotification('⚠️ Önce bir kart oluşturmalısın.');
-        return;
-    }
-    
-    const recipient = recipientInput.value.trim();
-    const message = messageInput.value.trim();
-    const shareText = `${recipient} için hazırladığım yılbaşı kartı:\n\n"${message}"\n\nSen de kendi kartını oluşturmak ister misin? ${window.location.href}`;
-    
-    // Modern tarayıcı paylaşım API'si
-    if (navigator.share) {
-        navigator.share({
-            title: 'Yılbaşı Kartım',
-            text: shareText,
-            url: window.location.href
-        }).then(() => {
-            showNotification('✨ Paylaşıldı!');
-        }).catch(err => {
-            if (err.name !== 'AbortError') {
-                copyToClipboard(shareText);
-            }
-        });
-    } else {
-        // Fallback: panoya kopyala
-        copyToClipboard(shareText);
-    }
+function createSantaSleigh() {
+    setInterval(() => {
+        const santa = document.createElement('img');
+        santa.src = 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWgzMmk4eTMxbXpid2NxMWZpNDdjcW84MWh6YWswNmdmaTRmOG9scCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TlK63EsOlwnqg7hiYec/giphy.gif';
+        santa.className = 'santa-sleigh';
+        santa.alt = '';
+        const topPos = Math.random() * 25 + 12 + '%';
+        santa.style.top = topPos;
+        document.querySelector('.santa-container').appendChild(santa);
+        setTimeout(() => santa.remove(), 24000);
+    }, Math.random() * 6000 + 10000);
 }
 
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        showNotification('📋 Link panoya kopyalandı!');
-    }).catch(err => {
-        // Fallback metodu
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        showNotification('📋 Link kopyalandı!');
-    });
-}
-
-// Formu Sıfırlama
-function resetForm() {
-    // Formu temizle
-    cardForm.reset();
-    
-    // Önizlemeyi sıfırla
-    recipientInput.value = '';
-    messageInput.value = '';
-    appState.currentDesign = 'classic';
-    designInput.value = 'classic';
-    
-    // Tasarım seçeneklerini sıfırla
-    designOptions.forEach((option, index) => {
-        option.classList.toggle('active', index === 0);
-    });
-    
-    // Önizlemeyi güncelle
-    updatePreview();
-    
-    // Aksiyon butonlarını gizle
-    previewActions.style.display = 'none';
-    appState.isCardCreated = false;
-    
-    showNotification('🔄 Yeni kart oluşturmaya hazırsın!');
-}
-
-// Konfeti Efekti
-function createConfetti() {
-    const colors = ['#e63946', '#2a9d8f', '#457b9d', '#e9c46a', '#f4a261'];
-    const icons = ['🎄', '✨', '🎁', '⭐', '🎉', '🔔', '🦌'];
-    
-    for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-            const confetti = document.createElement('div');
-            confetti.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-            confetti.style.cssText = `
-                position: fixed;
-                left: ${Math.random() * 100}vw;
-                top: -50px;
-                font-size: ${Math.random() * 20 + 15}px;
-                color: ${colors[Math.floor(Math.random() * colors.length)]};
-                z-index: 1000;
-                pointer-events: none;
-                opacity: 0.9;
-                animation: confettiFall ${Math.random() * 3 + 2}s ease-out forwards;
-                transform: rotate(${Math.random() * 360}deg);
-            `;
-            
-            document.body.appendChild(confetti);
-            
-            // Animasyon bittikten sonra sil
-            setTimeout(() => {
-                if (confetti.parentNode) {
-                    confetti.remove();
-                }
-            }, 5000);
-        }, i * 50);
-    }
-    
-    // CSS animasyonu ekle
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// Bildirim Sistemi
-function showNotification(message) {
-    notification.textContent = message;
-    notification.classList.add('show');
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 3000);
-}
-
-// Responsive Güncellemeler
-function updateResponsive() {
-    const isMobile = window.innerWidth < 768;
-    
-    if (isMobile) {
-        // Mobil için optimizasyonlar
-        snowflakes.forEach(flake => {
-            flake.element.style.fontSize = `${flake.size * 0.7}px`;
-        });
-    }
-}
-
-// Window resize event'i
-window.addEventListener('resize', updateResponsive);
-
-// İlk responsive güncelleme
-updateResponsive();
+createSnowflakes();
+createSantaSleigh();
