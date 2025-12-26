@@ -1,82 +1,73 @@
 :root {
     --gold: #d4af37;
-    --crimson: #991b1b;
-    --dark: #020617;
+    --red: #8b0000;
+    --dark: #010409;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background: radial-gradient(circle at center, #1e293b, var(--dark));
-    color: white;
+    background: radial-gradient(circle at center, #161b22, var(--dark));
+    color: #fff;
     font-family: 'Nunito', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .christmas-font { font-family: 'Mountains of Christmas', cursive; }
+.gold-text { color: var(--gold); text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
 
-/* Giriş Katmanı */
-#intro-overlay {
+/* Giriş Perdesi */
+#experience-overlay {
     position: fixed; inset: 0; background: var(--dark);
     z-index: 9999; display: flex; align-items: center; justify-content: center;
-    transition: 0.8s ease-in-out;
+    transition: opacity 1s ease;
 }
 
-.intro-content { text-align: center; border: 2px solid var(--gold); padding: 50px; border-radius: 30px; background: rgba(255,255,255,0.05); }
-.intro-content h1 { font-size: 3.5rem; color: var(--gold); margin-bottom: 1rem; }
+.overlay-card {
+    text-align: center; border: 1px solid var(--gold); padding: 60px;
+    border-radius: 40px; background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(10px);
+}
 
 /* Noel Baba & Hediyeler */
-.santa-img {
-    position: fixed; width: 160px; z-index: 1000;
-    pointer-events: none;
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+.santa-flyer {
+    position: fixed; width: 140px; z-index: 100;
+    pointer-events: none; transition: transform 0.1s linear;
 }
 
-.gift-box {
-    position: fixed; font-size: 2rem; z-index: 999;
-    animation: giftFalling 3.5s linear forwards;
+.falling-gift {
+    position: fixed; font-size: 2rem; z-index: 90;
+    animation: fallStraight 4s linear forwards;
 }
 
-@keyframes giftFalling {
+@keyframes fallStraight {
     0% { transform: translateY(0) rotate(0deg); opacity: 1; }
     100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
-/* Ana Konteyner */
-.container {
-    max-width: 550px; margin: 40px auto; padding: 25px;
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(12px);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
 /* Kart Tasarımı */
-#card {
-    background: #fff; color: #1e293b;
-    padding: 50px 30px; border-radius: 12px;
-    position: relative; margin-top: 25px;
-    border: 6px double var(--gold);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+.main-wrapper { max-width: 600px; margin: 40px auto; padding: 20px; position: relative; z-index: 10; transition: 1s; }
+.hidden-ui { opacity: 0; pointer-events: none; }
+
+#captureZone {
+    background: white; color: #1e293b; padding: 40px; border-radius: 8px;
+    position: relative; margin-top: 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
 }
 
-#card h2 { color: var(--crimson); font-size: 2.6rem; margin-bottom: 20px; }
-.wish-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; line-height: 1.6; font-style: italic; }
-
-input, textarea, select {
-    width: 100%; padding: 15px; margin: 10px 0;
-    border-radius: 12px; border: none; font-size: 1rem;
+.gold-border {
+    border: 10px double var(--gold); padding: 40px; text-align: center;
 }
 
+.wish-body { font-family: 'Playfair Display', serif; font-size: 1.4rem; line-height: 1.6; font-style: italic; margin: 20px 0; }
+
+input, textarea { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 8px; border: none; font-size: 1rem; }
 button {
-    background: var(--crimson); color: white; padding: 16px 32px;
-    border-radius: 50px; border: none; font-weight: bold;
-    cursor: pointer; transition: 0.3s; margin: 10px 5px;
+    background: var(--red); color: white; border: none; padding: 15px 30px;
+    border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
 }
-
-button:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(153, 27, 27, 0.4); }
-button.secondary { background: #475569; }
+button:hover { background: #b20000; transform: scale(1.05); }
+.btn-alt { background: #334155; margin-top: 15px; }
 
 .hidden { display: none; }
