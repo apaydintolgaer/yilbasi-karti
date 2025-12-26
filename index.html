@@ -3,60 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Yılbaşı Kartı | Profesyonel</title>
+    <title>2026 Yılbaşı Kartı | Özel Seri</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600&family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="welcome-overlay">
-        <div class="welcome-content">
-            <h1>🎄 2026 Sihrine Hazır mısın?</h1>
-            <button id="startBtn">Sihri Başlat ✨</button>
+    <div id="intro-overlay">
+        <div class="intro-box">
+            <h1>🎄 2026 Sihri Başlıyor...</h1>
+            <p>Müziği açmak ve hediyeleri toplamak için tıkla!</p>
+            <button id="start-magic">Yılbaşı Büyüsünü Başlat ✨</button>
         </div>
     </div>
 
     <div class="snow-container"></div>
-    <div class="santa-container"></div>
-
-    <audio id="jingleAudio" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/09/15/audio_7d9c7f0d8f.mp3" type="audio/mpeg">
+    <div class="santa-world"></div> <audio id="jingleAudio" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/12/13/audio_8245903b71.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicToggle" class="hidden-ui">🎵</button>
-
-    <div class="container hidden-ui">
-        <h1>2026 Yılbaşı Kartı Oluştur</h1>
-        <p class="subtitle">Kendi özel kartını yarat ve paylaş</p>
-
+    <div class="container main-ui">
+        <h1>2026 Yılbaşı Kartı</h1>
         <form id="cardForm">
-            <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required>
-            <input type="text" id="message" placeholder="Dileğin nedir?" required>
+            <input type="text" id="name" placeholder="Kime? (Örn: Canım Arkadaşım)" required>
+            <input type="text" id="message" placeholder="Dileğini Yaz..." required>
             <select id="theme">
                 <option value="sicak">Sıcacık Dilekler</option>
-                <option value="komik">Komik ve Eğlenceli</option>
-                <option value="coder">Coder Dostu</option>
-                <option value="parti">Parti Havası</option>
+                <option value="komik">Eğlenceli</option>
+                <option value="coder">Yazılımcı Yılı</option>
             </select>
-            <button type="submit">Kartı Oluştur 🎁</button>
-            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldur</p>
+            <button type="submit">Hediye Kartını Hazırla 🎁</button>
         </form>
 
         <div id="cardContainer" class="hidden">
-            <div id="loadingSpinner" class="spinner"></div>
             <div id="card">
-                <div class="card-border"></div>
-                <div class="card-decoration top">❄️ ✨ ❄️</div>
+                <div class="gold-frame"></div>
                 <h2 id="cardName"></h2>
                 <p id="cardMessage" class="wish"></p>
                 <p id="funMessage" class="quote"></p>
-                <div class="card-decoration bottom">🎁 2026 🎁</div>
-                <p class="signature">Sevgilerle</p>
+                <div class="footer-decor">❅ 2026 ❅</div>
             </div>
-
-            <div class="buttons">
-                <button id="downloadBtn" class="secondary">Kartı İndir (PNG)</button>
-                <button id="shareBtn" class="secondary">LinkedIn'de Paylaş</button>
-                <button id="newCardBtn">Yeni Kart Oluştur</button>
+            <div class="action-buttons">
+                <button id="downloadBtn">PNG Olarak İndir</button>
+                <button id="newCardBtn">Yeni Kart Yap</button>
             </div>
         </div>
     </div>
