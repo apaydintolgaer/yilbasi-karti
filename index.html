@@ -3,50 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Yılbaşı Özel Kartı</title>
+    <title>2026 Yılbaşı Kartı Oluştur</title>
+    <meta property="og:title" content="2026 Yılbaşı Kartı Oluşturucu">
+    <meta property="og:description" content="Kendi kişiselleştirilmiş yılbaşı kartını yarat ve paylaş.">
+    <meta property="og:url" content="https://apaydintolgaer.github.io/yilbasi-karti/">
+    <meta property="og:type" content="website">
+
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="experience-overlay">
-        <div class="overlay-card">
-            <h1 class="christmas-font">🎄 2026 Sihri Başlıyor</h1>
-            <p>Müziği ve Noel Baba'yı başlatmak için lütfen tıklayın.</p>
-            <button id="startExperience">Sihri Başlat ✨</button>
-        </div>
+    <div class="music-start-overlay" id="musicOverlay">
+        <h2>🎄 Yılbaşı Müziği 🎅</h2>
+        <p>Müzik eşliğinde kartını oluşturmak ister misin?</p>
+        <button id="startMusicBtn">Müziği Başlat ve Devam Et 🎵</button>
     </div>
 
-    <div class="snow-layer"></div>
-    <div id="santa-mission-control"></div> <audio id="christmasAudio" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/11/22/audio_ed2853a473.mp3" type="audio/mpeg">
+    <div class="snow-container"></div>
+    <div class="santa-container"></div>
+
+    <audio id="jingleAudio" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/09/15/audio_7d9c7f0d8f.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="main-wrapper hidden-ui">
-        <header>
-            <h1 class="christmas-font gold-text">Yılbaşı Kartı Tasarlayın</h1>
-        </header>
+    <button id="musicToggle">🎵</button>
 
-        <section class="config-panel">
-            <form id="cardGeneratorForm">
-                <input type="text" id="recipientName" placeholder="Kimin Adına?" required>
-                <textarea id="personalMessage" placeholder="Dileğinizi buraya yazın..." required></textarea>
-                <button type="submit">Hediye Kartını Hazırla 🎁</button>
-            </form>
-        </section>
+    <div class="container">
+        <h1>2026 Yılbaşı Kartı Oluştur</h1>
+        <p class="subtitle">Kendi özel kartını yarat ve paylaş</p>
 
-        <section id="resultArea" class="hidden">
-            <div id="captureZone">
-                <div class="gold-border">
-                    <h2 id="finalName" class="christmas-font"></h2>
-                    <p id="finalMessage" class="wish-body"></p>
-                    <div class="card-ornament">❄ 2026 ❄</div>
-                </div>
+        <form id="cardForm">
+            <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required>
+            <input type="text" id="message" placeholder="Dileğin nedir? (örn: Sağlık ve mutluluk dolu bir yıl)" required>
+
+            <select id="theme">
+                <option value="sicak">Sıcacık Dilekler</option>
+                <option value="komik">Komik ve Eğlenceli</option>
+                <option value="coder">Coder Dostu</option>
+                <option value="parti">Parti Havası</option>
+            </select>
+
+            <button type="submit">Kartı Oluştur</button>
+            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldur</p>
+        </form>
+
+        <div id="cardContainer" class="hidden">
+            <div id="loadingSpinner" class="spinner"></div>
+
+            <div id="card">
+                <div class="card-decoration top">🎄❄️✨🎅🦌🎁</div>
+                <h2 id="cardName"></h2>
+                <p id="cardMessage" class="wish"></p>
+                <p id="funMessage" class="quote"></p>
+                <p class="card-footer">Mutlu Yıllar 2026</p>
+                <p class="signature">Sevgilerle</p>
+                <div class="card-decoration bottom">✨❄️🎉🥂🎈</div>
             </div>
-            <div class="btn-group">
-                <button id="saveImgBtn" class="btn-alt">PNG Kaydet</button>
-                <button id="restartBtn" class="btn-alt">Yeniden Yap</button>
+
+            <div class="buttons">
+                <button id="downloadBtn">Kartı İndir (PNG)</button>
+                <button id="shareBtn">LinkedIn'de Paylaş</button>
+                <button id="newCardBtn">Yeni Kart Oluştur</button>
             </div>
-        </section>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
