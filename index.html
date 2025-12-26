@@ -3,161 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yılbaşı Kartı Hazırla | Özel Tebrik Kartı</title>
+    <title>2026 Yılbaşı Kartı Oluştur</title>
+    <meta property="og:title" content="2026 Yılbaşı Kartı Oluşturucu">
+    <meta property="og:description" content="Kendi kişiselleştirilmiş yılbaşı kartını yarat ve paylaş.">
+    <meta property="og:url" content="https://apaydintolgaer.github.io/yilbasi-karti/">
+    <meta property="og:type" content="website">
+
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Basit kar efekti için inline CSS */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: white;
-            font-size: 20px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-            pointer-events: none;
-            z-index: 1;
-            user-select: none;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="snow-container" id="snowContainer"></div>
-    
-    <div class="app-container">
-        <header class="app-header">
-            <div class="logo">
-                <span class="logo-icon">🎄</span>
-                <h1>Yılbaşı Kartı Hazırla</h1>
-            </div>
-            <p class="tagline">Sevdiklerine özel, unutulmaz bir yılbaşı mesajı oluştur</p>
-        </header>
+    <div class="snow-container"></div>
 
-        <main class="main-content">
-            <div class="creator-section">
-                <div class="form-container">
-                    <h2 class="section-title">Kartını Özelleştir</h2>
-                    
-                    <form id="cardForm" class="card-form">
-                        <div class="form-group">
-                            <div class="input-with-icon">
-                                <span class="input-icon">👤</span>
-                                <input 
-                                    type="text" 
-                                    id="recipientName" 
-                                    placeholder="Kime? (Örn: Sevgili Ailem)"
-                                    required
-                                    autocomplete="off"
-                                >
-                            </div>
-                            <small class="input-hint">Buraya kartın gönderileceği kişi veya grubun adını yaz</small>
-                        </div>
+    <div class="santa-container"></div>
 
-                        <div class="form-group">
-                            <div class="input-with-icon">
-                                <span class="input-icon">💌</span>
-                                <textarea 
-                                    id="cardMessage" 
-                                    placeholder="Mesajınız... (Örn: Yeni yılın size sağlık, mutluluk ve başarı getirmesini dilerim)"
-                                    rows="4"
-                                    required
-                                ></textarea>
-                            </div>
-                            <small class="input-hint">Kişiselleştirilmiş yılbaşı mesajını buraya yaz</small>
-                        </div>
+    <audio id="jingleAudio" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/09/15/audio_7d9c7f0d8f.mp3" type="audio/mpeg">
+    </audio>
 
-                        <div class="form-group">
-                            <label class="section-subtitle">Kart Tasarımını Seç</label>
-                            <div class="design-options">
-                                <div class="design-option active" data-design="classic">
-                                    <div class="design-preview classic-design"></div>
-                                    <span>🎄 Klasik Noel</span>
-                                </div>
-                                <div class="design-option" data-design="elegant">
-                                    <div class="design-preview elegant-design"></div>
-                                    <span>✨ Zarif</span>
-                                </div>
-                                <div class="design-option" data-design="modern">
-                                    <div class="design-preview modern-design"></div>
-                                    <span>❄️ Modern</span>
-                                </div>
-                                <div class="design-option" data-design="golden">
-                                    <div class="design-preview golden-design"></div>
-                                    <span>🏆 Premium</span>
-                                </div>
-                            </div>
-                            <input type="hidden" id="cardDesign" value="classic">
-                        </div>
+    <button id="musicToggle" aria-label="Müzik Aç/Kapat">🎵</button>
 
-                        <button type="submit" class="create-button" id="createBtn">
-                            <span class="button-icon">🎁</span>
-                            Kartımı Oluştur
-                        </button>
-                    </form>
+    <div class="container">
+        <h1>2026 Yılbaşı Kartı Oluştur</h1>
+        <p class="subtitle">Kendi özel kartını yarat ve paylaş</p>
+
+        <form id="cardForm">
+            <input type="text" id="name" placeholder="Kime? (örn: Sevgili Ayşe)" required aria-required="true">
+            <input type="text" id="message" placeholder="Dileğin nedir? (örn: Sağlık ve mutluluk dolu bir yıl)" required aria-required="true">
+
+            <select id="theme" aria-label="Tema seçin">
+                <option value="sicak">Sıcacık Dilekler</option>
+                <option value="komik">Komik ve Eğlenceli</option>
+                <option value="coder">Coder Dostu</option>
+                <option value="parti">Parti Havası</option>
+            </select>
+
+            <button type="submit" aria-label="Kartı Oluştur">Kartı Oluştur</button>
+            <p id="errorMessage" class="error hidden">Lütfen tüm alanları doldur</p>
+        </form>
+
+        <div id="cardContainer" class="hidden">
+            <div id="loadingSpinner" class="spinner"></div>
+
+            <div id="card">
+                <div class="card-border top"></div>
+                <div class="card-content">
+                    <h2 id="cardName"></h2>
+                    <p id="cardMessage" class="wish"></p>
+                    <p id="funMessage" class="quote"></p>
+                    <p class="closing">Mutlu Yıllar 2026</p>
+                    <p class="signature">Sevgilerle</p>
                 </div>
-
-                <div class="live-preview">
-                    <h2 class="section-title">Kartın Görünümü</h2>
-                    <div class="preview-container">
-                        <div class="card-preview" id="cardPreview">
-                            <div class="card-inner">
-                                <div class="card-header">
-                                    <div class="card-corner left">🎅</div>
-                                    <div class="card-title">Mutlu Yıllar</div>
-                                    <div class="card-corner right">🦌</div>
-                                </div>
-                                
-                                <div class="card-body">
-                                    <p class="recipient-preview" id="previewRecipient">Sevgili Ailem,</p>
-                                    <div class="message-container">
-                                        <p class="message-preview" id="previewMessage">Yeni yılın size sağlık, mutluluk ve başarı getirmesini dilerim</p>
-                                    </div>
-                                    <div class="card-divider">
-                                        <div class="divider-line"></div>
-                                        <div class="divider-icons">⭐ ✨ 🎄</div>
-                                        <div class="divider-line"></div>
-                                    </div>
-                                    <p class="signature-preview" id="previewSignature">Sevgilerimle</p>
-                                </div>
-                                
-                                <div class="card-footer">
-                                    <span class="year">2026</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="preview-actions" id="previewActions">
-                            <div class="action-buttons">
-                                <button class="action-button download-btn" id="downloadBtn">
-                                    <span>⬇️</span>
-                                    Kartı İndir
-                                </button>
-                                <button class="action-button share-btn" id="shareBtn">
-                                    <span>📤</span>
-                                    Paylaş
-                                </button>
-                            </div>
-                            <button class="action-button secondary-btn" id="resetBtn">
-                                <span>🔄</span>
-                                Yeni Kart
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <div class="card-border bottom"></div>
             </div>
-        </main>
 
-        <footer class="app-footer">
-            <div class="footer-content">
-                <div class="footer-logo">🎄</div>
-                <p class="footer-text">Yeni yılınız kutlu olsun | 2026</p>
-                <div class="footer-note">
-                    <span>✨ Basit, hızlı ve ücretsiz yılbaşı kartları</span>
-                </div>
+            <div class="buttons">
+                <button id="downloadBtn" aria-label="Kartı İndir">Kartı İndir (PNG)</button>
+                <button id="shareBtn" aria-label="LinkedIn'de Paylaş">LinkedIn'de Paylaş</button>
+                <button id="newCardBtn" aria-label="Yeni Kart Oluştur">Yeni Kart Oluştur</button>
             </div>
-        </footer>
+        </div>
     </div>
 
-    <div class="notification" id="notification"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
