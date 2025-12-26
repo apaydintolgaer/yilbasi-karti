@@ -3,121 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yılbaşı Kartı Oluştur | 2026</title>
+    <title>Yılbaşı Kartı Oluştur</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Kar Efekti Canvas'ı -->
-    <canvas id="snowCanvas"></canvas>
-    
     <div class="container">
-        <!-- Başlık -->
         <header>
-            <h1>🎄 Mutlu Yıllar 2026 🎅</h1>
-            <p class="subtitle">Özel yılbaşı kartını oluştur, indir, paylaş</p>
+            <h1>🎅 Yılbaşı Kartı Oluştur 🎄</h1>
+            <p class="subtitle">Kolayca kartını oluştur, indir, paylaş!</p>
         </header>
 
-        <!-- Ana İçerik -->
         <main>
-            <!-- Sol Taraf: Form -->
-            <section class="form-section">
-                <div class="form-container">
-                    <h2><span class="icon">✏️</span> Kartını Tasarla</h2>
+            <div class="app">
+                <!-- Form Kısmı -->
+                <div class="form-section">
+                    <h2>📝 Kartını Hazırla</h2>
                     
                     <form id="cardForm">
-                        <div class="input-group">
-                            <label for="toName">Kime:</label>
-                            <input type="text" id="toName" placeholder="Sevgili Ailem" required>
+                        <div class="form-group">
+                            <label for="to">Kime:</label>
+                            <input type="text" id="to" placeholder="Sevgili Ailem" required>
                         </div>
                         
-                        <div class="input-group">
+                        <div class="form-group">
                             <label for="message">Mesajın:</label>
-                            <textarea id="message" placeholder="Yeni yılın sağlık, mutluluk ve başarı getirmesi dileğiyle..." required></textarea>
+                            <textarea id="message" placeholder="Mutlu yıllar dilerim! 🎉" required></textarea>
                         </div>
                         
-                        <div class="input-group">
-                            <label for="fromName">Kimden:</label>
-                            <input type="text" id="fromName" placeholder="Sevgilerimle">
+                        <div class="form-group">
+                            <label for="from">Kimden:</label>
+                            <input type="text" id="from" placeholder="Sevgilerimle...">
                         </div>
                         
-                        <div class="theme-select">
-                            <label>Tema Seç:</label>
-                            <div class="theme-buttons">
-                                <button type="button" class="theme-btn active" data-theme="classic">🎄 Klasik</button>
-                                <button type="button" class="theme-btn" data-theme="elegant">✨ Zarif</button>
-                                <button type="button" class="theme-btn" data-theme="modern">❄️ Modern</button>
-                                <button type="button" class="theme-btn" data-theme="gold">🏆 Altın</button>
+                        <div class="theme-group">
+                            <p>Tema Seç:</p>
+                            <div class="themes">
+                                <button type="button" class="theme-btn active" data-theme="red">
+                                    <span>🔴</span> Klasik
+                                </button>
+                                <button type="button" class="theme-btn" data-theme="green">
+                                    <span>🟢</span> Noel
+                                </button>
+                                <button type="button" class="theme-btn" data-theme="blue">
+                                    <span>🔵</span> Buz
+                                </button>
+                                <button type="button" class="theme-btn" data-theme="gold">
+                                    <span>🟡</span> Altın
+                                </button>
                             </div>
                         </div>
                         
-                        <button type="submit" class="create-btn">
-                            <span class="btn-icon">🎁</span>
-                            Kartımı Oluştur
+                        <button type="submit" class="submit-btn">
+                            🎁 Kartımı Oluştur
                         </button>
                     </form>
                 </div>
-            </section>
 
-            <!-- Sağ Taraf: Kart Önizleme -->
-            <section class="preview-section">
-                <div class="preview-container">
-                    <h2><span class="icon">👁️</span> Kart Önizleme</h2>
+                <!-- Kart Önizleme -->
+                <div class="preview-section">
+                    <h2>👀 Kartın Görünümü</h2>
                     
-                    <div class="card-preview">
-                        <!-- Yükleme Göstergesi -->
-                        <div class="loading" id="loading">
-                            <div class="snowflakes">
-                                <div class="flake">❄</div>
-                                <div class="flake">❄</div>
-                                <div class="flake">❄</div>
-                            </div>
-                            <p>Kartın hazırlanıyor...</p>
+                    <div class="card" id="cardPreview">
+                        <div class="card-header">
+                            <div class="decor-left">🎄</div>
+                            <h3>Mutlu Yıllar</h3>
+                            <div class="decor-right">🎄</div>
                         </div>
                         
-                        <!-- Gerçek Kart -->
-                        <div class="card" id="card">
-                            <div class="card-header">
-                                <div class="holly">🎄</div>
-                                <h3>Mutlu Yıllar</h3>
-                                <div class="holly">🎄</div>
-                            </div>
-                            
-                            <div class="card-content">
-                                <p class="to" id="previewTo">Sevgili Ailem,</p>
-                                <p class="message" id="previewMessage">Yeni yılın sağlık, mutluluk ve başarı getirmesi dileğiyle...</p>
-                                <div class="ornaments">✨🎁⭐🦌🔔</div>
-                                <p class="from" id="previewFrom">Sevgilerimle</p>
-                            </div>
-                            
-                            <div class="card-footer">
-                                <p class="year">2026</p>
-                            </div>
+                        <div class="card-body">
+                            <p class="to-text" id="previewTo">Sevgili Ailem,</p>
+                            <p class="message-text" id="previewMessage">Mutlu yıllar dilerim! 🎉</p>
+                            <div class="decorations">✨ ❄️ 🎁 ⭐</div>
+                            <p class="from-text" id="previewFrom">Sevgilerimle...</p>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <span class="year">2026</span>
                         </div>
                     </div>
                     
-                    <!-- Aksiyon Butonları -->
+                    <!-- Butonlar -->
                     <div class="actions" id="actions">
                         <button class="action-btn download" id="downloadBtn">
-                            <span>💾</span> Kartı İndir
+                            💾 İndir
                         </button>
                         <button class="action-btn share" id="shareBtn">
-                            <span>🔗</span> Paylaş
+                            📤 Paylaş
                         </button>
                         <button class="action-btn new" id="newBtn">
-                            <span>🔄</span> Yeni Kart
+                            🔄 Yeni
                         </button>
                     </div>
                 </div>
-            </section>
+            </div>
         </main>
 
-        <!-- Footer -->
         <footer>
-            <p>🎅 Yeni yılınız kutlu olsun! | 2026</p>
+            <p>🎄 Yeni yılınız kutlu olsun! ❄️</p>
         </footer>
     </div>
 
+    <!-- Kar Efekti için div -->
+    <div id="snow"></div>
+
+    <!-- Gerekli Scriptler -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
